@@ -42,6 +42,8 @@
  * @since     File available since Release 1.0.0
  */
 
+require_once 'PHP/Token/Exception.php';
+
 /**
  * A PHP token.
  *
@@ -129,12 +131,12 @@ class PHP_Token
     /**
      * @param  string $text
      * @return integer
-     * @throws RuntimeException
+     * @throws PHP_Token_Exception
      */
     public static function getTokenId($text)
     {
         if (!isset(self::$tokens[$text])) {
-            throw new RuntimeException('Unknown token "' . $text . '"');
+            throw new PHP_Token_Exception('Unknown token "' . $text . '"');
         }
 
         return self::$tokens[$text][0];
@@ -147,7 +149,7 @@ class PHP_Token
      *
      * @param  integer $id
      * @return string
-     * @throws RuntimeException
+     * @throws PHP_Token_Exception
      */
     public static function getTokenName($id)
     {
@@ -161,7 +163,7 @@ class PHP_Token
             }
         }
 
-        throw new RuntimeException('Unknown token ' . $id);
+        throw new PHP_Token_Exception('Unknown token ' . $id);
     }
 
     /**
