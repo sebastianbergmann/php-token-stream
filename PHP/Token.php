@@ -73,7 +73,7 @@ class PHP_Token
     /**
      * @var array
      */
-    public static $tokens = array(
+    protected static $tokens = array(
       '('  => array(501, 'T_OPEN_BRACKET'),
       ')'  => array(502, 'T_CLOSE_BRACKET'),
       '['  => array(503, 'T_OPEN_SQUARE'),
