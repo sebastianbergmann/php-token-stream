@@ -68,7 +68,7 @@ class PHP_Token_Stream extends SplDoublyLinkedList implements SeekableIterator
             $sourceCode = file_get_contents($sourceCode);
         }
 
-        foreach(token_get_all($sourceCode) as $token) {
+        foreach (token_get_all($sourceCode) as $token) {
             if (is_array($token)) {
                 $id   = $token[0];
                 $text = $token[1];
