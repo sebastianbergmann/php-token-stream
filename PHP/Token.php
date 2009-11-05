@@ -113,7 +113,7 @@ class PHP_Token
      * @param string  $text
      * @param integer $line
      */
-    public function __construct($id, $text, $line = 0)
+    public function __construct($id, $text, $line)
     {
         $this->id   = $id;
         $this->text = $text;

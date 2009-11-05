@@ -68,17 +68,19 @@ class PHP_Token_Stream extends SplDoublyLinkedList implements SeekableIterator
             $sourceCode = file_get_contents($sourceCode);
         }
 
+        $line = 1;
+
         foreach (token_get_all($sourceCode) as $token) {
             if (is_array($token)) {
                 $id   = $token[0];
                 $text = $token[1];
-                $line = $token[2];
             } else {
                 $id   = PHP_Token::getTokenId($token);
                 $text = $token;
             }
 
             $this->push(new PHP_Token($id, $text, $line));
+            $line += substr_count($text, "\n");
         }
     }
 
