@@ -129,6 +129,41 @@ class PHP_Token
     }
 
     /**
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return self::getTokenName($this->id);
+    }
+
+    /**
+     * @return string
+     */
+    public function getText()
+    {
+        return $this->text;
+    }
+
+    /**
+     * Checks whether this token is of a given type.
+     *
+     * @param  integer $id
+     * @return boolean
+     */
+    public function is($id)
+    {
+        return $this->id === $id;
+    }
+
+    /**
      * @param  string $text
      * @return integer
      * @throws PHP_Token_Exception
