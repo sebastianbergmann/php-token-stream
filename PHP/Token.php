@@ -171,6 +171,10 @@ class PHP_Token
      */
     public static function initConstants()
     {
+        if (!defined('T_NAMESPACE')) {
+            define('T_NAMESPACE', 377);
+        }
+
         foreach (self::$tokens as $key => $value) {
             if (!defined($value[1])) {
                 define($value[1], $value[0]);
