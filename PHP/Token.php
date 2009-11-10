@@ -153,6 +153,14 @@ class PHP_Token
     }
 
     /**
+     * @return integer
+     */
+    public function getLine()
+    {
+        return $this->line;
+    }
+
+    /**
      * Checks whether this token is of a given type.
      *
      * @param  integer $id
