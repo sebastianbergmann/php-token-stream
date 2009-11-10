@@ -68,6 +68,17 @@ class PHP_Token_Stream extends SplDoublyLinkedList implements SeekableIterator
             $sourceCode = file_get_contents($sourceCode);
         }
 
+        $this->scan($sourceCode);
+    }
+
+    /**
+     * Scans the source for sequences of characters and converts them into a
+     * stream of tokens.
+     *
+     * @param string $sourceCode
+     */
+    protected function scan($sourceCode)
+    {
         $line = 1;
 
         foreach (token_get_all($sourceCode) as $token) {
