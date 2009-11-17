@@ -57,6 +57,37 @@ require_once 'PHP/Token.php';
  */
 class PHP_Token_Stream extends SplDoublyLinkedList implements SeekableIterator
 {
+    protected static $customTokens = array(
+      '(' => 'PHP_Token_OPEN_BRACKET',
+      ')' => 'PHP_Token_CLOSE_BRACKET',
+      '[' => 'PHP_Token_OPEN_SQUARE',
+      ']' => 'PHP_Token_CLOSE_SQUARE',
+      '{' => 'PHP_Token_OPEN_CURLY',
+      '}' => 'PHP_Token_CLOSE_CURLY',
+      ';' => 'PHP_Token_SEMICOLON',
+      '.' => 'PHP_Token_DOT',
+      ',' => 'PHP_Token_COMMA',
+      '=' => 'PHP_Token_EQUAL',
+      '<' => 'PHP_Token_LT',
+      '>' => 'PHP_Token_GT',
+      '+' => 'PHP_Token_PLUS',
+      '-' => 'PHP_Token_MINUS',
+      '*' => 'PHP_Token_MULT',
+      '/' => 'PHP_Token_DIV',
+      '?' => 'PHP_Token_QUESTION_MARK',
+      '!' => 'PHP_Token_EXCLAMATION_MARK',
+      ':' => 'PHP_Token_COLON',
+      '"' => 'PHP_Token_DOUBLE_QUOTES',
+      '@' => 'PHP_Token_AT',
+      '&' => 'PHP_Token_AMPERSAND',
+      '%' => 'PHP_Token_PERCENT',
+      '|' => 'PHP_Token_PIPE',
+      '$' => 'PHP_Token_DOLLAR',
+      '^' => 'PHP_Token_CARET',
+      '~' => 'PHP_Token_TILDE',
+      '`' => 'PHP_Token_BACKTICK'
+    );
+
     /**
      * Constructor.
      *
@@ -83,14 +114,14 @@ class PHP_Token_Stream extends SplDoublyLinkedList implements SeekableIterator
 
         foreach (token_get_all($sourceCode) as $token) {
             if (is_array($token)) {
-                $id   = $token[0];
-                $text = $token[1];
+                $text       = $token[1];
+                $tokenClass = 'PHP_Token_' . substr(token_name($token[0]), 2);
             } else {
-                $id   = PHP_Token::getTokenId($token);
-                $text = $token;
+                $text       = $token;
+                $tokenClass = self::$customTokens[$token];
             }
 
-            $this->push(new PHP_Token($id, $text, $line));
+            $this->push(new $tokenClass($text, $line));
             $line += substr_count($text, "\n");
         }
     }
