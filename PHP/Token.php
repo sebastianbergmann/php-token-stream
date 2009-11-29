@@ -833,12 +833,12 @@ class PHP_Token_DIV extends PHP_Token
     protected $id = T_DIV;
 }
 
-class PHP_Token_QUESTIONMARK extends PHP_Token
+class PHP_Token_QUESTION_MARK extends PHP_Token
 {
     protected $id = T_QUESTION_MARK;
 }
 
-class PHP_Token_EXCLAMATIONMARK extends PHP_Token
+class PHP_Token_EXCLAMATION_MARK extends PHP_Token
 {
     protected $id = T_EXCLAMATION_MARK;
 }
