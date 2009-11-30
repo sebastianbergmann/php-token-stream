@@ -623,11 +623,21 @@ class PHP_Token_HALT_COMPILER extends PHP_Token
 class PHP_Token_CLASS extends PHP_Token
 {
     protected $id = T_CLASS;
+
+    public function getClassName()
+    {
+        return (string)$this->tokenStream[$this->tokenStreamId + 2];
+    }
 }
 
 class PHP_Token_INTERFACE extends PHP_Token
 {
     protected $id = T_INTERFACE;
+
+    public function getInterfaceName()
+    {
+        return (string)$this->tokenStream[$this->tokenStreamId + 2];
+    }
 }
 
 class PHP_Token_EXTENDS extends PHP_Token
@@ -743,6 +753,22 @@ class PHP_Token_PAAMAYIM_NEKUDOTAYIM extends PHP_Token
 class PHP_Token_NAMESPACE extends PHP_Token
 {
     protected $id = T_NAMESPACE;
+
+    public function getNamespaceName()
+    {
+        $namespace = (string)$this->tokenStream[$this->tokenStreamId + 2];
+
+        for ($i = $this->tokenStreamId + 3; ; $i += 2) {
+            if (isset($this->tokenStream[$i]) &&
+                $this->tokenStream[$i] instanceof PHP_Token_NS_SEPARATOR) {
+                $namespace .= '\\' . $this->tokenStream[$i + 1];
+            } else {
+                break;
+            }
+        }
+
+        return $namespace;
+    }
 }
 
 class PHP_Token_NS_C extends PHP_Token
