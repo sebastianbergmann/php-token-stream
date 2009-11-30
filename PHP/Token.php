@@ -97,15 +97,27 @@ abstract class PHP_Token
     protected $line;
 
     /**
+     * @var PHP_Token_Stream
+     */
+    protected $tokenStream;
+
+    /**
+     * @var integer
+     */
+    protected $tokenStreamId;
+
+    /**
      * Constructor.
      *
      * @param string  $text
      * @param integer $line
      */
-    public function __construct($text, $line)
+    public function __construct($text, $line, PHP_Token_Stream $tokenStream = NULL, $tokenStreamId = NULL)
     {
-        $this->text = $text;
-        $this->line = $line;
+        $this->text          = $text;
+        $this->line          = $line;
+        $this->tokenStream   = $tokenStream;
+        $this->tokenStreamId = $tokenStreamId;
     }
 
     /**

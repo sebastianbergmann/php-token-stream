@@ -110,7 +110,8 @@ class PHP_Token_Stream extends SplDoublyLinkedList implements SeekableIterator
      */
     protected function scan($sourceCode)
     {
-        $line = 1;
+        $line    = 1;
+        $tokenId = 0;
 
         foreach (token_get_all($sourceCode) as $token) {
             if (is_array($token)) {
@@ -121,7 +122,7 @@ class PHP_Token_Stream extends SplDoublyLinkedList implements SeekableIterator
                 $tokenClass = self::$customTokens[$token];
             }
 
-            $this->push(new $tokenClass($text, $line));
+            $this->push(new $tokenClass($text, $line, $this, $tokenId++));
             $line += substr_count($text, "\n");
         }
     }
