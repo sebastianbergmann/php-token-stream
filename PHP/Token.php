@@ -620,16 +620,6 @@ class PHP_Token_HALT_COMPILER extends PHP_Token
     protected $id = T_HALT_COMPILER;
 }
 
-class PHP_Token_CLASS extends PHP_Token
-{
-    protected $id = T_CLASS;
-
-    public function getName()
-    {
-        return (string)$this->tokenStream[$this->tokenStreamId + 2];
-    }
-}
-
 class PHP_Token_INTERFACE extends PHP_Token
 {
     protected $id = T_INTERFACE;
@@ -638,6 +628,11 @@ class PHP_Token_INTERFACE extends PHP_Token
     {
         return (string)$this->tokenStream[$this->tokenStreamId + 2];
     }
+}
+
+class PHP_Token_CLASS extends PHP_Token_INTERFACE
+{
+    protected $id = T_CLASS;
 }
 
 class PHP_Token_EXTENDS extends PHP_Token
