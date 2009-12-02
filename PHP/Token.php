@@ -624,7 +624,7 @@ class PHP_Token_CLASS extends PHP_Token
 {
     protected $id = T_CLASS;
 
-    public function getClassName()
+    public function getName()
     {
         return (string)$this->tokenStream[$this->tokenStreamId + 2];
     }
@@ -634,7 +634,7 @@ class PHP_Token_INTERFACE extends PHP_Token
 {
     protected $id = T_INTERFACE;
 
-    public function getInterfaceName()
+    public function getName()
     {
         return (string)$this->tokenStream[$this->tokenStreamId + 2];
     }
@@ -754,7 +754,7 @@ class PHP_Token_NAMESPACE extends PHP_Token
 {
     protected $id = T_NAMESPACE;
 
-    public function getNamespaceName()
+    public function getName()
     {
         $namespace = (string)$this->tokenStream[$this->tokenStreamId + 2];
 
