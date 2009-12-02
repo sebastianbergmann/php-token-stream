@@ -528,6 +528,20 @@ class PHP_Token_GOTO extends PHP_Token
 class PHP_Token_FUNCTION extends PHP_Token
 {
     protected $id = T_FUNCTION;
+
+    public function getName()
+    {
+        if ($this->tokenStream[$this->tokenStreamId + 2] instanceof PHP_Token_STRING) {
+            return (string)$this->tokenStream[$this->tokenStreamId + 2];
+        }
+
+        else if ($this->tokenStream[$this->tokenStreamId + 2] == '&' &&
+                 $this->tokenStream[$this->tokenStreamId + 3] instanceof PHP_Token_STRING) {
+            return (string)$this->tokenStream[$this->tokenStreamId + 3];
+        }
+
+        return 'anonymous function';
+    }
 }
 
 class PHP_Token_CONST extends PHP_Token
