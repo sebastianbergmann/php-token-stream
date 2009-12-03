@@ -529,6 +529,28 @@ class PHP_Token_FUNCTION extends PHP_Token
 {
     protected $id = T_FUNCTION;
 
+    public function getArguments()
+    {
+        $arguments = array();
+        $i         = $this->tokenStreamId + 3;
+        $typeHint  = NULL;
+
+        while (!$this->tokenStream[$i] instanceof PHP_Token_CLOSE_BRACKET) {
+            if ($this->tokenStream[$i] instanceof PHP_Token_STRING) {
+                $typeHint = (string)$this->tokenStream[$i];
+            }
+
+            else if ($this->tokenStream[$i] instanceof PHP_Token_VARIABLE) {
+                $arguments[(string)$this->tokenStream[$i]] = $typeHint;
+                $typeHint                                  = NULL;
+            }
+
+            $i++;
+        }
+
+        return $arguments;
+    }
+
     public function getName()
     {
         if ($this->tokenStream[$this->tokenStreamId + 2] instanceof PHP_Token_STRING) {
