@@ -14,10 +14,10 @@ The PEAR channel (`pear.phpunit.de`) that is used to distribute PHP_TokenStream 
 
 This has to be done only once. Now the PEAR Installer can be used to install packages from the PHPUnit channel:
 
-    sb@vmware ~ % pear install phpunit/PHP_TokenStream
-    downloading PHP_TokenStream-1.0.0.tgz ...
-    Starting to download PHP_TokenStream-1.0.0.tgz (2,353 bytes)
-    ....done: 2,353 bytes
-    install ok: channel://pear.phpunit.de/PHP_TokenStream-1.0.0
+    sb@ubuntu tokenstream % pear install phpunit/PHP_TokenStream-beta
+    downloading PHP_TokenStream-0.9.0.tgz ...
+    Starting to download PHP_TokenStream-0.9.0.tgz (5,145 bytes)
+    .....done: 5,145 bytes
+    install ok: channel://pear.phpunit.de/PHP_TokenStream-0.9.0
 
 After the installation you can find the PHP_TokenStream source files inside your local PEAR directory; the path is usually `/usr/lib/php/PHP`.
