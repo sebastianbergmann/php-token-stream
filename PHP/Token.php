@@ -81,7 +81,7 @@ abstract class PHP_Token
      * @param string  $text
      * @param integer $line
      */
-    public function __construct($text, $line, PHP_Token_Stream $tokenStream = NULL, $id = NULL)
+    public function __construct($text, $line, PHP_Token_Stream $tokenStream, $id)
     {
         $this->text        = $text;
         $this->line        = $line;
