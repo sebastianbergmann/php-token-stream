@@ -73,7 +73,7 @@ abstract class PHP_Token
     /**
      * @var integer
      */
-    protected $tokenStreamId;
+    protected $id;
 
     /**
      * Constructor.
@@ -81,12 +81,12 @@ abstract class PHP_Token
      * @param string  $text
      * @param integer $line
      */
-    public function __construct($text, $line, PHP_Token_Stream $tokenStream = NULL, $tokenStreamId = NULL)
+    public function __construct($text, $line, PHP_Token_Stream $tokenStream = NULL, $id = NULL)
     {
-        $this->text          = $text;
-        $this->line          = $line;
-        $this->tokenStream   = $tokenStream;
-        $this->tokenStreamId = $tokenStreamId;
+        $this->text        = $text;
+        $this->line        = $line;
+        $this->tokenStream = $tokenStream;
+        $this->id          = $id;
     }
 
     /**
@@ -190,7 +190,7 @@ class PHP_Token_FUNCTION extends PHP_Token
     public function getArguments()
     {
         $arguments = array();
-        $i         = $this->tokenStreamId + 3;
+        $i         = $this->id + 3;
         $typeHint  = NULL;
 
         while (!$this->tokenStream[$i] instanceof PHP_Token_CLOSE_BRACKET) {
@@ -211,13 +211,13 @@ class PHP_Token_FUNCTION extends PHP_Token
 
     public function getName()
     {
-        if ($this->tokenStream[$this->tokenStreamId + 2] instanceof PHP_Token_STRING) {
-            return (string)$this->tokenStream[$this->tokenStreamId + 2];
+        if ($this->tokenStream[$this->id+2] instanceof PHP_Token_STRING) {
+            return (string)$this->tokenStream[$this->id+2];
         }
 
-        else if ($this->tokenStream[$this->tokenStreamId + 2] == '&' &&
-                 $this->tokenStream[$this->tokenStreamId + 3] instanceof PHP_Token_STRING) {
-            return (string)$this->tokenStream[$this->tokenStreamId + 3];
+        else if ($this->tokenStream[$this->id+2] == '&' &&
+                 $this->tokenStream[$this->id+3] instanceof PHP_Token_STRING) {
+            return (string)$this->tokenStream[$this->id+3];
         }
 
         return 'anonymous function';
@@ -249,7 +249,7 @@ class PHP_Token_INTERFACE extends PHP_Token
 
     public function getName()
     {
-        return (string)$this->tokenStream[$this->tokenStreamId + 2];
+        return (string)$this->tokenStream[$this->id + 2];
     }
 }
 
@@ -283,12 +283,12 @@ class PHP_Token_NAMESPACE extends PHP_Token
 
     public function getName()
     {
-        $namespace = (string)$this->tokenStream[$this->tokenStreamId + 2];
+        $namespace = (string)$this->tokenStream[$this->id+2];
 
-        for ($i = $this->tokenStreamId + 3; ; $i += 2) {
+        for ($i = $this->id + 3; ; $i += 2) {
             if (isset($this->tokenStream[$i]) &&
                 $this->tokenStream[$i] instanceof PHP_Token_NS_SEPARATOR) {
-                $namespace .= '\\' . $this->tokenStream[$i + 1];
+                $namespace .= '\\' . $this->tokenStream[$i+1];
             } else {
                 break;
             }
