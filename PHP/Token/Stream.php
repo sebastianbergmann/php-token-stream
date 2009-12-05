@@ -36,7 +36,6 @@
  *
  * @package   PHP_TokenStream
  * @author    Sebastian Bergmann <sb@sebastian-bergmann.de>
- * @author    Stefan Priebsch <stefan@priebsch.de>
  * @copyright 2009 Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @since     File available since Release 1.0.0
@@ -48,7 +47,6 @@ require_once 'PHP/Token.php';
  * A stream of PHP tokens.
  *
  * @author    Sebastian Bergmann <sb@sebastian-bergmann.de>
- * @author    Stefan Priebsch <stefan@priebsch.de>
  * @copyright 2009 Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @version   Release: @package_version@
