@@ -55,8 +55,11 @@ require_once 'PHP/Token.php';
  * @link      http://github.com/sebastianbergmann/php-token-stream/tree
  * @since     Class available since Release 1.0.0
  */
-class PHP_Token_Stream extends SplDoublyLinkedList implements SeekableIterator
+class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
 {
+    /**
+     * @var array
+     */
     protected static $customTokens = array(
       '(' => 'PHP_Token_OPEN_BRACKET',
       ')' => 'PHP_Token_CLOSE_BRACKET',
@@ -87,6 +90,16 @@ class PHP_Token_Stream extends SplDoublyLinkedList implements SeekableIterator
       '~' => 'PHP_Token_TILDE',
       '`' => 'PHP_Token_BACKTICK'
     );
+
+    /**
+     * @var array
+     */
+    protected $tokens = array();
+
+    /**
+     * @var integer
+     */
+    protected $position = 0;
 
     /**
      * Constructor.
@@ -122,7 +135,8 @@ class PHP_Token_Stream extends SplDoublyLinkedList implements SeekableIterator
                 $tokenClass = self::$customTokens[$token];
             }
 
-            $this->push(new $tokenClass($text, $line, $this, $tokenId++));
+            $this->tokens[] = new $tokenClass($text, $line, $this, $tokenId++);
+
             $line += substr_count($text, "\n");
         }
     }
@@ -142,21 +156,94 @@ class PHP_Token_Stream extends SplDoublyLinkedList implements SeekableIterator
     }
 
     /**
+     * @return integer
+     */
+    public function count()
+    {
+        return count($this->tokens);
+    }
+
+    /**
+     */
+    public function rewind()
+    {
+        $this->position = 0;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function valid()
+    {
+        return isset($this->tokens[$this->position]);
+    }
+
+    /**
+     * @return integer
+     */
+    public function key()
+    {
+        return $this->position;
+    }
+
+    /**
+     * @return PHP_Token
+     */
+    public function current()
+    {
+        return $this->tokens[$this->position];
+    }
+
+    /**
+     */
+    public function next()
+    {
+        $this->position++;
+    }
+
+    /**
+     * @param mixed $offset
+     */
+    public function offsetExists($offset)
+    {
+        return isset($this->tokens[$offset]);
+    }
+
+    /**
+     * @param  mixed $offset
+     * @return mixed
+     */
+    public function offsetGet($offset)
+    {
+        return $this->tokens[$offset];
+    }
+
+    /**
+     * @param mixed $offset
+     * @param mixed $value
+     */
+    public function offsetSet($offset, $value)
+    {
+        $this->tokens[$offset] = $value;
+    }
+
+    /**
+     * @param mixed $offset
+     */
+    public function offsetUnset($offset)
+    {
+        unset($this->tokens[$offset]);
+    }
+
+    /**
      * Seek to an absolute position.
      *
-     * @param  integer $seek
+     * @param  integer $position
      * @throws OutOfBoundsException
      */
-    public function seek($index)
+    public function seek($position)
     {
-        $this->rewind();
-
-        $position = 0;
-
-        while ($position < $index && $this->valid()) {
-            $this->next();
-            $position++;
-        }
+        $this->position = $position;
 
         if (!$this->valid()) {
             throw new OutOfBoundsException('Invalid seek position');
