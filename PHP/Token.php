@@ -78,8 +78,10 @@ abstract class PHP_Token
     /**
      * Constructor.
      *
-     * @param string  $text
-     * @param integer $line
+     * @param string           $text
+     * @param integer          $line
+     * @param PHP_Token_Stream $tokenStream
+     * @param integer          $id
      */
     public function __construct($text, $line, PHP_Token_Stream $tokenStream, $id)
     {
