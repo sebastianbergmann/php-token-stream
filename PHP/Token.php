@@ -253,6 +253,27 @@ class PHP_Token_INTERFACE extends PHP_Token
     {
         return (string)$this->tokenStream[$this->id + 2];
     }
+
+    public function hasParent()
+    {
+        return $this->tokenStream[$this->id + 4] instanceof PHP_Token_EXTENDS;
+    }
+
+    public function getParent()
+    {
+        if (!$this->hasParent()) {
+            return FALSE;
+        }
+
+        $i         = $this->id + 6;
+        $className = (string)$this->tokenStream[$i];
+
+        while (!$this->tokenStream[$i+1] instanceof PHP_Token_WHITESPACE) {
+            $className .= (string)$this->tokenStream[++$i];
+        }
+
+        return $className;
+    }
 }
 
 class PHP_Token_CLASS extends PHP_Token_INTERFACE {}
