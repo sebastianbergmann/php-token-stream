@@ -217,7 +217,7 @@ class PHP_Token_FUNCTION extends PHP_Token
             return (string)$this->tokenStream[$this->id+2];
         }
 
-        else if ($this->tokenStream[$this->id+2] == '&' &&
+        else if ($this->tokenStream[$this->id+2] instanceof PHP_Token_AMPERSAND &&
                  $this->tokenStream[$this->id+3] instanceof PHP_Token_STRING) {
             return (string)$this->tokenStream[$this->id+3];
         }
