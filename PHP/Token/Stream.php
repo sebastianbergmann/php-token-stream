@@ -100,6 +100,34 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
     protected $position = 0;
 
     /**
+     * Scope specific vars
+     */
+
+    /**
+     * The depth of the current curly bracket
+     * @var integer
+     */
+    protected $curlyDepth = 0;
+
+    /**
+     * The depth of the current scope
+     * @var integer
+     */
+    protected $scopeDepth = 0;
+
+    /**
+     * The sequence of the current scope
+     * @var array
+     */
+    protected $scopeSeq = array();
+
+    /**
+     * Holds curly-bracket depths to start/end scopes
+     * var array
+     */
+    protected $scopes = array();
+
+    /**
      * Constructor.
      *
      * @param string $sourceCode
@@ -133,10 +161,50 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
                 $tokenClass = self::$customTokens[$token];
             }
 
-            $this->tokens[] = new $tokenClass($text, $line, $this, $tokenId++);
+            $this->tokens[] = $tokenObject = new $tokenClass($text, $line, $this, $tokenId++);
+            $tokenObject->setScope($this->getCurrentScope($tokenClass));
 
             $line += substr_count($text, "\n");
         }
+    }
+
+    /**
+     * Returns the current scope in a string with the pattern depth.sequence
+     * @param string $tokenClass
+     * @return string
+     */
+    protected function getCurrentScope($tokenClass)
+    {
+        if (!isset($this->scopeSeq[$this->scopeDepth])) {
+            $this->scopeSeq[$this->scopeDepth] = 0;
+        }
+
+        switch ($tokenClass) {
+            case 'PHP_Token_FUNCTION':
+                $this->scopes[] = $this->curlyDepth;
+                $this->scopeDepth++;
+
+                if (!isset($this->scopeSeq[$this->scopeDepth])) {
+                    $this->scopeSeq[$this->scopeDepth] = 0;
+                } else {
+                    $this->scopeSeq[$this->scopeDepth]++;
+                }
+                break;
+
+            case 'PHP_Token_OPEN_CURLY':
+                $this->curlyDepth++;
+                break;
+
+            case 'PHP_Token_CLOSE_CURLY':
+                $this->curlyDepth--;
+                if (in_array($this->curlyDepth, $this->scopes)) {
+                    array_pop($this->scopes);
+                    $this->scopeDepth--;
+                }
+                break;
+        }
+
+        return $this->scopeDepth . '.' . $this->scopeSeq[$this->scopeDepth];
     }
 
     /**

@@ -76,6 +76,11 @@ abstract class PHP_Token
     protected $id;
 
     /**
+     * @var string
+     */
+    protected $scope;
+
+    /**
      * Constructor.
      *
      * @param string           $text
@@ -105,6 +110,23 @@ abstract class PHP_Token
     public function getLine()
     {
         return $this->line;
+    }
+
+    /**
+     * @param string $scope String containing "depth.sequence"
+     */
+    public function setScope($scope)
+    {
+        $this->scope = $scope;
+    }
+
+    /**
+     * Returns the scope of the token
+     * @return string
+     */
+    public function getScope()
+    {
+        return $this->scope;
     }
 }
 
