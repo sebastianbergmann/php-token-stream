@@ -80,4 +80,28 @@ class PHP_Token_FunctionTest extends PHPUnit_Framework_TestCase
     {
         $this->markTestIncomplete();
     }
+
+    /**
+     * @covers PHP_Token_FUNCTION::getStartLine
+     */
+    public function testGetStartLine()
+    {
+        $this->markTestIncomplete();
+    }
+
+    /**
+     * @covers PHP_Token_FUNCTION::getEndLine
+     */
+    public function testGetEndLine()
+    {
+        $this->markTestIncomplete();
+    }
+
+    /**
+     * @covers PHP_Token_FUNCTION::getDoblock
+     */
+    public function testGetDocblock()
+    {
+        $this->markTestIncomplete();
+    }
 }

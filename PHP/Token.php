@@ -241,6 +241,18 @@ class PHP_Token_FUNCTION extends PHP_Token
 
         return 'anonymous function';
     }
+
+    public function getStartLine()
+    {
+    }
+
+    public function getEndLine()
+    {
+    }
+
+    public function getDocblock()
+    {
+    }
 }
 
 class PHP_Token_CONST extends PHP_Token {}
