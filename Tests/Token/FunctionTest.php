@@ -66,28 +66,12 @@ require_once 'PHP/Token/Stream.php';
  */
 class PHP_Token_FunctionTest extends PHPUnit_Framework_TestCase
 {
-    protected $function;
-
-    protected function setUp()
-    {
-        $ts = new PHP_Token_Stream(TEST_FILES_PATH . 'source.php');
-
-        foreach ($ts as $token) {
-            if ($token instanceof PHP_Token_FUNCTION) {
-                $this->function = $token;
-                break;
-            }
-        }
-    }
-
     /**
      * @covers PHP_Token_FUNCTION::getArguments
      */
     public function testGetArguments()
     {
-        $this->assertEquals(
-          array('$baz' => 'Baz'), $this->function->getArguments()
-        );
+        $this->markTestIncomplete();
     }
 
     /**
@@ -95,7 +79,7 @@ class PHP_Token_FunctionTest extends PHPUnit_Framework_TestCase
      */
     public function testGetName()
     {
-        $this->assertEquals('bar', $this->function->getName());
+        $this->markTestIncomplete();
     }
 
     /**
@@ -103,7 +87,7 @@ class PHP_Token_FunctionTest extends PHPUnit_Framework_TestCase
      */
     public function testGetStartLine()
     {
-        $this->assertEquals(7, $this->function->getStartLine());
+        $this->markTestIncomplete();
     }
 
     /**
@@ -111,17 +95,14 @@ class PHP_Token_FunctionTest extends PHPUnit_Framework_TestCase
      */
     public function testGetEndLine()
     {
-        $this->assertEquals(9, $this->function->getEndLine());
+        $this->markTestIncomplete();
     }
 
     /**
-     * @covers PHP_Token_FUNCTION::getDocblock
+     * @covers PHP_Token_FUNCTION::getDoblock
      */
     public function testGetDocblock()
     {
-        $this->assertEquals(
-          "/**\n     * @param Baz \$baz\n     */",
-          $this->function->getDocblock()
-        );
+        $this->markTestIncomplete();
     }
 }

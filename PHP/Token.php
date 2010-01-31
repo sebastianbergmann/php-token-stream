@@ -244,7 +244,6 @@ class PHP_Token_FUNCTION extends PHP_Token
 
     public function getStartLine()
     {
-        return $this->tokenStream[$this->id]->getLine();
     }
 
     public function getEndLine()
@@ -253,9 +252,6 @@ class PHP_Token_FUNCTION extends PHP_Token
 
     public function getDocblock()
     {
-        if ($this->tokenStream[$this->id-2] instanceof PHP_Token_DOC_COMMENT) {
-            return (string)$this->tokenStream[$this->id-2];
-        }
     }
 }
 
