@@ -100,11 +100,6 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
     protected $position = 0;
 
     /**
-     * @var integer
-     */
-    protected $curlyDepth = 0;
-
-    /**
      * Constructor.
      *
      * @param string $sourceCode
