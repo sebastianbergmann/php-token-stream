@@ -228,11 +228,18 @@ class PHP_Token_GOTO extends PHP_Token {}
 
 class PHP_Token_FUNCTION extends PHP_TokenWithScope
 {
+    protected $arguments;
+    protected $name;
+
     public function getArguments()
     {
-        $arguments = array();
-        $i         = $this->id + 3;
-        $typeHint  = NULL;
+        if ($this->arguments !== NULL) {
+            return $this->arguments;
+        }
+
+        $this->arguments = array();
+        $i               = $this->id + 3;
+        $typeHint        = NULL;
 
         while (!$this->tokenStream[$i] instanceof PHP_Token_CLOSE_BRACKET) {
             if ($this->tokenStream[$i] instanceof PHP_Token_STRING) {
@@ -240,28 +247,36 @@ class PHP_Token_FUNCTION extends PHP_TokenWithScope
             }
 
             else if ($this->tokenStream[$i] instanceof PHP_Token_VARIABLE) {
-                $arguments[(string)$this->tokenStream[$i]] = $typeHint;
-                $typeHint                                  = NULL;
+                $this->arguments[(string)$this->tokenStream[$i]] = $typeHint;
+                $typeHint                                        = NULL;
             }
 
             $i++;
         }
 
-        return $arguments;
+        return $this->arguments;
     }
 
     public function getName()
     {
+        if ($this->name !== NULL) {
+            return $this->name;
+        }
+
         if ($this->tokenStream[$this->id+2] instanceof PHP_Token_STRING) {
-            return (string)$this->tokenStream[$this->id+2];
+            $this->name = (string)$this->tokenStream[$this->id+2];
         }
 
-        if ($this->tokenStream[$this->id+2] instanceof PHP_Token_AMPERSAND &&
+        else if ($this->tokenStream[$this->id+2] instanceof PHP_Token_AMPERSAND &&
                  $this->tokenStream[$this->id+3] instanceof PHP_Token_STRING) {
-            return (string)$this->tokenStream[$this->id+3];
+            $this->name = (string)$this->tokenStream[$this->id+3];
         }
 
-        return 'anonymous function';
+        else {
+            $this->name = 'anonymous function';
+        }
+
+        return $this->name;
     }
 }
 
