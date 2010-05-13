@@ -99,15 +99,15 @@ class PHP_Token_FunctionTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers PHP_Token_FUNCTION::getStartLine
+     * @covers PHP_Token::getLine
      */
-    public function testGetStartLine()
+    public function testGetLine()
     {
-        $this->assertEquals(7, $this->function->getStartLine());
+        $this->assertEquals(7, $this->function->getLine());
     }
 
     /**
-     * @covers PHP_Token_FUNCTION::getEndLine
+     * @covers PHP_TokenWithScope::getEndLine
      */
     public function testGetEndLine()
     {

@@ -252,11 +252,6 @@ class PHP_Token_FUNCTION extends PHP_TokenWithScope
         return 'anonymous function';
     }
 
-    public function getStartLine()
-    {
-        return $this->tokenStream[$this->id]->getLine();
-    }
-
     public function getDocblock()
     {
         if ($this->tokenStream[$this->id-2] instanceof PHP_Token_DOC_COMMENT) {
