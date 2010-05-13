@@ -205,6 +205,7 @@ class PHP_Token_GOTO extends PHP_Token {}
 class PHP_Token_FUNCTION extends PHP_Token
 {
     protected $id = T_FUNCTION;
+    protected $endLine;
 
     public function getArguments()
     {
@@ -249,6 +250,26 @@ class PHP_Token_FUNCTION extends PHP_Token
 
     public function getEndLine()
     {
+        $block = 0;
+        $i     = $this->id + 5;
+
+        while ($this->endLine === NULL) {
+            if ($this->tokenStream[$i] instanceof PHP_Token_OPEN_CURLY) {
+                $block++;
+            }
+
+            else if ($this->tokenStream[$i] instanceof PHP_Token_CLOSE_CURLY) {
+                $block--;
+
+                if ($block === 0) {
+                    $this->endLine = $this->tokenStream[$i]->getLine();
+                }
+            }
+
+            $i++;
+        }
+
+        return $this->endLine;
     }
 
     public function getDocblock()
