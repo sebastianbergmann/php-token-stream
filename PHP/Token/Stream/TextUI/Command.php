@@ -167,8 +167,7 @@ Usage: phptok [switches] <file>
   --help                   Prints this usage information.
   --version                Prints the version and exits.
 
-EOT
-;
+EOT;
     }
 
     /**
