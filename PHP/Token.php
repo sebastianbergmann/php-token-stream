@@ -216,8 +216,6 @@ class PHP_Token_GOTO extends PHP_Token {}
 
 class PHP_Token_FUNCTION extends PHP_TokenWithScope
 {
-    protected $id = T_FUNCTION;
-
     public function getArguments()
     {
         $arguments = array();
@@ -288,8 +286,6 @@ class PHP_Token_HALT_COMPILER extends PHP_Token {}
 
 class PHP_Token_INTERFACE extends PHP_Token
 {
-    protected $id = T_INTERFACE;
-
     public function getName()
     {
         return (string)$this->tokenStream[$this->id + 2];
@@ -343,8 +339,6 @@ class PHP_Token_PAAMAYIM_NEKUDOTAYIM extends PHP_Token {}
 
 class PHP_Token_NAMESPACE extends PHP_Token
 {
-    protected $id = T_NAMESPACE;
-
     public function getName()
     {
         $namespace = (string)$this->tokenStream[$this->id+2];
