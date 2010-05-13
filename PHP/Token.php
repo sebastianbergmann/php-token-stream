@@ -110,7 +110,7 @@ abstract class PHP_Token
 
 abstract class PHP_TokenWithScope extends PHP_Token
 {
-    protected $endLine;
+    protected $endTokenId;
 
     public function getDocblock()
     {
@@ -119,12 +119,12 @@ abstract class PHP_TokenWithScope extends PHP_Token
         }
     }
 
-    public function getEndLine()
+    public function getEndTokenId()
     {
         $block = 0;
         $i     = $this->id;
 
-        while ($this->endLine === NULL) {
+        while ($this->endTokenId === NULL) {
             if ($this->tokenStream[$i] instanceof PHP_Token_OPEN_CURLY) {
                 $block++;
             }
@@ -133,14 +133,19 @@ abstract class PHP_TokenWithScope extends PHP_Token
                 $block--;
 
                 if ($block === 0) {
-                    $this->endLine = $this->tokenStream[$i]->getLine();
+                    $this->endTokenId = $i;
                 }
             }
 
             $i++;
         }
 
-        return $this->endLine;
+        return $this->endTokenId;
+    }
+
+    public function getEndLine()
+    {
+        return $this->tokenStream[$this->getEndTokenId()]->getLine();
     }
 }
 
