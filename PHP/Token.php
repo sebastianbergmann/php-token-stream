@@ -279,7 +279,7 @@ class PHP_Token_ISSET extends PHP_Token {}
 class PHP_Token_EMPTY extends PHP_Token {}
 class PHP_Token_HALT_COMPILER extends PHP_Token {}
 
-class PHP_Token_INTERFACE extends PHP_Token
+class PHP_Token_INTERFACE extends PHP_TokenWithScope
 {
     public function getName()
     {
