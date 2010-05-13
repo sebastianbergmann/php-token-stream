@@ -76,26 +76,19 @@ abstract class PHP_Token
     protected $id;
 
     /**
-     * @var string
-     */
-    protected $scope;
-
-    /**
      * Constructor.
      *
      * @param string           $text
      * @param integer          $line
      * @param PHP_Token_Stream $tokenStream
      * @param integer          $id
-     * @param string           $scope
      */
-    public function __construct($text, $line, PHP_Token_Stream $tokenStream, $id, $scope)
+    public function __construct($text, $line, PHP_Token_Stream $tokenStream, $id)
     {
         $this->text        = $text;
         $this->line        = $line;
         $this->tokenStream = $tokenStream;
         $this->id          = $id;
-        $this->scope       = $scope;
     }
 
     /**
@@ -112,16 +105,6 @@ abstract class PHP_Token
     public function getLine()
     {
         return $this->line;
-    }
-
-    /**
-     * Returns the scope of the token.
-     *
-     * @return string
-     */
-    public function getScope()
-    {
-        return $this->scope;
     }
 }
 

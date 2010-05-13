@@ -82,13 +82,4 @@ class PHP_TokenTest extends PHPUnit_Framework_TestCase
     {
         $this->markTestIncomplete();
     }
-
-    /**
-     * @covers PHP_Token::__construct
-     * @covers PHP_Token::testGetScope
-     */
-    public function testGetScope()
-    {
-        $this->markTestIncomplete();
-    }
 }

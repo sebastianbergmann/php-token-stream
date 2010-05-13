@@ -105,21 +105,6 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
     protected $curlyDepth = 0;
 
     /**
-     * @var integer
-     */
-    protected $scopeDepth = 0;
-
-    /**
-     * @var array
-     */
-    protected $scopeSeq = array();
-
-    /**
-     * @var array
-     */
-    protected $scopes = array();
-
-    /**
      * Constructor.
      *
      * @param string $sourceCode
@@ -157,54 +142,11 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
               $text,
               $line,
               $this,
-              $tokenId++,
-              $this->getCurrentScope($tokenClass)
+              $tokenId++
             );
 
             $line += substr_count($text, "\n");
         }
-    }
-
-    /**
-     * Returns the current scope in a string with the pattern depth.sequence.
-     *
-     * @param  string $tokenClass
-     * @return string
-     */
-    protected function getCurrentScope($tokenClass)
-    {
-        if (!isset($this->scopeSeq[$this->scopeDepth])) {
-            $this->scopeSeq[$this->scopeDepth] = 0;
-        }
-
-        switch ($tokenClass) {
-            case 'PHP_Token_FUNCTION': {
-                $this->scopes[] = $this->curlyDepth;
-                $this->scopeDepth++;
-
-                if (!isset($this->scopeSeq[$this->scopeDepth])) {
-                    $this->scopeSeq[$this->scopeDepth] = 0;
-                } else {
-                    $this->scopeSeq[$this->scopeDepth]++;
-                }
-            }
-            break;
-
-            case 'PHP_Token_OPEN_CURLY': {
-                $this->curlyDepth++;
-            }
-            break;
-
-            case 'PHP_Token_CLOSE_CURLY': {
-                if (in_array(--$this->curlyDepth, $this->scopes)) {
-                    array_pop($this->scopes);
-                    $this->scopeDepth--;
-                }
-            }
-            break;
-        }
-
-        return $this->scopeDepth . '.' . $this->scopeSeq[$this->scopeDepth];
     }
 
     /**
