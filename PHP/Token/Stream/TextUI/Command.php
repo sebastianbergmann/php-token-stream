@@ -66,8 +66,7 @@ class PHP_Token_Stream_TextUI_Command
      */
     public static function main()
     {
-        $input  = new ezcConsoleInput;
-        $output = new ezcConsoleOutput;
+        $input = new ezcConsoleInput;
 
         $input->registerOption(
           new ezcConsoleOption(
