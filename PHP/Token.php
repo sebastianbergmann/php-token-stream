@@ -114,9 +114,11 @@ abstract class PHP_TokenWithScope extends PHP_Token
 
     public function getDocblock()
     {
-        if (isset($this->tokenStream[$this->id-2]) &&
-            $this->tokenStream[$this->id-2] instanceof PHP_Token_DOC_COMMENT) {
-            return (string)$this->tokenStream[$this->id-2];
+        for ($i = $this->id - 2; $i > $this->id - 6; $i -= 2) {
+            if (isset($this->tokenStream[$i]) &&
+                $this->tokenStream[$i] instanceof PHP_Token_DOC_COMMENT) {
+                return (string)$this->tokenStream[$i];
+            }
         }
     }
 
