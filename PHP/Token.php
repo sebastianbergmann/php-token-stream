@@ -114,7 +114,8 @@ abstract class PHP_TokenWithScope extends PHP_Token
 
     public function getDocblock()
     {
-        if ($this->tokenStream[$this->id-2] instanceof PHP_Token_DOC_COMMENT) {
+        if (isset($this->tokenStream[$this->id-2]) &&
+            $this->tokenStream[$this->id-2] instanceof PHP_Token_DOC_COMMENT) {
             return (string)$this->tokenStream[$this->id-2];
         }
     }
@@ -124,7 +125,7 @@ abstract class PHP_TokenWithScope extends PHP_Token
         $block = 0;
         $i     = $this->id;
 
-        while ($this->endTokenId === NULL) {
+        while ($this->endTokenId === NULL && isset($this->tokenStream[$i])) {
             if ($this->tokenStream[$i] instanceof PHP_Token_OPEN_CURLY) {
                 $block++;
             }
@@ -138,6 +139,10 @@ abstract class PHP_TokenWithScope extends PHP_Token
             }
 
             $i++;
+        }
+
+        if ($this->endTokenId === NULL) {
+            $this->endTokenId = $this->id;
         }
 
         return $this->endTokenId;
@@ -229,7 +234,9 @@ class PHP_Token_GOTO extends PHP_Token {}
 class PHP_Token_FUNCTION extends PHP_TokenWithScope
 {
     protected $arguments;
+    protected $ccn;
     protected $name;
+    protected $signature;
 
     public function getArguments()
     {
@@ -277,6 +284,57 @@ class PHP_Token_FUNCTION extends PHP_TokenWithScope
         }
 
         return $this->name;
+    }
+
+    public function getCCN()
+    {
+        if ($this->ccn !== NULL) {
+            return $this->ccn;
+        }
+
+        $this->ccn = 1;
+        $end       = $this->getEndTokenId();
+
+        for ($i = $this->id; $i <= $end; $i++) {
+            switch (get_class($this->tokenStream[$i])) {
+                case 'PHP_Token_IF':
+                case 'PHP_Token_ELSEIF':
+                case 'PHP_Token_FOR':
+                case 'PHP_Token_FOREACH':
+                case 'PHP_Token_WHILE':
+                case 'PHP_Token_CASE':
+                case 'PHP_Token_CATCH':
+                case 'PHP_Token_BOOLEAN_AND':
+                case 'PHP_Token_LOGICAL_AND':
+                case 'PHP_Token_BOOLEAN_OR':
+                case 'PHP_Token_LOGICAL_OR':
+                case 'PHP_Token_QUESTION_MARK': {
+                    $this->ccn++;
+                }
+                break;
+            }
+        }
+
+        return $this->ccn;
+    }
+
+    public function getSignature()
+    {
+        if ($this->signature !== NULL) {
+            return $this->signature;
+        }
+
+        $this->signature = '';
+
+        $i = $this->id + 2;
+
+        while (!$this->tokenStream[$i] instanceof PHP_Token_CLOSE_BRACKET) {
+            $this->signature .= $this->tokenStream[$i++];
+        }
+
+        $this->signature .= ')';
+
+        return $this->signature;
     }
 }
 

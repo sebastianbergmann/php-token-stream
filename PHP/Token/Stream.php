@@ -100,6 +100,21 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
     protected $position = 0;
 
     /**
+     * @var array
+     */
+    protected $linesOfCode = array('loc' => 0, 'cloc' => 0, 'ncloc' => 0);
+
+    /**
+     * @var array
+     */
+    protected $classes;
+
+    /**
+     * @var array
+     */
+    protected $functions;
+
+    /**
      * Constructor.
      *
      * @param string $sourceCode
@@ -140,8 +155,18 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
               $tokenId++
             );
 
-            $line += substr_count($text, "\n");
+            $lines = substr_count($text, "\n");
+            $line += $lines;
+
+            if ($tokenClass == 'PHP_Token_COMMENT' ||
+                $tokenClass == 'PHP_Token_DOC_COMMENT') {
+                $this->linesOfCode['cloc'] += $lines + 1;
+            }
         }
+
+        $this->linesOfCode['loc']   = substr_count($sourceCode, "\n");
+        $this->linesOfCode['ncloc'] = $this->linesOfCode['loc'] -
+                                      $this->linesOfCode['cloc'];
     }
 
     /**
@@ -164,6 +189,95 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
     public function count()
     {
         return count($this->tokens);
+    }
+
+    /**
+     * @return array
+     */
+    public function getClasses()
+    {
+        if ($this->classes !== NULL) {
+            return $this->classes;
+        }
+
+        $this->parseClassesFunctions();
+
+        return $this->classes;
+    }
+
+    /**
+     * @return array
+     */
+    public function getFunctions()
+    {
+        if ($this->functions !== NULL) {
+            return $this->functions;
+        }
+
+        $this->parseClassesFunctions();
+
+        return $this->functions;
+    }
+
+    protected function parseClassesFunctions()
+    {
+        $this->classes   = array();
+        $this->functions = array();
+        $class           = FALSE;
+        $classEndLine    = FALSE;
+
+        foreach ($this->tokens as $token) {
+            switch (get_class($token)) {
+                case 'PHP_Token_CLASS': {
+                    $class        = $token->getName();
+                    $classEndLine = $token->getEndLine();
+
+                    $this->classes[$class] = array(
+                      'methods'   => array(),
+                      'docblock'  => $token->getDocblock(),
+                      'startLine' => $token->getLine(),
+                      'endLine'   => $classEndLine
+                    );
+                }
+                break;
+
+                case 'PHP_Token_FUNCTION': {
+                    $name = $token->getName();
+                    $tmp  = array(
+                      'docblock'  => $token->getDocblock(),
+                      'signature' => $token->getSignature(),
+                      'startLine' => $token->getLine(),
+                      'endLine'   => $token->getEndLine(),
+                      'ccn'       => $token->getCCN()
+                    );
+
+                    if ($class === FALSE) {
+                        $this->functions[$name] = $tmp;
+                    } else {
+                        $this->classes[$class]['methods'][$name] = $tmp;
+                    }
+                }
+                break;
+
+                case 'PHP_Token_CLOSE_CURLY':
+                {
+                    if ($classEndLine !== FALSE &&
+                        $classEndLine == $token->getLine()) {
+                        $class        = FALSE;
+                        $classEndLine = FALSE;
+                    }
+                }
+                break;
+            }
+        }
+    }
+
+    /**
+     * @return array
+     */
+    public function getLinesOfCode()
+    {
+        return $this->linesOfCode;
     }
 
     /**
