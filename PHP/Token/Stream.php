@@ -192,6 +192,14 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
     }
 
     /**
+     * @return PHP_Token[]
+     */
+    public function tokens()
+    {
+        return $this->tokens;
+    }
+
+    /**
      * @return array
      */
     public function getClasses()
