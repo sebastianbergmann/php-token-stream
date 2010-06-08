@@ -139,7 +139,10 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
         $line    = 1;
         $tokenId = 0;
 
-        foreach (token_get_all($sourceCode) as $token) {
+        $tokens = token_get_all($sourceCode);
+        for($i = 0, $tokenCount = count($tokens); $i < $tokenCount; ++$i) {
+            $token = $tokens[$i];
+            unset($tokens[$i]);
             if (is_array($token)) {
                 $text       = $token[1];
                 $tokenClass = 'PHP_Token_' . substr(token_name($token[0]), 2);
