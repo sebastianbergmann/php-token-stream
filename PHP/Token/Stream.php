@@ -136,13 +136,14 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
      */
     protected function scan($sourceCode)
     {
-        $line    = 1;
-        $tokenId = 0;
+        $line      = 1;
+        $tokens    = token_get_all($sourceCode);
+        $numTokens = count($tokens);
 
-        $tokens = token_get_all($sourceCode);
-        for($i = 0, $tokenCount = count($tokens); $i < $tokenCount; ++$i) {
+        for ($i = 0; $i < $numTokens; ++$i) {
             $token = $tokens[$i];
             unset($tokens[$i]);
+
             if (is_array($token)) {
                 $text       = $token[1];
                 $tokenClass = 'PHP_Token_' . substr(token_name($token[0]), 2);
@@ -151,15 +152,9 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
                 $tokenClass = self::$customTokens[$token];
             }
 
-            $this->tokens[] = new $tokenClass(
-              $text,
-              $line,
-              $this,
-              $tokenId++
-            );
-
-            $lines = substr_count($text, "\n");
-            $line += $lines;
+            $this->tokens[] = new $tokenClass($text, $line, $this, $i);
+            $lines          = substr_count($text, "\n");
+            $line          += $lines;
 
             if ($tokenClass == 'PHP_Token_COMMENT' ||
                 $tokenClass == 'PHP_Token_DOC_COMMENT') {
