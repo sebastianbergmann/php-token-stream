@@ -265,8 +265,7 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
                 }
                 break;
 
-                case 'PHP_Token_CLOSE_CURLY':
-                {
+                case 'PHP_Token_CLOSE_CURLY': {
                     if ($classEndLine !== FALSE &&
                         $classEndLine == $token->getLine()) {
                         $class        = FALSE;
