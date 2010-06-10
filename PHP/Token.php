@@ -261,7 +261,7 @@ class PHP_Token_FUNCTION extends PHP_TokenWithScope
 
             else if ($tokens[$i] instanceof PHP_Token_VARIABLE) {
                 $this->arguments[(string)$tokens[$i]] = $typeHint;
-                $typeHint                                        = NULL;
+                $typeHint                             = NULL;
             }
 
             $i++;
