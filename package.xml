@@ -38,6 +38,9 @@
         <tasks:replace from="@package_version@" to="version" type="package-info" />
        </file>
       </dir>
+      <file baseinstalldir="/" name="CachingFactory.php" role="php">
+       <tasks:replace from="@package_version@" to="version" type="package-info" />
+      </file>
      </dir>
      <file baseinstalldir="/" name="Exception.php" role="php">
       <tasks:replace from="@package_version@" to="version" type="package-info" />
