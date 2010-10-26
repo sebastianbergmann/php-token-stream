@@ -234,6 +234,11 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
 
         foreach ($this->tokens as $token) {
             switch (get_class($token)) {
+                case 'PHP_Token_HALT_COMPILER': {
+                    return;
+                }
+                break;
+
                 case 'PHP_Token_CLASS': {
                     $class        = $token->getName();
                     $classEndLine = $token->getEndLine();
