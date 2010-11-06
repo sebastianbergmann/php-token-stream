@@ -156,7 +156,11 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
             $lines          = substr_count($text, "\n");
             $line          += $lines;
 
-            if ($tokenClass == 'PHP_Token_COMMENT' ||
+            if ($tokenClass == 'PHP_Token_HALT_COMPILER') {
+                break;
+            }
+
+            else if ($tokenClass == 'PHP_Token_COMMENT' ||
                 $tokenClass == 'PHP_Token_DOC_COMMENT') {
                 $this->linesOfCode['cloc'] += $lines + 1;
             }
