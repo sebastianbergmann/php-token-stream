@@ -93,7 +93,7 @@ class PHP_Token_ClassTest extends PHPUnit_Framework_TestCase
             'abstract', $this->class->getKeywords()
         );
     }
-    
+
     /**
      * @covers PHP_Token_FUNCTION::getKeywords
      */
