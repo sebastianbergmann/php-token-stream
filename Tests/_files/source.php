@@ -4,7 +4,7 @@ class Foo
     /**
      * @param Baz $baz
      */
-    function bar(Baz $baz)
+    public static function bar(Baz $baz)
     {
     }
 }
