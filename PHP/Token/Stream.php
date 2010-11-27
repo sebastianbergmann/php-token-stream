@@ -244,6 +244,7 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
 
                     $this->classes[$class] = array(
                       'methods'   => array(),
+                      'keywords'  => $token->getKeywords(),
                       'docblock'  => $token->getDocblock(),
                       'startLine' => $token->getLine(),
                       'endLine'   => $classEndLine
@@ -255,6 +256,8 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
                     $name = $token->getName();
                     $tmp  = array(
                       'docblock'  => $token->getDocblock(),
+                      'keywords'  => $token->getKeywords(),
+                      'visibility'=> $token->getVisibility(),
                       'signature' => $token->getSignature(),
                       'startLine' => $token->getLine(),
                       'endLine'   => $token->getEndLine(),
