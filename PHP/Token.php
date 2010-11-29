@@ -126,6 +126,57 @@ abstract class PHP_TokenWithScope extends PHP_Token
         }
     }
 
+    public function getVisibility()
+    {
+        $tokens = $this->tokenStream->tokens();
+
+        for ($i = $this->id - 2; $i > $this->id - 7; $i -= 2) {
+            if (isset($tokens[$i]) && (
+                $tokens[$i] instanceof PHP_Token_PRIVATE ||
+                $tokens[$i] instanceof PHP_Token_PROTECTED ||
+                $tokens[$i] instanceof PHP_Token_PUBLIC)
+            ) {
+                return strtolower(
+                    str_replace('PHP_Token_', '', get_class($tokens[$i]))
+                );
+            }
+            if (isset($tokens[$i]) && !(
+                $tokens[$i] instanceof PHP_Token_STATIC ||
+                $tokens[$i] instanceof PHP_Token_FINAL ||
+                $tokens[$i] instanceof PHP_Token_ABSTRACT)
+            ) {
+                // no keywords; stop visibility search
+                break;
+            }
+        }
+    }
+
+    public function getKeywords()
+    {
+        $keywords = array();
+        $tokens = $this->tokenStream->tokens();
+
+        for ($i = $this->id - 2; $i > $this->id - 7; $i -= 2) {
+            if (isset($tokens[$i]) && (
+                $tokens[$i] instanceof PHP_Token_PRIVATE ||
+                $tokens[$i] instanceof PHP_Token_PROTECTED ||
+                $tokens[$i] instanceof PHP_Token_PUBLIC)
+            ) {
+                continue;
+            }
+            if (isset($tokens[$i]) && (
+                $tokens[$i] instanceof PHP_Token_STATIC ||
+                $tokens[$i] instanceof PHP_Token_FINAL ||
+                $tokens[$i] instanceof PHP_Token_ABSTRACT)
+            ) {
+                $keywords[] = strtolower(
+                    str_replace('PHP_Token_', '', get_class($tokens[$i]))
+                );
+            }
+        }
+        return implode(',', $keywords);
+    }
+
     public function getEndTokenId()
     {
         $block  = 0;
