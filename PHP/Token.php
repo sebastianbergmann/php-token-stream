@@ -117,10 +117,9 @@ abstract class PHP_TokenWithScope extends PHP_Token
         $tokens = $this->tokenStream->tokens();
 
         for ($i = $this->id - 2; $i > $this->id - 9; $i -= 1) {
-            if (isset($tokens[$i]) && (
-                $tokens[$i] instanceof PHP_Token_COMMENT ||
-                $tokens[$i] instanceof PHP_Token_DOC_COMMENT)
-            ) {
+            if (isset($tokens[$i]) &&
+               ($tokens[$i] instanceof PHP_Token_COMMENT ||
+                $tokens[$i] instanceof PHP_Token_DOC_COMMENT)) {
                 return (string)$tokens[$i];
             }
         }
@@ -131,20 +130,18 @@ abstract class PHP_TokenWithScope extends PHP_Token
         $tokens = $this->tokenStream->tokens();
 
         for ($i = $this->id - 2; $i > $this->id - 7; $i -= 2) {
-            if (isset($tokens[$i]) && (
-                $tokens[$i] instanceof PHP_Token_PRIVATE ||
+            if (isset($tokens[$i]) &&
+               ($tokens[$i] instanceof PHP_Token_PRIVATE ||
                 $tokens[$i] instanceof PHP_Token_PROTECTED ||
-                $tokens[$i] instanceof PHP_Token_PUBLIC)
-            ) {
+                $tokens[$i] instanceof PHP_Token_PUBLIC)) {
                 return strtolower(
-                    str_replace('PHP_Token_', '', get_class($tokens[$i]))
+                  str_replace('PHP_Token_', '', get_class($tokens[$i]))
                 );
             }
-            if (isset($tokens[$i]) && !(
-                $tokens[$i] instanceof PHP_Token_STATIC ||
+            if (isset($tokens[$i]) &&
+              !($tokens[$i] instanceof PHP_Token_STATIC ||
                 $tokens[$i] instanceof PHP_Token_FINAL ||
-                $tokens[$i] instanceof PHP_Token_ABSTRACT)
-            ) {
+                $tokens[$i] instanceof PHP_Token_ABSTRACT)) {
                 // no keywords; stop visibility search
                 break;
             }
@@ -157,23 +154,23 @@ abstract class PHP_TokenWithScope extends PHP_Token
         $tokens = $this->tokenStream->tokens();
 
         for ($i = $this->id - 2; $i > $this->id - 7; $i -= 2) {
-            if (isset($tokens[$i]) && (
-                $tokens[$i] instanceof PHP_Token_PRIVATE ||
+            if (isset($tokens[$i]) &&
+               ($tokens[$i] instanceof PHP_Token_PRIVATE ||
                 $tokens[$i] instanceof PHP_Token_PROTECTED ||
-                $tokens[$i] instanceof PHP_Token_PUBLIC)
-            ) {
+                $tokens[$i] instanceof PHP_Token_PUBLIC)) {
                 continue;
             }
-            if (isset($tokens[$i]) && (
-                $tokens[$i] instanceof PHP_Token_STATIC ||
+
+            if (isset($tokens[$i]) &&
+               ($tokens[$i] instanceof PHP_Token_STATIC ||
                 $tokens[$i] instanceof PHP_Token_FINAL ||
-                $tokens[$i] instanceof PHP_Token_ABSTRACT)
-            ) {
+                $tokens[$i] instanceof PHP_Token_ABSTRACT)) {
                 $keywords[] = strtolower(
-                    str_replace('PHP_Token_', '', get_class($tokens[$i]))
+                  str_replace('PHP_Token_', '', get_class($tokens[$i]))
                 );
             }
         }
+
         return implode(',', $keywords);
     }
 
