@@ -115,6 +115,11 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
     protected $functions;
 
     /**
+     * @var array
+     */
+    protected $includes;
+
+    /**
      * Constructor.
      *
      * @param string $sourceCode
@@ -227,6 +232,62 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
         $this->parseClassesFunctions();
 
         return $this->functions;
+    }
+
+    /**
+     * Gets the names of all files that have been included 
+     * using include(), include_once(), require() or require_once(). 
+     *
+     * Parameter $categorize set to TRUE causing this function to return a
+     * multi-dimensional array with categories in the keys of the first dimension
+     * and constants and their values in the second dimension. 
+     *
+     * Parameter $category allow to filter following specific inclusion type
+     * 
+     * @param bool   $categorize OPTIONAL 
+     * @param string $category   OPTIONAL Either 'require_once', 'require', 
+     *                                           'include_once', 'include'.
+     * @return array
+     */
+    public function getIncludes($categorize = false, $category = null)
+    {
+        if ($this->includes === NULL) {
+        
+            $this->includes = array(
+                'require_once' => array(),
+                'require'      => array(),
+                'include_once' => array(),
+                'include'      => array()
+            );
+            
+            foreach ($this->tokens as $token) {
+                switch (get_class($token)) {
+                    case 'PHP_Token_REQUIRE_ONCE':
+                    case 'PHP_Token_REQUIRE':
+                    case 'PHP_Token_INCLUDE_ONCE':
+                    case 'PHP_Token_INCLUDE':
+                        $this->includes[$token->getType()][] = $token->getName();
+                        break;
+                }
+            }
+        }
+        
+        if (isset($this->includes[$category])) {
+            $includes = $this->includes[$category];
+        } 
+        else if ($categorize === false) {
+            $includes = array_merge(
+                $this->includes['require_once'],
+                $this->includes['require'],
+                $this->includes['include_once'],
+                $this->includes['include']
+            );
+        }
+        else {
+            $includes = $this->includes;
+        }
+        
+        return $includes;
     }
 
     protected function parseClassesFunctions()
