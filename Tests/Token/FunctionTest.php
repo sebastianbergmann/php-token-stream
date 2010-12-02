@@ -66,7 +66,7 @@ require_once 'PHP/Token/Stream.php';
  */
 class PHP_Token_FunctionTest extends PHPUnit_Framework_TestCase
 {
-    protected $function;
+    protected $functions;
 
     protected function setUp()
     {
@@ -74,8 +74,7 @@ class PHP_Token_FunctionTest extends PHPUnit_Framework_TestCase
 
         foreach ($ts as $token) {
             if ($token instanceof PHP_Token_FUNCTION) {
-                $this->function = $token;
-                break;
+                $this->functions[] = $token;
             }
         }
     }
@@ -86,7 +85,11 @@ class PHP_Token_FunctionTest extends PHPUnit_Framework_TestCase
     public function testGetArguments()
     {
         $this->assertEquals(
-          array('$baz' => 'Baz'), $this->function->getArguments()
+          array('$baz' => 'Baz'), $this->functions[0]->getArguments()
+        );
+
+        $this->assertEquals(
+          array('$foobar' => 'Foobar'), $this->functions[1]->getArguments()
         );
     }
 
@@ -95,7 +98,8 @@ class PHP_Token_FunctionTest extends PHPUnit_Framework_TestCase
      */
     public function testGetName()
     {
-        $this->assertEquals('bar', $this->function->getName());
+        $this->assertEquals('bar', $this->functions[0]->getName());
+        $this->assertEquals('foobar', $this->functions[1]->getName());
     }
 
     /**
@@ -103,7 +107,8 @@ class PHP_Token_FunctionTest extends PHPUnit_Framework_TestCase
      */
     public function testGetLine()
     {
-        $this->assertEquals(7, $this->function->getLine());
+        $this->assertEquals(7, $this->functions[0]->getLine());
+        $this->assertEquals(14, $this->functions[1]->getLine());
     }
 
     /**
@@ -111,7 +116,8 @@ class PHP_Token_FunctionTest extends PHPUnit_Framework_TestCase
      */
     public function testGetEndLine()
     {
-        $this->assertEquals(9, $this->function->getEndLine());
+        $this->assertEquals(9, $this->functions[0]->getEndLine());
+        $this->assertEquals(16, $this->functions[1]->getEndLine());
     }
 
     /**
@@ -121,7 +127,12 @@ class PHP_Token_FunctionTest extends PHPUnit_Framework_TestCase
     {
         $this->assertEquals(
           "/**\n     * @param Baz \$baz\n     */",
-          $this->function->getDocblock()
+          $this->functions[0]->getDocblock()
+        );
+
+        $this->assertEquals(
+          "/**\n     * @param Foobar \$foobar\n     */",
+          $this->functions[1]->getDocblock()
         );
     }
 }

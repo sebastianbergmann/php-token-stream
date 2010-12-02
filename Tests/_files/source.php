@@ -7,4 +7,11 @@ class Foo
     function bar(Baz $baz)
     {
     }
+
+    /**
+     * @param Foobar $foobar
+     */
+    static public function foobar(Foobar $foobar)
+    {
+    }
 }
