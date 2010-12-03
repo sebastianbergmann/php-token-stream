@@ -2,7 +2,8 @@
 
 <phpunit backupGlobals="false"
          backupStaticAttributes="false"
-         syntaxCheck="false">
+         syntaxCheck="false"
+         bootstrap="PHP/Token/Stream/Autoload.php">
   <testsuites>
     <testsuite name="php-token-stream">
       <directory suffix="Test.php">Tests</directory>

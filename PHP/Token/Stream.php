@@ -41,8 +41,6 @@
  * @since     File available since Release 1.0.0
  */
 
-require_once 'PHP/Token.php';
-
 /**
  * A stream of PHP tokens.
  *

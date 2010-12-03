@@ -41,14 +41,6 @@
  * @since     File available since Release 1.0.0
  */
 
-require_once 'PHP/Token/Stream.php';
-require_once 'ezc/Base/base.php';
-
-function __autoload($className)
-{
-    ezcBase::autoload($className);
-}
-
 /**
  * TextUI frontend for PHP_TokenStream.
  *

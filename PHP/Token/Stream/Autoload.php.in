@@ -38,36 +38,34 @@
  * @author    Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @copyright 2009-2010 Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @since     File available since Release 1.0.0
- */
-
-/**
- * A caching factory for token stream objects.
- *
- * @author    Sebastian Bergmann <sb@sebastian-bergmann.de>
- * @copyright 2009-2010 Sebastian Bergmann <sb@sebastian-bergmann.de>
- * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
- * @version   Release: @package_version@
  * @link      http://github.com/sebastianbergmann/php-token-stream/tree
- * @since     Class available since Release 1.0.0
+ * @since     File available since Release 1.1.0
  */
-class PHP_Token_Stream_CachingFactory
-{
-    /**
-     * @var array
-     */
-    protected static $cache = array();
 
-    /**
-     * @param  string $filename
-     * @return PHP_Token_Stream
-     */
-    public static function get($filename)
-    {
-        if (!isset(self::$cache[$filename])) {
-            self::$cache[$filename] = new PHP_Token_Stream($filename);
-        }
+function php_tokenstream_autoload($class) {
+    static $classes = NULL;
+    static $path = NULL;;
 
-        return self::$cache[$filename];
+    if ($classes === NULL) {
+        $classes = array(
+          ___CLASSLIST___
+        );
+
+        $path = dirname(dirname(dirname(__FILE__)));
     }
+
+    $cn = strtolower($class);
+
+    if (isset($classes[$cn])) {
+        require $path . $classes[$cn];
+    }
+}
+
+spl_autoload_register('php_tokenstream_autoload');
+
+require_once 'ezc/Base/base.php';
+
+function __autoload($className)
+{
+    ezcBase::autoload($className);
 }
