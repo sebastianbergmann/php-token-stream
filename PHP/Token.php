@@ -114,11 +114,17 @@ abstract class PHP_TokenWithScope extends PHP_Token
     {
         $tokens = $this->tokenStream->tokens();
 
-        for ($i = $this->id - 2; $i > $this->id - 9; $i -= 1) {
-            if (isset($tokens[$i]) &&
-               ($tokens[$i] instanceof PHP_Token_COMMENT ||
-                $tokens[$i] instanceof PHP_Token_DOC_COMMENT)) {
-                return (string)$tokens[$i];
+        for ($i = $this->id - 2; $i > $this->id - 7; $i -= 1) {
+            if (isset($tokens[$i])) {
+                if ($tokens[$i] instanceof PHP_Token_FUNCTION ||
+                    $tokens[$i] instanceof PHP_Token_CLASS) {
+                    // Some other class or function, no docblock can be used for the current token
+                    break;
+                }
+
+                if ($tokens[$i] instanceof PHP_Token_DOC_COMMENT) {
+                    return (string)$tokens[$i];
+                }
             }
         }
     }
