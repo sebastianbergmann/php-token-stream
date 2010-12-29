@@ -213,11 +213,41 @@ abstract class PHP_TokenWithScope extends PHP_Token
     }
 }
 
-class PHP_Token_REQUIRE_ONCE extends PHP_Token {}
-class PHP_Token_REQUIRE extends PHP_Token {}
+abstract class PHP_TokenIncludes extends PHP_Token
+{
+    protected $name;
+    protected $type;
+
+    public function getName()
+    {
+        if ($this->name !== NULL) {
+            return $this->name;
+        }
+
+        $tokens = $this->tokenStream->tokens();
+
+        if ($tokens[$this->id+2] instanceof PHP_Token_CONSTANT_ENCAPSED_STRING) {
+            $this->name = trim($tokens[$this->id+2], "'\"");
+            $this->type = strtolower(
+                str_replace('PHP_Token_', '', get_class($tokens[$this->id]))
+            );
+        }
+
+        return $this->name;
+    }
+
+    public function getType()
+    {
+        $this->getName();
+        return $this->type;
+    }
+}
+
+class PHP_Token_REQUIRE_ONCE extends PHP_TokenIncludes {}
+class PHP_Token_REQUIRE extends PHP_TokenIncludes {}
 class PHP_Token_EVAL extends PHP_Token {}
-class PHP_Token_INCLUDE_ONCE extends PHP_Token {}
-class PHP_Token_INCLUDE extends PHP_Token {}
+class PHP_Token_INCLUDE_ONCE extends PHP_TokenIncludes {}
+class PHP_Token_INCLUDE extends PHP_TokenIncludes {}
 class PHP_Token_LOGICAL_OR extends PHP_Token {}
 class PHP_Token_LOGICAL_XOR extends PHP_Token {}
 class PHP_Token_LOGICAL_AND extends PHP_Token {}
