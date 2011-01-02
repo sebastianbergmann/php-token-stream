@@ -213,7 +213,7 @@ abstract class PHP_TokenWithScope extends PHP_Token
     }
 }
 
-abstract class PHP_TokenIncludes extends PHP_Token
+abstract class PHP_Token_Includes extends PHP_Token
 {
     protected $name;
     protected $type;
@@ -243,11 +243,11 @@ abstract class PHP_TokenIncludes extends PHP_Token
     }
 }
 
-class PHP_Token_REQUIRE_ONCE extends PHP_TokenIncludes {}
-class PHP_Token_REQUIRE extends PHP_TokenIncludes {}
+class PHP_Token_REQUIRE_ONCE extends PHP_Token_Includes {}
+class PHP_Token_REQUIRE extends PHP_Token_Includes {}
 class PHP_Token_EVAL extends PHP_Token {}
-class PHP_Token_INCLUDE_ONCE extends PHP_TokenIncludes {}
-class PHP_Token_INCLUDE extends PHP_TokenIncludes {}
+class PHP_Token_INCLUDE_ONCE extends PHP_Token_Includes {}
+class PHP_Token_INCLUDE extends PHP_Token_Includes {}
 class PHP_Token_LOGICAL_OR extends PHP_Token {}
 class PHP_Token_LOGICAL_XOR extends PHP_Token {}
 class PHP_Token_LOGICAL_AND extends PHP_Token {}

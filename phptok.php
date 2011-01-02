@@ -46,6 +46,6 @@ if (strpos('@php_bin@', '@php_bin') === 0) {
     set_include_path(dirname(__FILE__) . PATH_SEPARATOR . get_include_path());
 }
 
-require 'PHP/Token/Stream/TextUI/Command.php';
+require 'PHP/Token/Stream/Autoload.php';
 
 PHP_Token_Stream_TextUI_Command::main();
