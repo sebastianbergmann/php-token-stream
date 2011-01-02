@@ -42,14 +42,19 @@
  * @since     File available since Release 1.1.0
  */
 
-function php_tokenstream_autoload($class) {
+function php_tokenstream_autoload($class)
+{
     static $classes = NULL;
     static $path = NULL;;
 
     if ($classes === NULL) {
         $classes = array(
+          'php_token_stream_textui_command' => '/Token/Stream/TextUI/Command.php',
+          'php_token_stream_cachingfactory' => '/Token/Stream/CachingFactory.php',
+          'php_token_stream' => '/Token/Stream.php',
           'php_token' => '/Token.php',
           'php_tokenwithscope' => '/Token.php',
+          'php_tokenincludes' => '/Token.php',
           'php_token_require_once' => '/Token.php',
           'php_token_require' => '/Token.php',
           'php_token_eval' => '/Token.php',
@@ -201,11 +206,7 @@ function php_tokenstream_autoload($class) {
           'php_token_dollar' => '/Token.php',
           'php_token_caret' => '/Token.php',
           'php_token_tilde' => '/Token.php',
-          'php_token_backtick' => '/Token.php',
-          'php_token_stream' => '/Token/Stream.php',
-          'php_token_stream_cachingfactory' => '/Token/Stream/CachingFactory.php',
-          'php_token_stream_textui_command' => '/Token/Stream/TextUI/Command.php',
-          'php_token_exception' => '/Token/Exception.php'
+          'php_token_backtick' => '/Token.php'
         );
 
         $path = dirname(dirname(dirname(__FILE__)));
@@ -222,7 +223,9 @@ spl_autoload_register('php_tokenstream_autoload');
 
 require_once 'ezc/Base/base.php';
 
-function __autoload($className)
+function ezc_autoload($className)
 {
     ezcBase::autoload($className);
 }
+
+spl_autoload_register('ezc_autoload');

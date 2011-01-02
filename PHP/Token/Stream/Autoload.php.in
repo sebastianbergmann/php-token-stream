@@ -42,7 +42,8 @@
  * @since     File available since Release 1.1.0
  */
 
-function php_tokenstream_autoload($class) {
+function php_tokenstream_autoload($class)
+{
     static $classes = NULL;
     static $path = NULL;;
 
@@ -65,7 +66,9 @@ spl_autoload_register('php_tokenstream_autoload');
 
 require_once 'ezc/Base/base.php';
 
-function __autoload($className)
+function ezc_autoload($className)
 {
     ezcBase::autoload($className);
 }
+
+spl_autoload_register('ezc_autoload');
