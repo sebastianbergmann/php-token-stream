@@ -199,7 +199,9 @@ abstract class PHP_TokenWithScope extends PHP_Token
 
             else if ($this instanceof PHP_Token_FUNCTION &&
                 $tokens[$i] instanceof PHP_Token_SEMICOLON) {
-                $this->endTokenId = $i;
+                if ($block === 0) {
+                    $this->endTokenId = $i;
+                }
             }
 
             $i++;
