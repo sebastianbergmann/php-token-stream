@@ -197,6 +197,13 @@ abstract class PHP_TokenWithScope extends PHP_Token
                 }
             }
 
+            else if ($this instanceof PHP_Token_FUNCTION &&
+                $tokens[$i] instanceof PHP_Token_SEMICOLON) {
+                if ($block === 0) {
+                    $this->endTokenId = $i;
+                }
+            }
+
             $i++;
         }
 
@@ -453,6 +460,8 @@ class PHP_Token_HALT_COMPILER extends PHP_Token {}
 
 class PHP_Token_INTERFACE extends PHP_TokenWithScope
 {
+    protected $interfaces;
+
     public function getName()
     {
         return (string)$this->tokenStream[$this->id + 2];
@@ -478,6 +487,38 @@ class PHP_Token_INTERFACE extends PHP_TokenWithScope
         }
 
         return $className;
+    }
+
+    public function hasInterfaces()
+    {
+        return ($this->tokenStream[$this->id + 4] instanceof PHP_Token_IMPLEMENTS ||
+            $this->tokenStream[$this->id + 8] instanceof PHP_Token_IMPLEMENTS);
+    }
+
+    public function getInterfaces()
+    {
+        if ($this->interfaces !== NULL) {
+            return $this->interfaces;
+        }
+
+        if (!$this->hasInterfaces()) {
+            return ($this->interfaces = FALSE);
+        }
+
+        if ($this->tokenStream[$this->id + 4] instanceof PHP_Token_IMPLEMENTS) {
+            $i = $this->id + 3;
+        } else {
+            $i = $this->id + 7;
+        }
+        $tokens = $this->tokenStream->tokens();
+
+        while (!$tokens[$i+1] instanceof PHP_Token_OPEN_CURLY) {
+            $i++;
+            if ($tokens[$i] instanceof PHP_Token_STRING) {
+                $this->interfaces[] = (string)$tokens[$i];
+            }
+        }
+        return $this->interfaces;
     }
 }
 

@@ -37,6 +37,7 @@
  * @package    PHP_TokenStream
  * @subpackage Tests
  * @author     Sebastian Bergmann <sb@sebastian-bergmann.de>
+ * @author     Laurent Laville <pear@laurent-laville.org>
  * @copyright  2009-2011 Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @since      File available since Release 1.0.0
@@ -58,6 +59,7 @@ require_once 'PHP/Token/Stream.php';
  * @package    PHP_TokenStream
  * @subpackage Tests
  * @author     Sebastian Bergmann <sb@sebastian-bergmann.de>
+ * @author     Laurent Laville <pear@laurent-laville.org>
  * @copyright  2009-2011 Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @version    Release: @package_version@
@@ -66,27 +68,93 @@ require_once 'PHP/Token/Stream.php';
  */
 class PHP_Token_InterfaceTest extends PHPUnit_Framework_TestCase
 {
+    protected $class;
+    protected $interfaces;
+
+    protected function setUp()
+    {
+        $ts = new PHP_Token_Stream(TEST_FILES_PATH . 'source4.php');
+        $i  = 0;
+        foreach ($ts as $token) {
+            if ($token instanceof PHP_Token_CLASS) {
+                $this->class = $token;
+            }
+            elseif ($token instanceof PHP_Token_INTERFACE) {
+                $this->interfaces[$i] = $token;
+                $i++;
+            }
+        }
+    }
+
     /**
      * @covers PHP_Token_INTERFACE::getName
      */
     public function testGetName()
     {
-        $this->markTestIncomplete();
+        $this->assertEquals(
+            'iTemplate', $this->interfaces[0]->getName()
+        );
     }
 
     /**
      * @covers PHP_Token_INTERFACE::getParent
      */
-    public function testGetParent()
+    public function testGetParentNotExists()
     {
-        $this->markTestIncomplete();
+        $this->assertFalse(
+            $this->interfaces[0]->getParent()
+        );
     }
 
     /**
      * @covers PHP_Token_INTERFACE::hasParent
      */
-    public function testHasParent()
+    public function testHasParentNotExists()
     {
-        $this->markTestIncomplete();
+        $this->assertFalse(
+            $this->interfaces[0]->hasParent()
+        );
     }
+
+    /**
+     * @covers PHP_Token_INTERFACE::getParent
+     */
+    public function testGetParentExists()
+    {
+        $this->assertEquals(
+            'a', $this->interfaces[2]->getParent()
+        );
+    }
+
+    /**
+     * @covers PHP_Token_INTERFACE::hasParent
+     */
+    public function testHasParentExists()
+    {
+        $this->assertTrue(
+            $this->interfaces[2]->hasParent()
+        );
+    }
+
+    /**
+     * @covers PHP_Token_INTERFACE::getInterfaces
+     */
+    public function testGetInterfacesExists()
+    {
+        $this->assertEquals(
+            array('b'),
+            $this->class->getInterfaces()
+        );
+    }
+
+    /**
+     * @covers PHP_Token_INTERFACE::hasInterfaces
+     */
+    public function testHasInterfacesExists()
+    {
+        $this->assertTrue(
+            $this->class->hasInterfaces()
+        );
+    }
+
 }
