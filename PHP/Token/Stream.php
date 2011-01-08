@@ -329,12 +329,12 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
                     $interfaceEndLine = $token->getEndLine();
 
                     $this->interfaces[$interface] = array(
-                        'methods'   => array(),
-                        'parent'    => $token->getParent(),
-                        'keywords'  => $token->getKeywords(),
-                        'docblock'  => $token->getDocblock(),
-                        'startLine' => $token->getLine(),
-                        'endLine'   => $interfaceEndLine
+                      'methods'   => array(),
+                      'parent'    => $token->getParent(),
+                      'keywords'  => $token->getKeywords(),
+                      'docblock'  => $token->getDocblock(),
+                      'startLine' => $token->getLine(),
+                      'endLine'   => $interfaceEndLine
                     );
                 }
                 break;
