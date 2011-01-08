@@ -472,6 +472,61 @@ class PHP_Token_INTERFACE extends PHP_TokenWithScope
         return $this->tokenStream[$this->id + 4] instanceof PHP_Token_EXTENDS;
     }
 
+    public function getPackage()
+    {
+        $className  = $this->getName();
+        $docComment = $this->getDocblock();
+
+        $result = array(
+          'namespace'   => '',
+          'fullPackage' => '',
+          'category'    => '',
+          'package'     => '',
+          'subpackage'  => ''
+        );
+
+        if (strpos($className, '\\') !== FALSE) {
+            $result['namespace'] = $this->arrayToName(
+              explode('\\', $className)
+            );
+        }
+
+        if (preg_match('/@category[\s]+([\.\w]+)/', $docComment, $matches)) {
+            $result['category'] = $matches[1];
+        }
+
+        if (preg_match('/@package[\s]+([\.\w]+)/', $docComment, $matches)) {
+            $result['package']     = $matches[1];
+            $result['fullPackage'] = $matches[1];
+        }
+
+        if (preg_match('/@subpackage[\s]+([\.\w]+)/', $docComment, $matches)) {
+            $result['subpackage']   = $matches[1];
+            $result['fullPackage'] .= '.' . $matches[1];
+        }
+
+        if (empty($result['fullPackage'])) {
+            $result['fullPackage'] = $this->arrayToName(
+              explode('_', str_replace('\\', '_', $className)), '.'
+            );
+        }
+
+        return $result;
+    }
+
+    protected function arrayToName(array $parts, $join = '\\')
+    {
+        $result = '';
+
+        if (count($parts) > 1) {
+            array_pop($parts);
+
+            $result = join($join, $parts);
+        }
+
+        return $result;
+    }
+
     public function getParent()
     {
         if (!$this->hasParent()) {
