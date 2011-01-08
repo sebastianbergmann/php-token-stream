@@ -156,5 +156,4 @@ class PHP_Token_InterfaceTest extends PHPUnit_Framework_TestCase
             $this->class->hasInterfaces()
         );
     }
-
 }
