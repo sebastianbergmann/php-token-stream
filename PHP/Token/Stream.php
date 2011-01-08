@@ -334,7 +334,8 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
                       'keywords'  => $token->getKeywords(),
                       'docblock'  => $token->getDocblock(),
                       'startLine' => $token->getLine(),
-                      'endLine'   => $interfaceEndLine
+                      'endLine'   => $interfaceEndLine,
+                      'package'   => $token->getPackage()
                     );
                 }
                 break;
@@ -350,7 +351,8 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
                       'keywords'  => $token->getKeywords(),
                       'docblock'  => $token->getDocblock(),
                       'startLine' => $token->getLine(),
-                      'endLine'   => $classEndLine
+                      'endLine'   => $classEndLine,
+                      'package'   => $token->getPackage()
                     );
                 }
                 break;
