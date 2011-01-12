@@ -218,7 +218,7 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
             return $this->classes;
         }
 
-        $this->parseClassesFunctions();
+        $this->parse();
 
         return $this->classes;
     }
@@ -232,7 +232,7 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
             return $this->functions;
         }
 
-        $this->parseClassesFunctions();
+        $this->parse();
 
         return $this->functions;
     }
@@ -246,7 +246,7 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
             return $this->interfaces;
         }
 
-        $this->parseClassesFunctions();
+        $this->parse();
 
         return $this->interfaces;
     }
@@ -307,7 +307,7 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
         return $includes;
     }
 
-    protected function parseClassesFunctions()
+    protected function parse()
     {
         $this->interfaces = array();
         $this->classes    = array();
