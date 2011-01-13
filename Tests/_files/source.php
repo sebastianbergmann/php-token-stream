@@ -21,4 +21,12 @@ class Foo{function foo(){}
     public function barfoo(Barfoo $barfoo)
     {
     }
+
+    /**
+     * This docblock does not belong to the baz function
+     */
+
+    public function baz()
+    {
+    }
 }

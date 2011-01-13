@@ -88,6 +88,7 @@ class PHP_Token_FunctionTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(array('$baz' => 'Baz'), $this->functions[1]->getArguments());
         $this->assertEquals(array('$foobar' => 'Foobar'), $this->functions[2]->getArguments());
         $this->assertEquals(array('$barfoo' => 'Barfoo'), $this->functions[3]->getArguments());
+        $this->assertEquals(array(), $this->functions[4]->getArguments());
     }
 
     /**
@@ -99,6 +100,7 @@ class PHP_Token_FunctionTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('bar', $this->functions[1]->getName());
         $this->assertEquals('foobar', $this->functions[2]->getName());
         $this->assertEquals('barfoo', $this->functions[3]->getName());
+        $this->assertEquals('baz', $this->functions[4]->getName());
     }
 
     /**
@@ -110,6 +112,7 @@ class PHP_Token_FunctionTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(10, $this->functions[1]->getLine());
         $this->assertEquals(17, $this->functions[2]->getLine());
         $this->assertEquals(21, $this->functions[3]->getLine());
+        $this->assertEquals(29, $this->functions[4]->getLine());
     }
 
     /**
@@ -121,6 +124,7 @@ class PHP_Token_FunctionTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(12, $this->functions[1]->getEndLine());
         $this->assertEquals(19, $this->functions[2]->getEndLine());
         $this->assertEquals(23, $this->functions[3]->getEndLine());
+        $this->assertEquals(31, $this->functions[4]->getEndLine());
     }
 
     /**
@@ -132,5 +136,6 @@ class PHP_Token_FunctionTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("/**\n     * @param Baz \$baz\n     */", $this->functions[1]->getDocblock());
         $this->assertEquals("/**\n     * @param Foobar \$foobar\n     */", $this->functions[2]->getDocblock());
         $this->assertNull($this->functions[3]->getDocblock());
+        $this->assertNull($this->functions[4]->getDocblock());
     }
 }
