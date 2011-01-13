@@ -110,11 +110,22 @@ abstract class PHP_TokenWithScope extends PHP_Token
 {
     protected $endTokenId;
 
+    /**
+     * Get the docblock for this token
+     *
+     * This method will fetch the docblock belonging to the current token. The
+     * docblock must be placed on the line directly above the token to be
+     * recognized.
+     *
+     * @return string|null Returns the docblock as a string if found
+     */
     public function getDocblock()
     {
         $tokens = $this->tokenStream->tokens();
+        $currentLineNumber = $tokens[$this->id]->getLine();
+        $prevLineNumber = $currentLineNumber - 1;
 
-        for ($i = $this->id - 2; $i > $this->id - 7; $i -= 1) {
+        for ($i = $this->id - 1; $i; $i--) {
             if (isset($tokens[$i])) {
                 if ($tokens[$i] instanceof PHP_Token_FUNCTION ||
                     $tokens[$i] instanceof PHP_Token_CLASS) {
@@ -122,9 +133,18 @@ abstract class PHP_TokenWithScope extends PHP_Token
                     break;
                 }
 
-                if ($tokens[$i] instanceof PHP_Token_DOC_COMMENT) {
-                    return (string)$tokens[$i];
+                $line = $tokens[$i]->getLine();
+
+                if ($line == $currentLineNumber ||
+                    ($line == $prevLineNumber && ($tokens[$i] instanceof PHP_Token_WHITESPACE))) {
+                    continue;
                 }
+
+                if ($line < $currentLineNumber && !($tokens[$i] instanceof PHP_Token_DOC_COMMENT)) {
+                    break;
+                }
+
+                return (string)$tokens[$i];
             }
         }
     }
