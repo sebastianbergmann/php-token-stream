@@ -42,7 +42,7 @@
  * @since     File available since Release 1.1.0
  */
 
-function php_tokenstream_autoload($class)
+function php_tokenstream_autoload($class = NULL)
 {
     static $classes = NULL;
     static $path = NULL;;
@@ -197,6 +197,7 @@ function php_tokenstream_autoload($class)
           'php_token_switch' => '/Token.php',
           'php_token_throw' => '/Token.php',
           'php_token_tilde' => '/Token.php',
+          'php_token_trait' => '/Token.php',
           'php_token_try' => '/Token.php',
           'php_token_unset' => '/Token.php',
           'php_token_unset_cast' => '/Token.php',
@@ -210,6 +211,16 @@ function php_tokenstream_autoload($class)
         );
 
         $path = dirname(dirname(dirname(__FILE__)));
+    }
+
+    if ($class === NULL) {
+        $result = array();
+
+        foreach ($classes as $file) {
+            $result[] = $path . $file;
+        }
+
+        return $result;
     }
 
     $cn = strtolower($class);
