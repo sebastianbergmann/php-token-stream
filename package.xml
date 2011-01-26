@@ -73,12 +73,14 @@
    <pearinstaller>
     <min>1.9.1</min>
    </pearinstaller>
+  </required>
+  <optional>
    <package>
     <name>ConsoleTools</name>
     <channel>components.ez.no</channel>
     <min>1.6</min>
    </package>
-  </required>
+  </optional>
  </dependencies>
  <phprelease>
   <installconditions>
