@@ -73,6 +73,9 @@
    <pearinstaller>
     <min>1.9.1</min>
    </pearinstaller>
+   <extension>
+    <name>tokenizer</name>
+   </extension>
   </required>
   <optional>
    <package>
