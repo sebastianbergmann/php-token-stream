@@ -88,6 +88,11 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
     );
 
     /**
+     * @var string
+     */
+    protected $filename;
+
+    /**
      * @var array
      */
     protected $tokens = array();
@@ -135,10 +140,20 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
     public function __construct($sourceCode)
     {
         if (is_file($sourceCode)) {
-            $sourceCode = file_get_contents($sourceCode);
+            $this->filename = $sourceCode;
+            $sourceCode     = file_get_contents($sourceCode);
         }
 
         $this->scan($sourceCode);
+    }
+
+    /**
+     * @return string
+     * @since  Method available since Release 1.1.0
+     */
+    public function getFilename()
+    {
+        return $this->filename;
     }
 
     /**
@@ -258,6 +273,7 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
 
     /**
      * @return array
+     * @since  Method available since Release 1.1.0
      */
     public function getTraits()
     {
@@ -284,6 +300,7 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
      * @param string $category   OPTIONAL Either 'require_once', 'require',
      *                                           'include_once', 'include'.
      * @return array
+     * @since  Method available since Release 1.1.0
      */
     public function getIncludes($categorize = FALSE, $category = NULL)
     {
@@ -357,7 +374,8 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
                       'docblock'  => $token->getDocblock(),
                       'startLine' => $token->getLine(),
                       'endLine'   => $interfaceEndLine,
-                      'package'   => $token->getPackage()
+                      'package'   => $token->getPackage(),
+                      'file'      => $this->filename
                     );
                 }
                 break;
@@ -372,7 +390,8 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
                       'docblock'  => $token->getDocblock(),
                       'startLine' => $token->getLine(),
                       'endLine'   => $token->getEndLine(),
-                      'package'   => $token->getPackage()
+                      'package'   => $token->getPackage(),
+                      'file'      => $this->filename
                     );
 
                     if ($token instanceof PHP_Token_CLASS) {
@@ -396,7 +415,8 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
                       'signature' => $token->getSignature(),
                       'startLine' => $token->getLine(),
                       'endLine'   => $token->getEndLine(),
-                      'ccn'       => $token->getCCN()
+                      'ccn'       => $token->getCCN(),
+                      'file'      => $this->filename
                     );
 
                     if ($class === FALSE &&
