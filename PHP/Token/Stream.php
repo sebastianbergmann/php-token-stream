@@ -286,6 +286,13 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
         }
     }
 
+    public function __destruct()
+    {
+        for ($i = 0; $i < count($this->tokens); $i++) {
+            unset($this->tokens[$i]);
+        }
+    }
+
     /**
      * @return array
      */
