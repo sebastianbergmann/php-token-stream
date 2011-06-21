@@ -61,6 +61,13 @@ class PHP_Token_Stream_CachingFactory
     protected static $cache = array();
 
     /**
+     * @param string $filename
+     */
+    public function delete($filename) {
+        unset(self::$cache[$filename]);
+    }
+
+    /**
      * @param  string $filename
      * @return PHP_Token_Stream
      */
