@@ -147,6 +147,9 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
         $this->scan($sourceCode);
     }
 
+    /**
+     * Destructor.
+     */
     public function __destruct()
     {
         $this->tokens = array();
