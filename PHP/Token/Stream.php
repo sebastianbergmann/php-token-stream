@@ -147,6 +147,25 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
         $this->scan($sourceCode);
     }
 
+    public function __destruct()
+    {
+        $this->tokens = array();
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        $buffer = '';
+
+        foreach ($this as $token) {
+            $buffer .= $token;
+        }
+
+        return $buffer;
+    }
+
     /**
      * @return string
      * @since  Method available since Release 1.1.0
@@ -197,20 +216,6 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
         $this->linesOfCode['loc']   = substr_count($sourceCode, "\n");
         $this->linesOfCode['ncloc'] = $this->linesOfCode['loc'] -
                                       $this->linesOfCode['cloc'];
-    }
-
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-        $buffer = '';
-
-        foreach ($this as $token) {
-            $buffer .= $token;
-        }
-
-        return $buffer;
     }
 
     /**
@@ -461,11 +466,6 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
                 break;
             }
         }
-    }
-
-    public function __destruct()
-    {
-        $this->tokens = array();
     }
 
     /**
