@@ -131,7 +131,8 @@ abstract class PHP_TokenWithScope extends PHP_Token
             }
 
             if ($tokens[$i] instanceof PHP_Token_FUNCTION ||
-                $tokens[$i] instanceof PHP_Token_CLASS) {
+                $tokens[$i] instanceof PHP_Token_CLASS ||
+                $tokens[$i] instanceof PHP_Token_TRAIT) {
                 // Some other trait, class or function, no docblock can be
                 // used for the current token
                 break;
