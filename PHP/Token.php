@@ -445,9 +445,14 @@ class PHP_Token_FUNCTION extends PHP_TokenWithScope
             return $this->signature;
         }
 
-        $this->signature = '';
+        if ($this->getName() == 'anonymous function') {
+            $this->signature = 'anonymous function';
+            $i               = $this->id + 1;
+        } else {
+            $this->signature = '';
+            $i               = $this->id + 2;
+        }
 
-        $i      = $this->id + 2;
         $tokens = $this->tokenStream->tokens();
 
         while (!$tokens[$i] instanceof PHP_Token_CLOSE_BRACKET) {
