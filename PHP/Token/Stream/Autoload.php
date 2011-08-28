@@ -190,7 +190,6 @@ function php_tokenstream_autoload($class = NULL)
           'php_token_static' => '/Token.php',
           'php_token_stream' => '/Token/Stream.php',
           'php_token_stream_cachingfactory' => '/Token/Stream/CachingFactory.php',
-          'php_token_stream_textui_command' => '/Token/Stream/TextUI/Command.php',
           'php_token_string' => '/Token.php',
           'php_token_string_cast' => '/Token.php',
           'php_token_string_varname' => '/Token.php',
