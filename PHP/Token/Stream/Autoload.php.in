@@ -73,12 +73,3 @@ function php_tokenstream_autoload($class = NULL)
 }
 
 spl_autoload_register('php_tokenstream_autoload');
-
-require_once 'ezc/Base/base.php';
-
-function ezc_autoload($className)
-{
-    ezcBase::autoload($className);
-}
-
-spl_autoload_register('ezc_autoload');

@@ -48,4 +48,7 @@ if (strpos('@php_bin@', '@php_bin') === 0) {
 
 require 'PHP/Token/Stream/Autoload.php';
 
+require 'ezc/Base/base.php';
+spl_autoload_register(array('ezcBase', 'autoload'));
+
 PHP_Token_Stream_TextUI_Command::main();
