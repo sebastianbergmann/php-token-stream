@@ -126,29 +126,31 @@ abstract class PHP_TokenWithScope extends PHP_Token
         $prevLineNumber    = $currentLineNumber - 1;
 
         for ($i = $this->id - 1; $i; $i--) {
-            if (isset($tokens[$i])) {
-                if ($tokens[$i] instanceof PHP_Token_FUNCTION ||
-                    $tokens[$i] instanceof PHP_Token_CLASS) {
-                    // Some other trait, class or function, no docblock can be
-                    // used for the current token
-                    break;
-                }
-
-                $line = $tokens[$i]->getLine();
-
-                if ($line == $currentLineNumber ||
-                    ($line == $prevLineNumber &&
-                     $tokens[$i] instanceof PHP_Token_WHITESPACE)) {
-                    continue;
-                }
-
-                if ($line < $currentLineNumber &&
-                    !$tokens[$i] instanceof PHP_Token_DOC_COMMENT) {
-                    break;
-                }
-
-                return (string)$tokens[$i];
+            if (!isset($tokens[$i])) {
+                return;
             }
+
+            if ($tokens[$i] instanceof PHP_Token_FUNCTION ||
+                $tokens[$i] instanceof PHP_Token_CLASS) {
+                // Some other trait, class or function, no docblock can be
+                // used for the current token
+                break;
+            }
+
+            $line = $tokens[$i]->getLine();
+
+            if ($line == $currentLineNumber ||
+                ($line == $prevLineNumber &&
+                 $tokens[$i] instanceof PHP_Token_WHITESPACE)) {
+                continue;
+            }
+
+            if ($line < $currentLineNumber &&
+                !$tokens[$i] instanceof PHP_Token_DOC_COMMENT) {
+                break;
+            }
+
+            return (string)$tokens[$i];
         }
     }
 
