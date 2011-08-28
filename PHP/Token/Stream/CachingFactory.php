@@ -71,8 +71,15 @@ class PHP_Token_Stream_CachingFactory
         return self::$cache[$filename];
     }
 
-    public static function unsetFromCache($filename)
+    /**
+     * @param string $filename
+     */
+    public static function clear($filename = NULL)
     {
-        self::$cache[$filename] = null;
+        if (is_string($filename)) {
+            unset(self::$cache[$filename]);
+        } else {
+            self::$cache = array();
+        }
     }
 }
