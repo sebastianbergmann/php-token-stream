@@ -156,4 +156,57 @@ class PHP_Token_InterfaceTest extends PHPUnit_Framework_TestCase
             $this->class->hasInterfaces()
         );
     }
+    /**
+     * @covers PHP_Token_INTERFACE::getPackage
+     */
+    public function testGetPackageNamespace() {   
+        $tokenStream = new PHP_Token_Stream(TEST_FILES_PATH . 'classInNamespace.php');
+        foreach($tokenStream as $token) {
+            if($token instanceOf PHP_Token_INTERFACE) {
+                $package = $token->getPackage();
+                $this->assertSame('Foo\\Bar', $package['namespace']);
+            }
+        }
+    }
+
+
+    public function provideFilesWithClassesWithinMultipleNamespaces() {
+        return array(
+            array(TEST_FILES_PATH . 'multipleNamespacesWithOneClassUsingBraces.php'),
+            array(TEST_FILES_PATH . 'multipleNamespacesWithOneClassUsingNonBraceSyntax.php'),
+        );
+    }
+
+    /**
+     * @dataProvider provideFilesWithClassesWithinMultipleNamespaces
+     * @covers PHP_Token_INTERFACE::getPackage
+     */
+    public function testGetPackageNamespaceForFileWithMultipleNamespaces($filepath) {
+        $tokenStream = new PHP_Token_Stream($filepath);
+        $firstClassFound = false;
+        foreach($tokenStream as $token) {
+            if($firstClassFound === false && $token instanceOf PHP_Token_INTERFACE) {
+                $package = $token->getPackage();
+                $this->assertSame('TestClassInBar', $token->getName());
+                $this->assertSame('Foo\\Bar', $package['namespace']);
+                $firstClassFound = true;
+                continue;
+            }
+            // Secound class
+            if($token instanceOf PHP_Token_INTERFACE) {
+                $package = $token->getPackage();
+                $this->assertSame('TestClassInBaz', $token->getName());
+                $this->assertSame('Foo\\Bar', $package['namespace']);
+                return;
+            }
+        }
+        $this->fail("Seachring for 2 classes failed");
+    }
+
+    public function testGetPackageNamespaceIsEmptyForInterfacesThatAreNotWithinNamespaces() {
+        foreach($this->interfaces as $token) {
+            $package = $token->getPackage();
+            $this->assertSame("", $package['namespace']);
+        }
+    }
 }
