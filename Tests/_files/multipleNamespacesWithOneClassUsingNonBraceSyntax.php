@@ -1,6 +1,6 @@
 <?php
 
-namespace \Foo\Bar {
+namespace Foo\Bar {
 
     class TestClassInBar {
 
@@ -8,7 +8,7 @@ namespace \Foo\Bar {
 
 }
 
-namespace \Foo\Baz {
+namespace Foo\Baz {
 
     class TestClassInBaz {
 

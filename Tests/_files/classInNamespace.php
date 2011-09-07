@@ -1,6 +1,6 @@
 <?php
 
-namespace \Foo\Bar;
+namespace Foo\Bar;
 
 class TestClass {
 

@@ -164,7 +164,7 @@ class PHP_Token_InterfaceTest extends PHPUnit_Framework_TestCase
         foreach($tokenStream as $token) {
             if($token instanceOf PHP_Token_INTERFACE) {
                 $package = $token->getPackage();
-                $this->assertSame('\\Foo\\Bar', $package['namespace']);
+                $this->assertSame('Foo\\Bar', $package['namespace']);
             }
         }
     }
@@ -188,7 +188,7 @@ class PHP_Token_InterfaceTest extends PHPUnit_Framework_TestCase
             if($firstClassFound === false && $token instanceOf PHP_Token_INTERFACE) {
                 $package = $token->getPackage();
                 $this->assertSame('TestClassInBar', $token->getName());
-                $this->assertSame('\\Foo\\Bar', $package['namespace']);
+                $this->assertSame('Foo\\Bar', $package['namespace']);
                 $firstClassFound = true;
                 continue;
             }
@@ -196,7 +196,7 @@ class PHP_Token_InterfaceTest extends PHPUnit_Framework_TestCase
             if($token instanceOf PHP_Token_INTERFACE) {
                 $package = $token->getPackage();
                 $this->assertSame('TestClassInBaz', $token->getName());
-                $this->assertSame('\\Foo\\Bar', $package['namespace']);
+                $this->assertSame('Foo\\Bar', $package['namespace']);
                 return;
             }
         }
