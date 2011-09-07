@@ -517,10 +517,10 @@ class PHP_Token_INTERFACE extends PHP_TokenWithScope
           'subpackage'  => ''
         );
 
-        if (strpos($className, '\\') !== FALSE) {
-            $result['namespace'] = $this->arrayToName(
-              explode('\\', $className)
-            );
+        for($i = $this->id; $i; --$i) {
+            if($this->tokenStream[$i] instanceof PHP_Token_NAMESPACE) {
+                $result['namespace'] = $this->tokenStream[$i]->getName();
+            }
         }
 
         if (preg_match('/@category[\s]+([\.\w]+)/', $docComment, $matches)) {
@@ -639,9 +639,8 @@ class PHP_Token_NAMESPACE extends PHP_Token
     public function getName()
     {
         $tokens    = $this->tokenStream->tokens();
-        $namespace = (string)$tokens[$this->id+2];
-
-        for ($i = $this->id + 3; ; $i += 2) {
+        $namespace = '';
+        for ($i = $this->id + 2; ; $i += 2) {
             if (isset($tokens[$i]) &&
                 $tokens[$i] instanceof PHP_Token_NS_SEPARATOR) {
                 $namespace .= '\\' . $tokens[$i+1];
