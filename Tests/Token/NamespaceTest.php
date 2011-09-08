@@ -72,11 +72,11 @@ class PHP_Token_NamespaceTest extends PHPUnit_Framework_TestCase
     public function testGetName()
     {
         $tokenStream = new PHP_Token_Stream(TEST_FILES_PATH . 'classInNamespace.php');
-        foreach($tokenStream as $token) {
-            if($token instanceOf PHP_Token_NAMESPACE) {
+
+        foreach ($tokenStream as $token) {
+            if ($token instanceof PHP_Token_NAMESPACE) {
                 $this->assertSame('Foo\\Bar', $token->getName());
             }
         }
     }
-
 }

@@ -159,7 +159,7 @@ class PHP_Token_InterfaceTest extends PHPUnit_Framework_TestCase
     /**
      * @covers PHP_Token_INTERFACE::getPackage
      */
-    public function testGetPackageNamespace() {   
+    public function testGetPackageNamespace() {
         $tokenStream = new PHP_Token_Stream(TEST_FILES_PATH . 'classInNamespace.php');
         foreach($tokenStream as $token) {
             if($token instanceOf PHP_Token_INTERFACE) {

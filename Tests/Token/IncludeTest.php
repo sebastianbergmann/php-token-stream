@@ -94,12 +94,12 @@ class PHP_Token_IncludeTest extends PHPUnit_Framework_TestCase
     {
         $this->assertSame(
             array(
-                'require_once' => array('test4.php'),
-                'require'      => array('test3.php'),
-                'include_once' => array('test2.php'),
-                'include'      => array('test1.php')
+              'require_once' => array('test4.php'),
+              'require'      => array('test3.php'),
+              'include_once' => array('test2.php'),
+              'include'      => array('test1.php')
             ),
-            $this->ts->getIncludes(true)
+            $this->ts->getIncludes(TRUE)
         );
     }
 
@@ -111,8 +111,7 @@ class PHP_Token_IncludeTest extends PHPUnit_Framework_TestCase
     {
         $this->assertSame(
             array('test4.php'),
-            $this->ts->getIncludes(true, 'require_once')
+            $this->ts->getIncludes(TRUE, 'require_once')
         );
     }
-
 }

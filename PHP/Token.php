@@ -517,8 +517,8 @@ class PHP_Token_INTERFACE extends PHP_TokenWithScope
           'subpackage'  => ''
         );
 
-        for($i = $this->id; $i; --$i) {
-            if($this->tokenStream[$i] instanceof PHP_Token_NAMESPACE) {
+        for ($i = $this->id; $i; --$i) {
+            if ($this->tokenStream[$i] instanceof PHP_Token_NAMESPACE) {
                 $result['namespace'] = $this->tokenStream[$i]->getName();
             }
         }
@@ -640,6 +640,7 @@ class PHP_Token_NAMESPACE extends PHP_Token
     {
         $tokens    = $this->tokenStream->tokens();
         $namespace = (string)$tokens[$this->id+2];
+
         for ($i = $this->id + 3; ; $i += 2) {
             if (isset($tokens[$i]) &&
                 $tokens[$i] instanceof PHP_Token_NS_SEPARATOR) {

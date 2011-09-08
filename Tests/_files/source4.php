@@ -3,7 +3,7 @@
 interface iTemplate
 {
     public function setVariable($name, $var);
-    public function 
+    public function
         getHtml($template);
 }
 
@@ -17,7 +17,7 @@ interface b extends a
     public function baz(Baz $baz);
 }
 
-// short desc for class that implement a unique interface  
+// short desc for class that implement a unique interface
 class c implements b
 {
     public function foo()
