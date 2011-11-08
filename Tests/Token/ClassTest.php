@@ -108,4 +108,15 @@ class PHP_Token_ClassTest extends PHPUnit_Framework_TestCase
     {
         $this->assertEquals('public', $this->function->getVisibility());
     }
+
+    public function testIssue19()
+    {
+        $ts = new PHP_Token_Stream(TEST_FILES_PATH . 'issue19.php');
+
+        foreach ($ts as $token) {
+            if ($token instanceof PHP_Token_CLASS) {
+                $this->assertFalse($token->hasInterfaces());
+            }
+        }
+    }
 }

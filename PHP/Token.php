@@ -579,8 +579,10 @@ class PHP_Token_INTERFACE extends PHP_TokenWithScope
 
     public function hasInterfaces()
     {
-        return $this->tokenStream[$this->id + 4] instanceof PHP_Token_IMPLEMENTS ||
-               $this->tokenStream[$this->id + 8] instanceof PHP_Token_IMPLEMENTS;
+        return (isset($this->tokenStream[$this->id + 4]) &&
+                $this->tokenStream[$this->id + 4] instanceof PHP_Token_IMPLEMENTS) ||
+               (isset($this->tokenStream[$this->id + 8]) &&
+                $this->tokenStream[$this->id + 8] instanceof PHP_Token_IMPLEMENTS);
     }
 
     public function getInterfaces()
