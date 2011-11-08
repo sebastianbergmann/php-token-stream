@@ -226,6 +226,7 @@ abstract class PHP_TokenWithScope extends PHP_Token
 
             else if ($this instanceof PHP_Token_FUNCTION &&
                 $tokens[$i] instanceof PHP_Token_SEMICOLON) {
+
                 if ($block === 0) {
                     $this->endTokenId = $i;
                 }
@@ -263,7 +264,7 @@ abstract class PHP_Token_Includes extends PHP_Token
         if ($tokens[$this->id+2] instanceof PHP_Token_CONSTANT_ENCAPSED_STRING) {
             $this->name = trim($tokens[$this->id+2], "'\"");
             $this->type = strtolower(
-                str_replace('PHP_Token_', '', get_class($tokens[$this->id]))
+              str_replace('PHP_Token_', '', get_class($tokens[$this->id]))
             );
         }
 
@@ -578,8 +579,8 @@ class PHP_Token_INTERFACE extends PHP_TokenWithScope
 
     public function hasInterfaces()
     {
-        return ($this->tokenStream[$this->id + 4] instanceof PHP_Token_IMPLEMENTS ||
-            $this->tokenStream[$this->id + 8] instanceof PHP_Token_IMPLEMENTS);
+        return $this->tokenStream[$this->id + 4] instanceof PHP_Token_IMPLEMENTS ||
+               $this->tokenStream[$this->id + 8] instanceof PHP_Token_IMPLEMENTS;
     }
 
     public function getInterfaces()
@@ -597,14 +598,17 @@ class PHP_Token_INTERFACE extends PHP_TokenWithScope
         } else {
             $i = $this->id + 7;
         }
+
         $tokens = $this->tokenStream->tokens();
 
         while (!$tokens[$i+1] instanceof PHP_Token_OPEN_CURLY) {
             $i++;
+
             if ($tokens[$i] instanceof PHP_Token_STRING) {
                 $this->interfaces[] = (string)$tokens[$i];
             }
         }
+
         return $this->interfaces;
     }
 }

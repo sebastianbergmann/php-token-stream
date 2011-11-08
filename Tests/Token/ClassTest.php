@@ -77,6 +77,7 @@ class PHP_Token_ClassTest extends PHPUnit_Framework_TestCase
             if ($token instanceof PHP_Token_CLASS) {
                 $this->class = $token;
             }
+
             if ($token instanceof PHP_Token_FUNCTION) {
                 $this->function = $token;
                 break;
@@ -89,9 +90,7 @@ class PHP_Token_ClassTest extends PHPUnit_Framework_TestCase
      */
     public function testGetClassKeywords()
     {
-        $this->assertEquals(
-            'abstract', $this->class->getKeywords()
-        );
+        $this->assertEquals('abstract', $this->class->getKeywords());
     }
 
     /**
@@ -99,9 +98,7 @@ class PHP_Token_ClassTest extends PHPUnit_Framework_TestCase
      */
     public function testGetFunctionKeywords()
     {
-        $this->assertEquals(
-            'abstract,static', $this->function->getKeywords()
-        );
+        $this->assertEquals('abstract,static', $this->function->getKeywords());
     }
 
     /**
@@ -109,9 +106,6 @@ class PHP_Token_ClassTest extends PHPUnit_Framework_TestCase
      */
     public function testGetFunctionVisibility()
     {
-        $this->assertEquals(
-            'public', $this->function->getVisibility()
-        );
+        $this->assertEquals('public', $this->function->getVisibility());
     }
-
 }

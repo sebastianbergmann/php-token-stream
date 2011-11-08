@@ -85,9 +85,19 @@ class PHP_Token_FunctionTest extends PHPUnit_Framework_TestCase
     public function testGetArguments()
     {
         $this->assertEquals(array(), $this->functions[0]->getArguments());
-        $this->assertEquals(array('$baz' => 'Baz'), $this->functions[1]->getArguments());
-        $this->assertEquals(array('$foobar' => 'Foobar'), $this->functions[2]->getArguments());
-        $this->assertEquals(array('$barfoo' => 'Barfoo'), $this->functions[3]->getArguments());
+
+        $this->assertEquals(
+          array('$baz' => 'Baz'), $this->functions[1]->getArguments()
+        );
+
+        $this->assertEquals(
+          array('$foobar' => 'Foobar'), $this->functions[2]->getArguments()
+        );
+
+        $this->assertEquals(
+          array('$barfoo' => 'Barfoo'), $this->functions[3]->getArguments()
+        );
+
         $this->assertEquals(array(), $this->functions[4]->getArguments());
     }
 
@@ -133,8 +143,17 @@ class PHP_Token_FunctionTest extends PHPUnit_Framework_TestCase
     public function testGetDocblock()
     {
         $this->assertNull($this->functions[0]->getDocblock());
-        $this->assertEquals("/**\n     * @param Baz \$baz\n     */", $this->functions[1]->getDocblock());
-        $this->assertEquals("/**\n     * @param Foobar \$foobar\n     */", $this->functions[2]->getDocblock());
+
+        $this->assertEquals(
+          "/**\n     * @param Baz \$baz\n     */",
+          $this->functions[1]->getDocblock()
+        );
+
+        $this->assertEquals(
+          "/**\n     * @param Foobar \$foobar\n     */",
+          $this->functions[2]->getDocblock()
+        );
+
         $this->assertNull($this->functions[3]->getDocblock());
         $this->assertNull($this->functions[4]->getDocblock());
     }
