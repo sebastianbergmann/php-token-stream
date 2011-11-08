@@ -196,7 +196,7 @@ class PHP_Token_InterfaceTest extends PHPUnit_Framework_TestCase
             if($token instanceOf PHP_Token_INTERFACE) {
                 $package = $token->getPackage();
                 $this->assertSame('TestClassInBaz', $token->getName());
-                $this->assertSame('Foo\\Bar', $package['namespace']);
+                $this->assertSame('Foo\\Baz', $package['namespace']);
                 return;
             }
         }
@@ -225,8 +225,10 @@ class PHP_Token_InterfaceTest extends PHPUnit_Framework_TestCase
                 continue;
             }
             if($token instanceOf PHP_Token_INTERFACE) {
+                var_dump("SECOND");
+                $package = $token->getPackage();
                 $this->assertSame('Extender', $token->getName());
-                $this->assertSame('Other\\Namespace', $package['namespace']);
+                $this->assertSame('Other\\Space', $package['namespace']);
                 return;
             }
         }

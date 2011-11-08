@@ -4,7 +4,7 @@ namespace Foo\Bar;
 
 class Baz {}
 
-namespace Other\Namespace;
+namespace Other\Space;
 
 class Extender extends \Foo\Bar\Baz {}
 
