@@ -521,6 +521,7 @@ class PHP_Token_INTERFACE extends PHP_TokenWithScope
         for ($i = $this->id; $i; --$i) {
             if ($this->tokenStream[$i] instanceof PHP_Token_NAMESPACE) {
                 $result['namespace'] = $this->tokenStream[$i]->getName();
+                break;
             }
         }
 
