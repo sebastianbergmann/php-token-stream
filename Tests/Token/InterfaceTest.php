@@ -159,7 +159,7 @@ class PHP_Token_InterfaceTest extends PHPUnit_Framework_TestCase
     /**
      * @covers PHP_Token_INTERFACE::getPackage
      */
-    public function testGetPackageNamespace() {   
+    public function testGetPackageNamespace() {
         $tokenStream = new PHP_Token_Stream(TEST_FILES_PATH . 'classInNamespace.php');
         foreach($tokenStream as $token) {
             if($token instanceOf PHP_Token_INTERFACE) {
@@ -208,5 +208,28 @@ class PHP_Token_InterfaceTest extends PHPUnit_Framework_TestCase
             $package = $token->getPackage();
             $this->assertSame("", $package['namespace']);
         }
+    }
+
+    /**
+     * @covers PHP_Token_INTERFACE::getPackage
+     */
+    public function testGetPackageNamespaceWhenExtentingFromNamespaceClass() {
+        $tokenStream = new PHP_Token_Stream(TEST_FILES_PATH . 'classExtendsNamespacedClass.php');
+        $firstClassFound = false;
+        foreach($tokenStream as $token) {
+            if($firstClassFound === false && $token instanceOf PHP_Token_INTERFACE) {
+                $package = $token->getPackage();
+                $this->assertSame('Baz', $token->getName());
+                $this->assertSame('Foo\\Bar', $package['namespace']);
+                $firstClassFound = true;
+                continue;
+            }
+            if($token instanceOf PHP_Token_INTERFACE) {
+                $this->assertSame('Extender', $token->getName());
+                $this->assertSame('Other\\Namespace', $package['namespace']);
+                return;
+            }
+        }
+        $this->fail("Searching for 2 classes failed");
     }
 }
