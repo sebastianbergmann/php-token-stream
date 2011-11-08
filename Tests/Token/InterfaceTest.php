@@ -196,7 +196,7 @@ class PHP_Token_InterfaceTest extends PHPUnit_Framework_TestCase
             if($token instanceOf PHP_Token_INTERFACE) {
                 $package = $token->getPackage();
                 $this->assertSame('TestClassInBaz', $token->getName());
-                $this->assertSame('Foo\\Bar', $package['namespace']);
+                $this->assertSame('Foo\\Baz', $package['namespace']);
                 return;
             }
         }
@@ -208,5 +208,30 @@ class PHP_Token_InterfaceTest extends PHPUnit_Framework_TestCase
             $package = $token->getPackage();
             $this->assertSame("", $package['namespace']);
         }
+    }
+
+    /**
+     * @covers PHP_Token_INTERFACE::getPackage
+     */
+    public function testGetPackageNamespaceWhenExtentingFromNamespaceClass() {
+        $tokenStream = new PHP_Token_Stream(TEST_FILES_PATH . 'classExtendsNamespacedClass.php');
+        $firstClassFound = false;
+        foreach($tokenStream as $token) {
+            if($firstClassFound === false && $token instanceOf PHP_Token_INTERFACE) {
+                $package = $token->getPackage();
+                $this->assertSame('Baz', $token->getName());
+                $this->assertSame('Foo\\Bar', $package['namespace']);
+                $firstClassFound = true;
+                continue;
+            }
+            if($token instanceOf PHP_Token_INTERFACE) {
+                var_dump("SECOND");
+                $package = $token->getPackage();
+                $this->assertSame('Extender', $token->getName());
+                $this->assertSame('Other\\Space', $package['namespace']);
+                return;
+            }
+        }
+        $this->fail("Searching for 2 classes failed");
     }
 }
