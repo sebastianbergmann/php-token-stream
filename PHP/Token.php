@@ -571,7 +571,8 @@ class PHP_Token_INTERFACE extends PHP_TokenWithScope
         $tokens    = $this->tokenStream->tokens();
         $className = (string)$tokens[$i];
 
-        while (!$tokens[$i+1] instanceof PHP_Token_WHITESPACE) {
+        while (isset($tokens[$i+1]) &&
+               !$tokens[$i+1] instanceof PHP_Token_WHITESPACE) {
             $className .= (string)$tokens[++$i];
         }
 
