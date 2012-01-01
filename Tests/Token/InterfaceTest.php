@@ -2,7 +2,7 @@
 /**
  * php-token-stream
  *
- * Copyright (c) 2009-2011, Sebastian Bergmann <sb@sebastian-bergmann.de>.
+ * Copyright (c) 2009-2012, Sebastian Bergmann <sb@sebastian-bergmann.de>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -38,7 +38,7 @@
  * @subpackage Tests
  * @author     Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @author     Laurent Laville <pear@laurent-laville.org>
- * @copyright  2009-2011 Sebastian Bergmann <sb@sebastian-bergmann.de>
+ * @copyright  2009-2012 Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @since      File available since Release 1.0.0
  */
@@ -60,7 +60,7 @@ require_once 'PHP/Token/Stream.php';
  * @subpackage Tests
  * @author     Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @author     Laurent Laville <pear@laurent-laville.org>
- * @copyright  2009-2011 Sebastian Bergmann <sb@sebastian-bergmann.de>
+ * @copyright  2009-2012 Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @version    Release: @package_version@
  * @link       http://github.com/sebastianbergmann/php-token-stream/
