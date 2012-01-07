@@ -225,7 +225,6 @@ class PHP_Token_InterfaceTest extends PHPUnit_Framework_TestCase
                 continue;
             }
             if($token instanceOf PHP_Token_INTERFACE) {
-                var_dump("SECOND");
                 $package = $token->getPackage();
                 $this->assertSame('Extender', $token->getName());
                 $this->assertSame('Other\\Space', $package['namespace']);
