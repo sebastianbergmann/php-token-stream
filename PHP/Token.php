@@ -410,6 +410,19 @@ class PHP_Token_FUNCTION extends PHP_TokenWithScope
             $this->name = 'anonymous function';
         }
 
+        if ($this->name != 'anonymous function') {
+            for ($i = $this->id; $i; --$i) {
+                if ($tokens[$i] instanceof PHP_Token_NAMESPACE) {
+                    $this->name = $tokens[$i]->getName() . '\\' . $this->name;
+                    break;
+                }
+
+                if ($tokens[$i] instanceof PHP_Token_INTERFACE) {
+                    break;
+                }
+            }
+        }
+
         return $this->name;
     }
 
