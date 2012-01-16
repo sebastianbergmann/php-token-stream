@@ -354,6 +354,8 @@ class PHP_Token_DEFAULT extends PHP_Token {}
 class PHP_Token_BREAK extends PHP_Token {}
 class PHP_Token_CONTINUE extends PHP_Token {}
 class PHP_Token_GOTO extends PHP_Token {}
+class PHP_Token_CALLABLE extends PHP_Token {}
+class PHP_Token_INSTEADOF extends PHP_Token {}
 
 class PHP_Token_FUNCTION extends PHP_TokenWithScope
 {
