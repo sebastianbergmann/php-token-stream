@@ -79,4 +79,43 @@ class PHP_Token_NamespaceTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    public function testGetStartLineWithUnscopedNamespace()
+    {
+        $tokenStream = new PHP_Token_Stream(TEST_FILES_PATH . 'classInNamespace.php');
+        foreach($tokenStream as $token) {
+            if($token instanceOf PHP_Token_NAMESPACE) {
+                $this->assertSame(3, $token->getLine());
+            }
+        }
+    }
+
+    public function testGetEndLineWithUnscopedNamespace()
+    {
+        $tokenStream = new PHP_Token_Stream(TEST_FILES_PATH . 'classInNamespace.php');
+        foreach($tokenStream as $token) {
+            if($token instanceOf PHP_Token_NAMESPACE) {
+                $this->assertSame(3, $token->getEndLine());
+            }
+        }
+    }
+    public function testGetStartLineWithScopedNamespace()
+    {
+        $tokenStream = new PHP_Token_Stream(TEST_FILES_PATH . 'classInScopedNamespace.php');
+        foreach($tokenStream as $token) {
+            if($token instanceOf PHP_Token_NAMESPACE) {
+                $this->assertSame(3, $token->getLine());
+            }
+        }
+    }
+
+    public function testGetEndLineWithScopedNamespace()
+    {
+        $tokenStream = new PHP_Token_Stream(TEST_FILES_PATH . 'classInScopedNamespace.php');
+        foreach($tokenStream as $token) {
+            if($token instanceOf PHP_Token_NAMESPACE) {
+                $this->assertSame(9, $token->getEndLine());
+            }
+        }
+    }
+
 }
