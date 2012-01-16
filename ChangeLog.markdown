@@ -7,6 +7,7 @@ PHP_TokenStream 1.1.2
 ---------------------
 
 * Added classes for the `T_CALLABLE` and `T_INSTEADOF` tokens that were added in PHP 5.4.
+* Added support for namespaced functions.
 
 PHP_TokenStream 1.1.1
 ---------------------
