@@ -2,7 +2,7 @@
 /**
  * php-token-stream
  *
- * Copyright (c) 2009-2011, Sebastian Bergmann <sb@sebastian-bergmann.de>.
+ * Copyright (c) 2009-2012, Sebastian Bergmann <sb@sebastian-bergmann.de>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -37,7 +37,7 @@
  * @package    PHP_TokenStream
  * @subpackage Tests
  * @author     Laurent Laville <pear@laurent-laville.org>
- * @copyright  2009-2011 Sebastian Bergmann <sb@sebastian-bergmann.de>
+ * @copyright  2009-2012 Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @since      File available since Release 1.0.2
  */
@@ -58,7 +58,7 @@ require_once 'PHP/Token/Stream.php';
  * @package    PHP_TokenStream
  * @subpackage Tests
  * @author     Laurent Laville <pear@laurent-laville.org>
- * @copyright  2009-2011 Sebastian Bergmann <sb@sebastian-bergmann.de>
+ * @copyright  2009-2012 Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @version    Release: @package_version@
  * @link       http://github.com/sebastianbergmann/php-token-stream/
@@ -77,6 +77,7 @@ class PHP_Token_ClassTest extends PHPUnit_Framework_TestCase
             if ($token instanceof PHP_Token_CLASS) {
                 $this->class = $token;
             }
+
             if ($token instanceof PHP_Token_FUNCTION) {
                 $this->function = $token;
                 break;
@@ -89,9 +90,7 @@ class PHP_Token_ClassTest extends PHPUnit_Framework_TestCase
      */
     public function testGetClassKeywords()
     {
-        $this->assertEquals(
-            'abstract', $this->class->getKeywords()
-        );
+        $this->assertEquals('abstract', $this->class->getKeywords());
     }
 
     /**
@@ -99,9 +98,7 @@ class PHP_Token_ClassTest extends PHPUnit_Framework_TestCase
      */
     public function testGetFunctionKeywords()
     {
-        $this->assertEquals(
-            'abstract,static', $this->function->getKeywords()
-        );
+        $this->assertEquals('abstract,static', $this->function->getKeywords());
     }
 
     /**
@@ -109,9 +106,17 @@ class PHP_Token_ClassTest extends PHPUnit_Framework_TestCase
      */
     public function testGetFunctionVisibility()
     {
-        $this->assertEquals(
-            'public', $this->function->getVisibility()
-        );
+        $this->assertEquals('public', $this->function->getVisibility());
     }
 
+    public function testIssue19()
+    {
+        $ts = new PHP_Token_Stream(TEST_FILES_PATH . 'issue19.php');
+
+        foreach ($ts as $token) {
+            if ($token instanceof PHP_Token_CLASS) {
+                $this->assertFalse($token->hasInterfaces());
+            }
+        }
+    }
 }

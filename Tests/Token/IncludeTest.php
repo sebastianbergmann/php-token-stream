@@ -2,7 +2,7 @@
 /**
  * php-token-stream
  *
- * Copyright (c) 2009-2011, Sebastian Bergmann <sb@sebastian-bergmann.de>.
+ * Copyright (c) 2009-2012, Sebastian Bergmann <sb@sebastian-bergmann.de>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -37,7 +37,7 @@
  * @package    PHP_TokenStream
  * @subpackage Tests
  * @author     Laurent Laville <pear@laurent-laville.org>
- * @copyright  2009-2011 Sebastian Bergmann <sb@sebastian-bergmann.de>
+ * @copyright  2009-2012 Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @since      File available since Release 1.0.2
  */
@@ -59,7 +59,7 @@ require_once 'PHP/Token/Stream.php';
  * @package    PHP_TokenStream
  * @subpackage Tests
  * @author     Laurent Laville <pear@laurent-laville.org>
- * @copyright  2009-2011 Sebastian Bergmann <sb@sebastian-bergmann.de>
+ * @copyright  2009-2012 Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @version    Release: @package_version@
  * @link       http://github.com/sebastianbergmann/php-token-stream/
@@ -81,8 +81,8 @@ class PHP_Token_IncludeTest extends PHPUnit_Framework_TestCase
     public function testGetIncludes()
     {
         $this->assertSame(
-            array('test4.php', 'test3.php', 'test2.php', 'test1.php'),
-            $this->ts->getIncludes()
+          array('test4.php', 'test3.php', 'test2.php', 'test1.php'),
+          $this->ts->getIncludes()
         );
     }
 
@@ -93,13 +93,13 @@ class PHP_Token_IncludeTest extends PHPUnit_Framework_TestCase
     public function testGetIncludesCategorized()
     {
         $this->assertSame(
-            array(
-                'require_once' => array('test4.php'),
-                'require'      => array('test3.php'),
-                'include_once' => array('test2.php'),
-                'include'      => array('test1.php')
-            ),
-            $this->ts->getIncludes(true)
+          array(
+            'require_once' => array('test4.php'),
+            'require'      => array('test3.php'),
+            'include_once' => array('test2.php'),
+            'include'      => array('test1.php')
+          ),
+          $this->ts->getIncludes(TRUE)
         );
     }
 
@@ -110,9 +110,8 @@ class PHP_Token_IncludeTest extends PHPUnit_Framework_TestCase
     public function testGetIncludesCategory()
     {
         $this->assertSame(
-            array('test4.php'),
-            $this->ts->getIncludes(true, 'require_once')
+          array('test4.php'),
+          $this->ts->getIncludes(TRUE, 'require_once')
         );
     }
-
 }
