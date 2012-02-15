@@ -3,6 +3,11 @@ PHP_TokenStream 1.1
 
 This is the list of changes for the PHP_TokenStream 1.1 release series.
 
+PHP_TokenStream 1.1.3
+---------------------
+
+* Added class for the `T_TRAIT_C` token that was added in PHP 5.4.
+
 PHP_TokenStream 1.1.2
 ---------------------
 
