@@ -646,6 +646,7 @@ class PHP_Token_DOUBLE_ARROW extends PHP_Token {}
 class PHP_Token_LIST extends PHP_Token {}
 class PHP_Token_ARRAY extends PHP_Token {}
 class PHP_Token_CLASS_C extends PHP_Token {}
+class PHP_Token_TRAIT_C extends PHP_Token {}
 class PHP_Token_METHOD_C extends PHP_Token {}
 class PHP_Token_FUNC_C extends PHP_Token {}
 class PHP_Token_LINE extends PHP_Token {}
