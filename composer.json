@@ -20,7 +20,10 @@
         "bin-dir": "bin"
     },
     "autoload": {
-        "classmap": ["PHP/"]
+        "psr-0": {
+            "PHP_Token": ""
+        },
+        "files": ["PHP/Token/Stream/Autoload.php"]
     },
     "minimum-stability": "dev",
     "extra": {
