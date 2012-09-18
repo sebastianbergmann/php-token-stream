@@ -1,0 +1,35 @@
+{
+    "name": "phpunit/php-token-stream",
+    "description": "Wrapper around PHP's tokenizer extension.",
+    "type": "library",
+    "keywords": [
+        "tokenizer"
+    ],
+    "homepage": "http://www.phpunit.de/",
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Sebastian Bergmann",
+            "email": "sb@sebastian-bergmann.de",
+            "role": "lead"
+        }
+    ],
+    "version": "1.1.3",
+    "time": "2012-02-15",
+    "support": {
+        "issues": "https://github.com/sebastianbergmann/php-token-stream/issues",
+        "irc": "irc://irc.freenode.net/phpunit"
+    },
+    "require": {
+        "php": ">=5.2.7",
+        "ext-tokenizer": "*"
+    },
+    "autoload": {
+        "files": [
+            "PHP/Token/Stream/Autoload.php"
+        ]
+    },
+    "include-path": [
+        ""
+    ]
+}
