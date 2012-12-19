@@ -175,7 +175,7 @@ abstract class PHP_TokenWithScope extends PHP_Token
                 }
             }
 
-            else if (($this instanceof PHP_Token_FUNCTION || 
+            else if (($this instanceof PHP_Token_FUNCTION ||
                 $this instanceof PHP_Token_NAMESPACE) &&
                 $tokens[$i] instanceof PHP_Token_SEMICOLON) {
                 if ($block === 0) {
@@ -376,7 +376,7 @@ class PHP_Token_FUNCTION extends PHP_TokenWithScopeAndVisibility
         }
 
         $this->arguments = array();
-        $i               = $this->id + 3;
+        $i               = $this->id + 2;
         $tokens          = $this->tokenStream->tokens();
         $typeHint        = NULL;
 
