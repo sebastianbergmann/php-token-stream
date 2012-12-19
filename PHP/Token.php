@@ -404,17 +404,22 @@ class PHP_Token_FUNCTION extends PHP_TokenWithScopeAndVisibility
 
         $tokens = $this->tokenStream->tokens();
 
-        if ($tokens[$this->id+2] instanceof PHP_Token_STRING) {
-            $this->name = (string)$tokens[$this->id+2];
-        }
+        for ($i = $this->id + 1; $i < count($tokens); $i++) {
+            if ($tokens[$i] instanceof PHP_Token_STRING) {
+                $this->name = (string)$tokens[$i];
+                break;
+            }
 
-        else if ($tokens[$this->id+2] instanceof PHP_Token_AMPERSAND &&
-                 $tokens[$this->id+3] instanceof PHP_Token_STRING) {
-            $this->name = (string)$tokens[$this->id+3];
-        }
+            else if ($tokens[$i] instanceof PHP_Token_AMPERSAND &&
+                     $tokens[$i+1] instanceof PHP_Token_STRING) {
+                $this->name = (string)$tokens[$i+1];
+                break;
+            }
 
-        else {
-            $this->name = 'anonymous function';
+            else if ($tokens[$i] instanceof PHP_Token_OPEN_BRACKET) {
+                $this->name = 'anonymous function';
+                break;
+            }
         }
 
         if ($this->name != 'anonymous function') {

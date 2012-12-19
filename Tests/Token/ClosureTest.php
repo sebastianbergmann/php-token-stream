@@ -84,7 +84,7 @@ class PHP_Token_ClosureTest extends PHPUnit_Framework_TestCase
      */
     public function testGetArguments()
     {
-        $this->assertEquals(array('$foo' => null, '$bar' => null), $this->functions[0]->getArguments());
+        $this->assertEquals(array('$foo' => 'Exception', '$bar' => null), $this->functions[0]->getArguments());
         $this->assertEquals(array('$foo' => null, '$bar' => null, '$baz' => null), $this->functions[1]->getArguments());
         $this->assertEquals(array(), $this->functions[2]->getArguments());
         $this->assertEquals(array(), $this->functions[3]->getArguments());
