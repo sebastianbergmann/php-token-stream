@@ -3,6 +3,12 @@ PHP_TokenStream 1.1
 
 This is the list of changes for the PHP_TokenStream 1.1 release series.
 
+PHP_TokenStream 1.1.6
+---------------------
+
+* Fixed handling of closures.
+* Fixed parsing of function signatures.
+
 PHP_TokenStream 1.1.5
 ---------------------
 
