@@ -85,9 +85,11 @@ class PHP_Token_ClosureTest extends PHPUnit_Framework_TestCase
     public function testGetArguments()
     {
         $this->assertEquals(array('$foo' => null, '$bar' => null), $this->functions[0]->getArguments());
-        $this->assertEquals(array('$foo' => null, '$bar' => null, '$baz' => null), $this->functions[1]->getArguments());
-        $this->assertEquals(array(), $this->functions[2]->getArguments());
-        $this->assertEquals(array(), $this->functions[3]->getArguments());
+        $this->assertEquals(array('$foo' => 'Foo', '$bar' => null), $this->functions[1]->getArguments());
+        $this->assertEquals(array('$foo' => null, '$bar' => null, '$baz' => null), $this->functions[2]->getArguments());
+        $this->assertEquals(array('$foo' => 'Foo', '$bar' => null, '$baz' => null), $this->functions[3]->getArguments());
+        $this->assertEquals(array(), $this->functions[4]->getArguments());
+        $this->assertEquals(array(), $this->functions[5]->getArguments());
     }
 
     /**
@@ -99,6 +101,8 @@ class PHP_Token_ClosureTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('anonymous function', $this->functions[1]->getName());
         $this->assertEquals('anonymous function', $this->functions[2]->getName());
         $this->assertEquals('anonymous function', $this->functions[3]->getName());
+        $this->assertEquals('anonymous function', $this->functions[4]->getName());
+        $this->assertEquals('anonymous function', $this->functions[5]->getName());
     }
 
     /**
