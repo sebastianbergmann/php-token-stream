@@ -482,11 +482,12 @@ class PHP_Token_FUNCTION extends PHP_TokenWithScopeAndVisibility
 
         $tokens = $this->tokenStream->tokens();
 
-        while (!$tokens[$i] instanceof PHP_Token_CLOSE_BRACKET) {
+        while (isset($tokens[$i]) &&
+               !$tokens[$i] instanceof PHP_Token_OPEN_CURLY) {
             $this->signature .= $tokens[$i++];
         }
 
-        $this->signature .= ')';
+        $this->signature = trim($this->signature);
 
         return $this->signature;
     }

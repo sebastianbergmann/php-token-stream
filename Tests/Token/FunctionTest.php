@@ -157,4 +157,15 @@ class PHP_Token_FunctionTest extends PHPUnit_Framework_TestCase
         $this->assertNull($this->functions[3]->getDocblock());
         $this->assertNull($this->functions[4]->getDocblock());
     }
+
+    public function testSignature()
+    {
+        $ts = new PHP_Token_Stream(TEST_FILES_PATH . 'source5.php');
+        $f  = $ts->getFunctions();
+
+        $this->assertEquals(
+          'foo($a, array $b, array $c = array())',
+          $f['foo']['signature']
+        );
+    }
 }
