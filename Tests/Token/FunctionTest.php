@@ -162,10 +162,27 @@ class PHP_Token_FunctionTest extends PHPUnit_Framework_TestCase
     {
         $ts = new PHP_Token_Stream(TEST_FILES_PATH . 'source5.php');
         $f  = $ts->getFunctions();
+        $c  = $ts->getClasses();
+        $i  = $ts->getInterfaces();
 
         $this->assertEquals(
           'foo($a, array $b, array $c = array())',
           $f['foo']['signature']
+        );
+
+        $this->assertEquals(
+          'm($a, array $b, array $c = array())',
+          $c['c']['methods']['m']['signature']
+        );
+
+        $this->assertEquals(
+          'm($a, array $b, array $c = array())',
+          $c['a']['methods']['m']['signature']
+        );
+
+        $this->assertEquals(
+          'm($a, array $b, array $c = array())',
+          $i['i']['methods']['m']['signature']
         );
     }
 }

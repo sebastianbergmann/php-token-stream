@@ -483,7 +483,8 @@ class PHP_Token_FUNCTION extends PHP_TokenWithScopeAndVisibility
         $tokens = $this->tokenStream->tokens();
 
         while (isset($tokens[$i]) &&
-               !$tokens[$i] instanceof PHP_Token_OPEN_CURLY) {
+               !$tokens[$i] instanceof PHP_Token_OPEN_CURLY &&
+               !$tokens[$i] instanceof PHP_Token_SEMICOLON) {
             $this->signature .= $tokens[$i++];
         }
 
