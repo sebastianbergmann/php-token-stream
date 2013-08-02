@@ -501,8 +501,10 @@ class PHP_Token_FUNCTION extends PHP_TokenWithScopeAndVisibility
 
 class PHP_Token_CONST extends PHP_Token {}
 class PHP_Token_RETURN extends PHP_Token {}
+class PHP_Token_YIELD extends PHP_Token {}
 class PHP_Token_TRY extends PHP_Token {}
 class PHP_Token_CATCH extends PHP_Token {}
+class PHP_Token_FINALLY extends PHP_Token {}
 class PHP_Token_THROW extends PHP_Token {}
 class PHP_Token_USE extends PHP_Token {}
 class PHP_Token_GLOBAL extends PHP_Token {}
