@@ -50,7 +50,7 @@
    </dir>
    <file baseinstalldir="/" name="ChangeLog.markdown" role="doc"/>
    <file baseinstalldir="/" name="LICENSE" role="doc"/>
-   <file baseinstalldir="/" name="README.markdown" role="doc"/>
+   <file baseinstalldir="/" name="README.md" role="doc"/>
   </dir>
  </contents>
  <dependencies>
