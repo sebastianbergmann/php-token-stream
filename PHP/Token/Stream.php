@@ -133,6 +133,11 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
     protected $traits;
 
     /**
+     * @var array
+     */
+    protected $lineToFunctionMap = array();
+
+    /**
      * Constructor.
      *
      * @param string $sourceCode
@@ -351,6 +356,21 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
         return $includes;
     }
 
+    /**
+     * Returns the name of the function or method a line belongs to.
+     *
+     * @return string or null if the line is not in a function or method
+     * @since  Method available since Release 1.2.0
+     */
+    public function getFunctionForLine($line)
+    {
+        $this->parse();
+
+        if (isset($this->lineToFunctionMap[$line])) {
+            return $this->lineToFunctionMap[$line];
+        }
+    }
+
     protected function parse()
     {
         $this->interfaces = array();
@@ -431,14 +451,30 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
                         $trait === FALSE &&
                         $interface === FALSE) {
                         $this->functions[$name] = $tmp;
+
+                        $this->addFunctionToMap(
+                          $name, $tmp['startLine'], $tmp['endLine']
+                        );
                     }
 
                     else if ($class !== FALSE) {
                         $this->classes[$class]['methods'][$name] = $tmp;
+
+                        $this->addFunctionToMap(
+                          $class . '::' . $name,
+                          $tmp['startLine'],
+                          $tmp['endLine']
+                        );
                     }
 
                     else if ($trait !== FALSE) {
                         $this->traits[$trait]['methods'][$name] = $tmp;
+
+                        $this->addFunctionToMap(
+                          $trait . '::' . $name,
+                          $tmp['startLine'],
+                          $tmp['endLine']
+                        );
                     }
 
                     else {
@@ -563,6 +599,13 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
 
         if (!$this->valid()) {
             throw new OutOfBoundsException('Invalid seek position');
+        }
+    }
+
+    private function addFunctionToMap($name, $startLine, $endLine)
+    {
+        for ($line = $startLine; $line <= $endLine; $line++) {
+            $this->lineToFunctionMap[$line] = $name;
         }
     }
 }
