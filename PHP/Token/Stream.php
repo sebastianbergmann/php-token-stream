@@ -195,13 +195,21 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
         $tokens    = token_get_all($sourceCode);
         $numTokens = count($tokens);
 
+        $lastNonWhitespaceTokenWasDoubleColon = FALSE;
+
         for ($i = 0; $i < $numTokens; ++$i) {
             $token = $tokens[$i];
             unset($tokens[$i]);
 
             if (is_array($token)) {
-                $text       = $token[1];
-                $tokenClass = 'PHP_Token_' . substr(token_name($token[0]), 2);
+                $name = substr(token_name($token[0]), 2);
+                $text = $token[1];
+
+                if ($lastNonWhitespaceTokenWasDoubleColon && $name == 'CLASS') {
+                    $name = 'CLASS_NAME_CONSTANT';
+                }
+
+                $tokenClass = 'PHP_Token_' . $name;
             } else {
                 $text       = $token;
                 $tokenClass = self::$customTokens[$token];
@@ -218,6 +226,14 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
             else if ($tokenClass == 'PHP_Token_COMMENT' ||
                 $tokenClass == 'PHP_Token_DOC_COMMENT') {
                 $this->linesOfCode['cloc'] += $lines + 1;
+            }
+
+            if ($name == 'DOUBLE_COLON') {
+                $lastNonWhitespaceTokenWasDoubleColon = TRUE;
+            }
+
+            else if ($name != 'WHITESPACE') {
+                $lastNonWhitespaceTokenWasDoubleColon = FALSE;
             }
         }
 

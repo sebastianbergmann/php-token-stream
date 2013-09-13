@@ -647,6 +647,7 @@ class PHP_Token_INTERFACE extends PHP_TokenWithScopeAndVisibility
 }
 
 class PHP_Token_CLASS extends PHP_Token_INTERFACE {}
+class PHP_Token_CLASS_NAME_CONSTANT extends PHP_Token {}
 class PHP_Token_TRAIT extends PHP_Token_INTERFACE {}
 class PHP_Token_EXTENDS extends PHP_Token {}
 class PHP_Token_IMPLEMENTS extends PHP_Token {}
