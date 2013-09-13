@@ -119,4 +119,10 @@ class PHP_Token_ClassTest extends PHPUnit_Framework_TestCase
             }
         }
     }
+
+    public function testIssue39()
+    {
+        $ts = new PHP_Token_Stream(TEST_FILES_PATH . 'issue30.php');
+        $this->assertCount(1, $ts->getClasses());
+    }
 }
