@@ -29,4 +29,8 @@ class Foo{function foo(){}
     public function baz()
     {
     }
+
+    public function blaz($x, $y)
+    {
+    }
 }

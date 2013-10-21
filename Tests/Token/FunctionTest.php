@@ -99,6 +99,8 @@ class PHP_Token_FunctionTest extends PHPUnit_Framework_TestCase
         );
 
         $this->assertEquals(array(), $this->functions[4]->getArguments());
+
+        $this->assertEquals(array('$x' => null, '$y' => null), $this->functions[5]->getArguments());
     }
 
     /**
