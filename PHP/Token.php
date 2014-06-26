@@ -303,6 +303,7 @@ class PHP_Token_DIV_EQUAL extends PHP_Token {}
 class PHP_Token_MUL_EQUAL extends PHP_Token {}
 class PHP_Token_MINUS_EQUAL extends PHP_Token {}
 class PHP_Token_PLUS_EQUAL extends PHP_Token {}
+class PHP_Token_POW_EQUAL extends PHP_Token {}
 class PHP_Token_BOOLEAN_OR extends PHP_Token {}
 class PHP_Token_BOOLEAN_AND extends PHP_Token {}
 class PHP_Token_IS_NOT_IDENTICAL extends PHP_Token {}
@@ -730,3 +731,5 @@ class PHP_Token_DOLLAR extends PHP_Token {}
 class PHP_Token_CARET extends PHP_Token {}
 class PHP_Token_TILDE extends PHP_Token {}
 class PHP_Token_BACKTICK extends PHP_Token {}
+class PHP_Token_POW extends PHP_Token {}
+class PHP_Token_ELLIPSIS extends PHP_Token {}
