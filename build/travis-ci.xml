@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit backupGlobals="false"
+         backupStaticAttributes="false"
+         syntaxCheck="false"
+         bootstrap="../PHP/Token/Stream/Autoload.php"
+         strict="true">
+  <testsuites>
+    <testsuite name="php-token-stream">
+      <directory suffix="Test.php">../Tests</directory>
+    </testsuite>
+  </testsuites>
+</phpunit>
