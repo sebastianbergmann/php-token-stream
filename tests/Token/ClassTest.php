@@ -42,16 +42,6 @@
  * @since      File available since Release 1.0.2
  */
 
-if (!defined('TEST_FILES_PATH')) {
-    define(
-      'TEST_FILES_PATH',
-      dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR .
-      '_files' . DIRECTORY_SEPARATOR
-    );
-}
-
-require_once 'PHP/Token/Stream.php';
-
 /**
  * Tests for the PHP_Token_CLASS class.
  *

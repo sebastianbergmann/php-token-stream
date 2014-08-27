@@ -2,7 +2,7 @@
 /**
  * php-token-stream
  *
- * Copyright (c) 2009-2010, Sebastian Bergmann <sebastian@phpunit.de>.
+ * Copyright (c) 2009-2014, Sebastian Bergmann <sebastian@phpunit.de>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -34,32 +34,43 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @package   PHP_TokenStream
- * @author    Sebastian Bergmann <sebastian@phpunit.de>
- * @copyright 2009-2010 Sebastian Bergmann <sebastian@phpunit.de>
- * @license   http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
- * @link      http://github.com/sebastianbergmann/php-token-stream/tree
- * @since     File available since Release 1.1.0
+ * @package    PHP_TokenStream
+ * @subpackage Tests
+ * @author     Sebastian Bergmann <sebastian@phpunit.de>
+ * @copyright  2009-2014 Sebastian Bergmann <sebastian@phpunit.de>
+ * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
+ * @since      File available since Release 1.0.0
  */
 
-spl_autoload_register(
-  function ($class)
-  {
-      static $classes = NULL;
-      static $path = NULL;;
+/**
+ * Tests for the PHP_Token class.
+ *
+ * @package    PHP_TokenStream
+ * @subpackage Tests
+ * @author     Sebastian Bergmann <sebastian@phpunit.de>
+ * @copyright  2009-2014 Sebastian Bergmann <sebastian@phpunit.de>
+ * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
+ * @version    Release: @package_version@
+ * @link       http://github.com/sebastianbergmann/php-token-stream/
+ * @since      Class available since Release 1.0.0
+ */
+class PHP_TokenTest extends PHPUnit_Framework_TestCase
+{
+    /**
+     * @covers PHP_Token::__construct
+     * @covers PHP_Token::__toString
+     */
+    public function testToString()
+    {
+        $this->markTestIncomplete();
+    }
 
-      if ($classes === NULL) {
-          $classes = array(
-            ___CLASSLIST___
-          );
-
-          $path = dirname(dirname(dirname(__FILE__)));
-      }
-
-      $cn = strtolower($class);
-
-      if (isset($classes[$cn])) {
-          require $path . $classes[$cn];
-      }
-  }
-);
+    /**
+     * @covers PHP_Token::__construct
+     * @covers PHP_Token::getLine
+     */
+    public function testGetLine()
+    {
+        $this->markTestIncomplete();
+    }
+}

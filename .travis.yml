@@ -14,7 +14,7 @@ before_script:
   - composer install --no-interaction --prefer-source --dev
 
 script:
-  - phpunit --configuration ./build/travis-ci.xml
+  - ./vendor/bin/phpunit --configuration ./build/phpunit.xml
 
 matrix:
   allow_failures:

@@ -36,89 +36,72 @@
  *
  * @package    PHP_TokenStream
  * @subpackage Tests
- * @author     Sebastian Bergmann <sebastian@phpunit.de>
+ * @author     Laurent Laville <pear@laurent-laville.org>
  * @copyright  2009-2014 Sebastian Bergmann <sebastian@phpunit.de>
  * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
- * @since      File available since Release 1.0.0
+ * @since      File available since Release 1.0.2
  */
 
-if (!defined('TEST_FILES_PATH')) {
-    define(
-      'TEST_FILES_PATH',
-      dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR .
-      '_files' . DIRECTORY_SEPARATOR
-    );
-}
-
-require_once 'PHP/Token/Stream.php';
-
 /**
- * Tests for the PHP_Token_NAMESPACE class.
+ * Tests for the PHP_Token_REQUIRE_ONCE, PHP_Token_REQUIRE
+ * PHP_Token_INCLUDE_ONCE and PHP_Token_INCLUDE_ONCE classes.
  *
  * @package    PHP_TokenStream
  * @subpackage Tests
- * @author     Sebastian Bergmann <sebastian@phpunit.de>
+ * @author     Laurent Laville <pear@laurent-laville.org>
  * @copyright  2009-2014 Sebastian Bergmann <sebastian@phpunit.de>
  * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
  * @version    Release: @package_version@
  * @link       http://github.com/sebastianbergmann/php-token-stream/
- * @since      Class available since Release 1.0.0
+ * @since      Class available since Release 1.0.2
  */
-class PHP_Token_NamespaceTest extends PHPUnit_Framework_TestCase
+class PHP_Token_IncludeTest extends PHPUnit_Framework_TestCase
 {
+    protected $ts;
+
+    protected function setUp()
+    {
+        $this->ts = new PHP_Token_Stream(TEST_FILES_PATH . 'source3.php');
+    }
+
     /**
-     * @covers PHP_Token_NAMESPACE::getName
+     * @covers PHP_Token_Includes::getName
+     * @covers PHP_Token_Includes::getType
      */
-    public function testGetName()
+    public function testGetIncludes()
     {
-        $tokenStream = new PHP_Token_Stream(
-          TEST_FILES_PATH . 'classInNamespace.php'
+        $this->assertSame(
+          array('test4.php', 'test3.php', 'test2.php', 'test1.php'),
+          $this->ts->getIncludes()
         );
-
-        foreach ($tokenStream as $token) {
-            if ($token instanceof PHP_Token_NAMESPACE) {
-                $this->assertSame('Foo\\Bar', $token->getName());
-            }
-        }
     }
 
-    public function testGetStartLineWithUnscopedNamespace()
+    /**
+     * @covers PHP_Token_Includes::getName
+     * @covers PHP_Token_Includes::getType
+     */
+    public function testGetIncludesCategorized()
     {
-        $tokenStream = new PHP_Token_Stream(TEST_FILES_PATH . 'classInNamespace.php');
-        foreach($tokenStream as $token) {
-            if($token instanceOf PHP_Token_NAMESPACE) {
-                $this->assertSame(2, $token->getLine());
-            }
-        }
+        $this->assertSame(
+          array(
+            'require_once' => array('test4.php'),
+            'require'      => array('test3.php'),
+            'include_once' => array('test2.php'),
+            'include'      => array('test1.php')
+          ),
+          $this->ts->getIncludes(TRUE)
+        );
     }
 
-    public function testGetEndLineWithUnscopedNamespace()
+    /**
+     * @covers PHP_Token_Includes::getName
+     * @covers PHP_Token_Includes::getType
+     */
+    public function testGetIncludesCategory()
     {
-        $tokenStream = new PHP_Token_Stream(TEST_FILES_PATH . 'classInNamespace.php');
-        foreach($tokenStream as $token) {
-            if($token instanceOf PHP_Token_NAMESPACE) {
-                $this->assertSame(2, $token->getEndLine());
-            }
-        }
+        $this->assertSame(
+          array('test4.php'),
+          $this->ts->getIncludes(TRUE, 'require_once')
+        );
     }
-    public function testGetStartLineWithScopedNamespace()
-    {
-        $tokenStream = new PHP_Token_Stream(TEST_FILES_PATH . 'classInScopedNamespace.php');
-        foreach($tokenStream as $token) {
-            if($token instanceOf PHP_Token_NAMESPACE) {
-                $this->assertSame(2, $token->getLine());
-            }
-        }
-    }
-
-    public function testGetEndLineWithScopedNamespace()
-    {
-        $tokenStream = new PHP_Token_Stream(TEST_FILES_PATH . 'classInScopedNamespace.php');
-        foreach($tokenStream as $token) {
-            if($token instanceOf PHP_Token_NAMESPACE) {
-                $this->assertSame(8, $token->getEndLine());
-            }
-        }
-    }
-
 }
