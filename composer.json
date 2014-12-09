@@ -14,6 +14,9 @@
     "support": {
         "issues": "https://github.com/sebastianbergmann/php-token-stream/issues"
     },
+    "scripts": {
+        "test": "phpunit --configuration ./build/phpunit.xml"
+    },
     "require": {
         "php": ">=5.3.3",
         "ext-tokenizer": "*"
