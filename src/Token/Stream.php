@@ -583,7 +583,15 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
      */
     public function offsetGet($offset)
     {
-        return $this->tokens[$offset];
+        if ( is_numeric($offset) AND $offset >=0) {
+            if ( $this->offsetExists($offset)) {
+                return $this->tokens[$offset];
+            } else {
+                throw new OutOfBoundsException('Invalid offset position');
+            }
+        } else {
+            //negative or non-numeric offset
+        }
     }
 
     /**
