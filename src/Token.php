@@ -719,3 +719,5 @@ class PHP_Token_SHAPE extends PHP_Token {}
 class PHP_Token_LAMBDA_OP extends PHP_Token {}
 class PHP_Token_LAMBDA_CP extends PHP_Token {}
 class PHP_Token_LAMBDA_ARROW extends PHP_Token {}
+class PHP_Token_IN extends PHP_Token {}
+class PHP_Token_JOIN extends PHP_Token {}
