@@ -516,7 +516,8 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
     }
 
     /**
-     * @param mixed $offset
+     * @param  integer $offset
+     * @return boolean
      */
     public function offsetExists($offset)
     {
@@ -524,7 +525,7 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
     }
 
     /**
-     * @param  mixed $offset
+     * @param  integer $offset
      * @return mixed
      */
     public function offsetGet($offset)
@@ -533,8 +534,8 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
     }
 
     /**
-     * @param mixed $offset
-     * @param mixed $value
+     * @param integer $offset
+     * @param mixed   $value
      */
     public function offsetSet($offset, $value)
     {
@@ -542,7 +543,7 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
     }
 
     /**
-     * @param mixed $offset
+     * @param integer $offset
      */
     public function offsetUnset($offset)
     {
@@ -564,6 +565,11 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
         }
     }
 
+    /**
+     * @param string  $name
+     * @param integer $startLine
+     * @param integer $endLine
+     */
     private function addFunctionToMap($name, $startLine, $endLine)
     {
         for ($line = $startLine; $line <= $endLine; $line++) {
