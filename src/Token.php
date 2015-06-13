@@ -261,7 +261,7 @@ class PHP_Token_FUNCTION extends PHP_TokenWithScopeAndVisibility
 
         $this->arguments = array();
         $tokens          = $this->tokenStream->tokens();
-        $typeHint        = null;
+        $typeDeclaration = null;
 
         // Search for first token inside brackets
         $i = $this->id + 2;
@@ -271,10 +271,10 @@ class PHP_Token_FUNCTION extends PHP_TokenWithScopeAndVisibility
 
         while (!$tokens[$i] instanceof PHP_Token_CLOSE_BRACKET) {
             if ($tokens[$i] instanceof PHP_Token_STRING) {
-                $typeHint = (string)$tokens[$i];
+                $typeDeclaration = (string)$tokens[$i];
             } elseif ($tokens[$i] instanceof PHP_Token_VARIABLE) {
-                $this->arguments[(string)$tokens[$i]] = $typeHint;
-                $typeHint                             = null;
+                $this->arguments[(string)$tokens[$i]] = $typeDeclaration;
+                $typeDeclaration                      = null;
             }
 
             $i++;
