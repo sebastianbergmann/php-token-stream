@@ -241,6 +241,9 @@ abstract class PHP_Token_Includes extends PHP_Token
      */
     protected $type;
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         if ($this->name === null) {
@@ -250,6 +253,9 @@ abstract class PHP_Token_Includes extends PHP_Token
         return $this->name;
     }
 
+    /**
+     * @return string
+     */
     public function getType()
     {
         if ($this->type === null) {
@@ -275,11 +281,29 @@ abstract class PHP_Token_Includes extends PHP_Token
 
 class PHP_Token_FUNCTION extends PHP_TokenWithScopeAndVisibility
 {
+    /**
+     * @var array
+     */
     protected $arguments;
+
+    /**
+     * @var integer
+     */
     protected $ccn;
+
+    /**
+     * @var string
+     */
     protected $name;
+
+    /**
+     * @var string
+     */
     protected $signature;
 
+    /**
+     * @return array
+     */
     public function getArguments()
     {
         if ($this->arguments !== null) {
@@ -311,6 +335,9 @@ class PHP_Token_FUNCTION extends PHP_TokenWithScopeAndVisibility
         return $this->arguments;
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         if ($this->name !== null) {
@@ -349,6 +376,9 @@ class PHP_Token_FUNCTION extends PHP_TokenWithScopeAndVisibility
         return $this->name;
     }
 
+    /**
+     * @return integer
+     */
     public function getCCN()
     {
         if ($this->ccn !== null) {
@@ -381,6 +411,9 @@ class PHP_Token_FUNCTION extends PHP_TokenWithScopeAndVisibility
         return $this->ccn;
     }
 
+    /**
+     * @return string
+     */
     public function getSignature()
     {
         if ($this->signature !== null) {
@@ -411,18 +444,30 @@ class PHP_Token_FUNCTION extends PHP_TokenWithScopeAndVisibility
 
 class PHP_Token_INTERFACE extends PHP_TokenWithScopeAndVisibility
 {
+    /**
+     * @var array
+     */
     protected $interfaces;
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return (string)$this->tokenStream[$this->id + 2];
     }
 
+    /**
+     * @return boolean
+     */
     public function hasParent()
     {
         return $this->tokenStream[$this->id + 4] instanceof PHP_Token_EXTENDS;
     }
 
+    /**
+     * @return array
+     */
     public function getPackage()
     {
         $className  = $this->getName();
