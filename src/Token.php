@@ -75,6 +75,9 @@ abstract class PHP_Token
 
 abstract class PHP_TokenWithScope extends PHP_Token
 {
+    /**
+     * @var integer
+     */
     protected $endTokenId;
 
     /**
@@ -122,6 +125,9 @@ abstract class PHP_TokenWithScope extends PHP_Token
         }
     }
 
+    /**
+     * @return integer
+     */
     public function getEndTokenId()
     {
         $block  = 0;
@@ -156,6 +162,9 @@ abstract class PHP_TokenWithScope extends PHP_Token
         return $this->endTokenId;
     }
 
+    /**
+     * @return integer
+     */
     public function getEndLine()
     {
         return $this->tokenStream[$this->getEndTokenId()]->getLine();
@@ -164,7 +173,9 @@ abstract class PHP_TokenWithScope extends PHP_Token
 
 abstract class PHP_TokenWithScopeAndVisibility extends PHP_TokenWithScope
 {
-
+    /**
+     * @return string
+     */
     public function getVisibility()
     {
         $tokens = $this->tokenStream->tokens();
@@ -188,6 +199,9 @@ abstract class PHP_TokenWithScopeAndVisibility extends PHP_TokenWithScope
         }
     }
 
+    /**
+     * @return string
+     */
     public function getKeywords()
     {
         $keywords = array();
@@ -217,7 +231,14 @@ abstract class PHP_TokenWithScopeAndVisibility extends PHP_TokenWithScope
 
 abstract class PHP_Token_Includes extends PHP_Token
 {
+    /**
+     * @var string
+     */
     protected $name;
+
+    /**
+     * @var string
+     */
     protected $type;
 
     public function getName()
