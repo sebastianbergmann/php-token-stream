@@ -243,10 +243,24 @@ abstract class PHP_Token_Includes extends PHP_Token
 
     public function getName()
     {
-        if ($this->name !== null) {
-            return $this->name;
+        if ($this->name === null) {
+            $this->process();
         }
 
+        return $this->name;
+    }
+
+    public function getType()
+    {
+        if ($this->type === null) {
+            $this->process();
+        }
+
+        return $this->type;
+    }
+
+    private function process()
+    {
         $tokens = $this->tokenStream->tokens();
 
         if ($tokens[$this->id+2] instanceof PHP_Token_CONSTANT_ENCAPSED_STRING) {
@@ -255,15 +269,6 @@ abstract class PHP_Token_Includes extends PHP_Token
                 str_replace('PHP_Token_', '', get_class($tokens[$this->id]))
             );
         }
-
-        return $this->name;
-    }
-
-    public function getType()
-    {
-        $this->getName();
-
-        return $this->type;
     }
 }
 
