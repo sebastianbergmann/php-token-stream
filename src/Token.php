@@ -191,7 +191,7 @@ abstract class PHP_TokenWithScopeAndVisibility extends PHP_TokenWithScope
     public function getKeywords()
     {
         $keywords = array();
-        $tokens = $this->tokenStream->tokens();
+        $tokens   = $this->tokenStream->tokens();
 
         for ($i = $this->id - 2; $i > $this->id - 7; $i -= 2) {
             if (isset($tokens[$i]) &&
@@ -241,6 +241,7 @@ abstract class PHP_Token_Includes extends PHP_Token
     public function getType()
     {
         $this->getName();
+
         return $this->type;
     }
 }
@@ -265,6 +266,7 @@ class PHP_Token_FUNCTION extends PHP_TokenWithScopeAndVisibility
 
         // Search for first token inside brackets
         $i = $this->id + 2;
+
         while (!$tokens[$i-1] instanceof PHP_Token_OPEN_BRACKET) {
             $i++;
         }
