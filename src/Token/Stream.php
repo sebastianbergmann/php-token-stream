@@ -526,9 +526,19 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
     /**
      * @param  integer $offset
      * @return mixed
+     * @throws OutOfBoundsException
      */
     public function offsetGet($offset)
     {
+        if (!$this->offsetExists($offset)) {
+            throw new OutOfBoundsException(
+                sprintf(
+                    'No token at position "%s"',
+                    $offset
+                )
+            );
+        }
+
         return $this->tokens[$offset];
     }
 
@@ -542,10 +552,20 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
     }
 
     /**
-     * @param integer $offset
+     * @param  integer $offset
+     * @throws OutOfBoundsException
      */
     public function offsetUnset($offset)
     {
+        if (!$this->offsetExists($offset)) {
+            throw new OutOfBoundsException(
+                sprintf(
+                    'No token at position "%s"',
+                    $offset
+                )
+            );
+        }
+
         unset($this->tokens[$offset]);
     }
 
@@ -560,7 +580,12 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
         $this->position = $position;
 
         if (!$this->valid()) {
-            throw new OutOfBoundsException('Invalid seek position');
+            throw new OutOfBoundsException(
+                sprintf(
+                    'No token at position "%s"',
+                    $this->position
+                )
+            );
         }
     }
 
