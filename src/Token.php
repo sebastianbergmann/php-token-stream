@@ -474,11 +474,11 @@ class PHP_Token_INTERFACE extends PHP_TokenWithScopeAndVisibility
         $docComment = $this->getDocblock();
 
         $result = array(
-          'namespace'   => '',
-          'fullPackage' => '',
-          'category'    => '',
-          'package'     => '',
-          'subpackage'  => ''
+            'namespace'   => '',
+            'fullPackage' => '',
+            'category'    => '',
+            'package'     => '',
+            'subpackage'  => ''
         );
 
         for ($i = $this->id; $i; --$i) {
