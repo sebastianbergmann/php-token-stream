@@ -512,6 +512,11 @@ class PHP_Token_INTERFACE extends PHP_TokenWithScopeAndVisibility
         return $result;
     }
 
+    /**
+     * @param  array  $parts
+     * @param  string $join
+     * @return string
+     */
     protected function arrayToName(array $parts, $join = '\\')
     {
         $result = '';
@@ -525,6 +530,9 @@ class PHP_Token_INTERFACE extends PHP_TokenWithScopeAndVisibility
         return $result;
     }
 
+    /**
+     * @return boolean|string
+     */
     public function getParent()
     {
         if (!$this->hasParent()) {
@@ -543,6 +551,9 @@ class PHP_Token_INTERFACE extends PHP_TokenWithScopeAndVisibility
         return $className;
     }
 
+    /**
+     * @return boolean
+     */
     public function hasInterfaces()
     {
         return (isset($this->tokenStream[$this->id + 4]) &&
@@ -551,6 +562,9 @@ class PHP_Token_INTERFACE extends PHP_TokenWithScopeAndVisibility
                 $this->tokenStream[$this->id + 8] instanceof PHP_Token_IMPLEMENTS);
     }
 
+    /**
+     * @return array|boolean
+     */
     public function getInterfaces()
     {
         if ($this->interfaces !== null) {
@@ -736,6 +750,9 @@ class PHP_Token_GOTO extends PHP_Token {}
 
 class PHP_Token_NAMESPACE extends PHP_TokenWithScope
 {
+    /**
+     * @return string
+     */
     public function getName()
     {
         $tokens    = $this->tokenStream->tokens();
