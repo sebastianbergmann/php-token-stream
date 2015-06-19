@@ -793,13 +793,25 @@ class PHP_Token_COALESCE extends PHP_Token {}
 class PHP_Token_SPACESHIP extends PHP_Token {}
 class PHP_Token_YIELD_FROM extends PHP_Token {}
 
-// Tokens introduced in HackLang
-class PHP_Token_TYPELIST_LT extends PHP_Token {}
-class PHP_Token_TYPELIST_GT extends PHP_Token {}
-class PHP_Token_TYPE extends PHP_Token {}
-class PHP_Token_SHAPE extends PHP_Token {}
-class PHP_Token_LAMBDA_OP extends PHP_Token {}
-class PHP_Token_LAMBDA_CP extends PHP_Token {}
-class PHP_Token_LAMBDA_ARROW extends PHP_Token {}
+// Tokens introduced in HackLang / HHVM
+class PHP_Token_COMPILER_HALT_OFFSET extends PHP_Token {}
+class PHP_Token_ENUM extends PHP_Token {}
 class PHP_Token_IN extends PHP_Token {}
 class PHP_Token_JOIN extends PHP_Token {}
+class PHP_Token_LAMBDA_ARROW extends PHP_Token {}
+class PHP_Token_LAMBDA_CP extends PHP_Token {}
+class PHP_Token_LAMBDA_OP extends PHP_Token {}
+class PHP_Token_ONUMBER extends PHP_Token {}
+class PHP_Token_SHAPE extends PHP_Token {}
+class PHP_Token_TYPE extends PHP_Token {}
+class PHP_Token_TYPELIST_GT extends PHP_Token {}
+class PHP_Token_TYPELIST_LT extends PHP_Token {}
+class PHP_Token_XHP_ATTRIBUTE extends PHP_Token {}
+class PHP_Token_XHP_CATEGORY extends PHP_Token {}
+class PHP_Token_XHP_CATEGORY_LABEL extends PHP_Token {}
+class PHP_Token_XHP_CHILDREN extends PHP_Token {}
+class PHP_Token_XHP_LABEL extends PHP_Token {}
+class PHP_Token_XHP_REQUIRED extends PHP_Token {}
+class PHP_Token_XHP_TAG_GT extends PHP_Token {}
+class PHP_Token_XHP_TAG_LT extends PHP_Token {}
+class PHP_Token_XHP_TEXT extends PHP_Token {}
