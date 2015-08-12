@@ -796,6 +796,7 @@ class PHP_Token_YIELD_FROM extends PHP_Token {}
 // Tokens introduced in HackLang / HHVM
 class PHP_Token_COMPILER_HALT_OFFSET extends PHP_Token {}
 class PHP_Token_ENUM extends PHP_Token {}
+class PHP_Token_EQUALS extends PHP_Token {}
 class PHP_Token_IN extends PHP_Token {}
 class PHP_Token_JOIN extends PHP_Token {}
 class PHP_Token_LAMBDA_ARROW extends PHP_Token {}
