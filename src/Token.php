@@ -611,7 +611,32 @@ class PHP_Token_CARET extends PHP_Token {}
 class PHP_Token_CASE extends PHP_Token {}
 class PHP_Token_CATCH extends PHP_Token {}
 class PHP_Token_CHARACTER extends PHP_Token {}
-class PHP_Token_CLASS extends PHP_Token_INTERFACE {}
+
+class PHP_Token_CLASS extends PHP_Token_INTERFACE
+{
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        $next = $this->tokenStream[$this->id + 1];
+
+        if ($next instanceof PHP_Token_WHITESPACE) {
+            $next = $this->tokenStream[$this->id + 2];
+        }
+
+        if ($next instanceof PHP_Token_STRING) {
+            return (string) $next;
+        }
+
+        if ($next instanceof PHP_Token_OPEN_CURLY ||
+            $next instanceof PHP_Token_EXTENDS ||
+            $next instanceof PHP_Token_IMPLEMENTS) {
+            return 'anonymous class';
+        }
+    }
+}
+
 class PHP_Token_CLASS_C extends PHP_Token {}
 class PHP_Token_CLASS_NAME_CONSTANT extends PHP_Token {}
 class PHP_Token_CLONE extends PHP_Token {}

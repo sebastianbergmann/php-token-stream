@@ -81,4 +81,16 @@ class PHP_Token_ClassTest extends PHPUnit_Framework_TestCase
         $ts = new PHP_Token_Stream(TEST_FILES_PATH . 'issue30.php');
         $this->assertCount(1, $ts->getClasses());
     }
+
+    /**
+     * @requires PHP 7
+     */
+    public function testAnonymousClassesAreHandledCorrectly()
+    {
+        $ts = new PHP_Token_Stream(TEST_FILES_PATH . 'class_with_method_that_declares_anonymous_class.php');
+
+        $classes = $ts->getClasses();
+
+        $this->assertEquals(array('class_with_method_that_declares_anonymous_class'), array_keys($classes));
+    }
 }
