@@ -93,4 +93,20 @@ class PHP_Token_ClassTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(array('class_with_method_that_declares_anonymous_class'), array_keys($classes));
     }
+
+    /**
+     * @requires PHP 7
+     * @ticket   https://github.com/sebastianbergmann/php-token-stream/issues/52
+     */
+    public function testAnonymousClassesAreHandledCorrectly2()
+    {
+        $ts = new PHP_Token_Stream(TEST_FILES_PATH . 'class_with_method_that_declares_anonymous_class2.php');
+
+        $classes = $ts->getClasses();
+
+        $this->assertEquals(array('Test'), array_keys($classes));
+        $this->assertEquals(array('bar', 'baz'), array_keys($classes['Test']['methods']));
+
+        $this->assertEmpty($ts->getFunctions());
+    }
 }
