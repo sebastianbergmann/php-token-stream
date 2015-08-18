@@ -9,16 +9,20 @@ php:
   - 7.0
   - hhvm
 
-before_script:
-  - composer self-update
-  - composer install --no-interaction --prefer-source --dev
-
-script:
-  - ./vendor/bin/phpunit --configuration ./build/phpunit.xml
-
 matrix:
   allow_failures:
     - php: hhvm
+
+sudo: false
+
+before_install:
+  - composer self-update
+
+install:
+  - travis_retry composer install --no-interaction --prefer-source
+
+script:
+  - ./vendor/bin/phpunit --configuration ./build/phpunit.xml
 
 notifications:
   email: false
