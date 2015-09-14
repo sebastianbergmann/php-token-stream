@@ -1,17 +1,16 @@
 <?php
-
 class Test {
-	public function bar () {
+	public function methodOne() {
 		$foo = new class {
-			public function bar () {
+			public function method_in_anonymous_class() {
 				return true;
 			}
 		};
 
-		return $foo->bar();
+		return $foo->method_in_anonymous_class();
 	}
 
-	public function baz () {
+	public function methodTwo() {
 		return false;
 	}
 }
