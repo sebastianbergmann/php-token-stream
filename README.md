@@ -8,6 +8,6 @@ To add this package as a local, per-project dependency to your project, simply a
 
     {
         "require": {
-            "phpunit/php-token-stream": "~1.2"
+            "phpunit/php-token-stream": "~1.4"
         }
     }
