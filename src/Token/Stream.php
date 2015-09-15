@@ -435,7 +435,7 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
                         $this->classes[$class[count($class)-1]]['methods'][$name] = $tmp;
 
                         $this->addFunctionToMap(
-                            $class . '::' . $name,
+                            $class[count($class)-1] . '::' . $name,
                             $tmp['startLine'],
                             $tmp['endLine']
                         );
