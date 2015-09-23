@@ -173,6 +173,13 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
 
                 if ($lastNonWhitespaceTokenWasDoubleColon && $name == 'CLASS') {
                     $name = 'CLASS_NAME_CONSTANT';
+                } elseif ($name == 'USE' && isset($tokens[$i+2][0]) && $tokens[$i+2][0] == T_FUNCTION) {
+                    unset($tokens[$i+1]);
+                    unset($tokens[$i+2]);
+
+                    $i += 2;
+
+                    $name = 'USE_FUNCTION';
                 }
 
                 $tokenClass = 'PHP_Token_' . $name;

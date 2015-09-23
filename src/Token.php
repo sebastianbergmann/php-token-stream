@@ -759,6 +759,7 @@ class PHP_Token_TRY extends PHP_Token {}
 class PHP_Token_UNSET extends PHP_Token {}
 class PHP_Token_UNSET_CAST extends PHP_Token {}
 class PHP_Token_USE extends PHP_Token {}
+class PHP_Token_USE_FUNCTION extends PHP_Token {}
 class PHP_Token_VAR extends PHP_Token {}
 class PHP_Token_VARIABLE extends PHP_Token {}
 class PHP_Token_WHILE extends PHP_Token {}

@@ -109,4 +109,14 @@ class PHP_Token_ClassTest extends PHPUnit_Framework_TestCase
 
         $this->assertEmpty($ts->getFunctions());
     }
+
+    /**
+     * @requires PHP 5.6
+     */
+    public function testImportedFunctionsAreHandledCorrectly()
+    {
+        $ts = new PHP_Token_Stream(TEST_FILES_PATH . 'classUsesNamespacedFunction.php');
+
+        $this->assertEmpty($ts->getFunctions());
+    }
 }
