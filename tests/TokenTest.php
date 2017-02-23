@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of the PHP_TokenStream package.
+ * This file is part of php-token-stream.
  *
  * (c) Sebastian Bergmann <sebastian@phpunit.de>
  *
@@ -8,19 +8,9 @@
  * file that was distributed with this source code.
  */
 
-/**
- * Tests for the PHP_Token class.
- *
- * @package    PHP_TokenStream
- * @subpackage Tests
- * @author     Sebastian Bergmann <sebastian@phpunit.de>
- * @copyright  Sebastian Bergmann <sebastian@phpunit.de>
- * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
- * @version    Release: @package_version@
- * @link       http://github.com/sebastianbergmann/php-token-stream/
- * @since      Class available since Release 1.0.0
- */
-class PHP_TokenTest extends PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class PHP_TokenTest extends TestCase
 {
     /**
      * @covers PHP_Token::__construct
