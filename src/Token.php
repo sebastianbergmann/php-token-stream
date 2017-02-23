@@ -831,6 +831,7 @@ class PHP_Token_LAMBDA_ARROW extends PHP_Token {}
 class PHP_Token_LAMBDA_CP extends PHP_Token {}
 class PHP_Token_LAMBDA_OP extends PHP_Token {}
 class PHP_Token_ONUMBER extends PHP_Token {}
+class PHP_Token_NULLSAFE_OBJECT_OPERATOR extends PHP_Token {}
 class PHP_Token_SHAPE extends PHP_Token {}
 class PHP_Token_SUPER extends PHP_Token {}
 class PHP_Token_TYPE extends PHP_Token {}
