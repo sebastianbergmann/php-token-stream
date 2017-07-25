@@ -46,12 +46,12 @@ class PHP_Token_ClosureTest extends TestCase
      */
     public function testGetName()
     {
-        $this->assertEquals('anonymous function', $this->functions[0]->getName());
-        $this->assertEquals('anonymous function', $this->functions[1]->getName());
-        $this->assertEquals('anonymous function', $this->functions[2]->getName());
-        $this->assertEquals('anonymous function', $this->functions[3]->getName());
-        $this->assertEquals('anonymous function', $this->functions[4]->getName());
-        $this->assertEquals('anonymous function', $this->functions[5]->getName());
+        $this->assertEquals('anonymousFunction:2#5', $this->functions[0]->getName());
+        $this->assertEquals('anonymousFunction:3#27', $this->functions[1]->getName());
+        $this->assertEquals('anonymousFunction:4#51', $this->functions[2]->getName());
+        $this->assertEquals('anonymousFunction:5#71', $this->functions[3]->getName());
+        $this->assertEquals('anonymousFunction:6#93', $this->functions[4]->getName());
+        $this->assertEquals('anonymousFunction:7#106', $this->functions[5]->getName());
     }
 
     /**

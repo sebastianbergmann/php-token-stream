@@ -62,6 +62,14 @@ abstract class PHP_Token
     {
         return $this->line;
     }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 }
 
 abstract class PHP_TokenWithScope extends PHP_Token
@@ -292,6 +300,11 @@ class PHP_Token_FUNCTION extends PHP_TokenWithScopeAndVisibility
     protected $signature;
 
     /**
+     * @var bool
+     */
+    private $anonymous = false;
+
+    /**
      * @return array
      */
     public function getArguments()
@@ -339,21 +352,31 @@ class PHP_Token_FUNCTION extends PHP_TokenWithScopeAndVisibility
         for ($i = $this->id + 1; $i < count($tokens); $i++) {
             if ($tokens[$i] instanceof PHP_Token_STRING) {
                 $this->name = (string) $tokens[$i];
+
                 break;
             } elseif ($tokens[$i] instanceof PHP_Token_AMPERSAND &&
                      $tokens[$i + 1] instanceof PHP_Token_STRING) {
                 $this->name = (string) $tokens[$i + 1];
+
                 break;
             } elseif ($tokens[$i] instanceof PHP_Token_OPEN_BRACKET) {
-                $this->name = 'anonymous function';
+                $this->anonymous = true;
+
+                $this->name = sprintf(
+                    'anonymousFunction:%s#%s',
+                    $this->getLine(),
+                    $this->getId()
+                );
+
                 break;
             }
         }
 
-        if ($this->name != 'anonymous function') {
+        if (!$this->isAnonymous()) {
             for ($i = $this->id; $i; --$i) {
                 if ($tokens[$i] instanceof PHP_Token_NAMESPACE) {
                     $this->name = $tokens[$i]->getName() . '\\' . $this->name;
+
                     break;
                 }
 
@@ -410,8 +433,8 @@ class PHP_Token_FUNCTION extends PHP_TokenWithScopeAndVisibility
             return $this->signature;
         }
 
-        if ($this->getName() == 'anonymous function') {
-            $this->signature = 'anonymous function';
+        if ($this->isAnonymous()) {
+            $this->signature = 'anonymousFunction';
             $i               = $this->id + 1;
         } else {
             $this->signature = '';
@@ -429,6 +452,14 @@ class PHP_Token_FUNCTION extends PHP_TokenWithScopeAndVisibility
         $this->signature = trim($this->signature);
 
         return $this->signature;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAnonymous()
+    {
+        return $this->anonymous;
     }
 }
 
@@ -657,10 +688,24 @@ class PHP_Token_CHARACTER extends PHP_Token
 class PHP_Token_CLASS extends PHP_Token_INTERFACE
 {
     /**
+     * @var bool
+     */
+    private $anonymous = false;
+
+    /**
+     * @var string
+     */
+    private $name;
+
+    /**
      * @return string
      */
     public function getName()
     {
+        if ($this->name !== null) {
+            return $this->name;
+        }
+
         $next = $this->tokenStream[$this->id + 1];
 
         if ($next instanceof PHP_Token_WHITESPACE) {
@@ -668,14 +713,30 @@ class PHP_Token_CLASS extends PHP_Token_INTERFACE
         }
 
         if ($next instanceof PHP_Token_STRING) {
-            return (string) $next;
+            $this->name =(string) $next;
+
+            return $this->name;
         }
 
         if ($next instanceof PHP_Token_OPEN_CURLY ||
             $next instanceof PHP_Token_EXTENDS ||
             $next instanceof PHP_Token_IMPLEMENTS) {
-            return 'anonymous class';
+
+            $this->name = sprintf(
+                'AnonymousClass:%s#%s',
+                $this->getLine(),
+                $this->getId()
+            );
+
+            $this->anonymous = true;
+
+            return $this->name;
         }
+    }
+
+    public function isAnonymous()
+    {
+        return $this->anonymous;
     }
 }
 

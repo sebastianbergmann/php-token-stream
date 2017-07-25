@@ -79,21 +79,27 @@ class PHP_Token_ClassTest extends TestCase
         $this->assertCount(1, $ts->getClasses());
     }
 
-    /**
-     * @requires PHP 7
-     */
     public function testAnonymousClassesAreHandledCorrectly()
     {
         $ts = new PHP_Token_Stream(TEST_FILES_PATH . 'class_with_method_that_declares_anonymous_class.php');
 
         $classes = $ts->getClasses();
 
-        $this->assertEquals(['class_with_method_that_declares_anonymous_class'], array_keys($classes));
+        $this->assertEquals(
+            [
+                'class_with_method_that_declares_anonymous_class',
+                'AnonymousClass:9#31',
+                'AnonymousClass:10#55',
+                'AnonymousClass:11#75',
+                'AnonymousClass:12#91',
+                'AnonymousClass:13#107'
+            ],
+            array_keys($classes)
+        );
     }
 
     /**
-     * @requires PHP 7
-     * @ticket   https://github.com/sebastianbergmann/php-token-stream/issues/52
+     * @ticket https://github.com/sebastianbergmann/php-token-stream/issues/52
      */
     public function testAnonymousClassesAreHandledCorrectly2()
     {
@@ -101,20 +107,34 @@ class PHP_Token_ClassTest extends TestCase
 
         $classes = $ts->getClasses();
 
-        $this->assertEquals(['Test'], array_keys($classes));
+        $this->assertEquals(['Test', 'AnonymousClass:4#23'], array_keys($classes));
         $this->assertEquals(['methodOne', 'methodTwo'], array_keys($classes['Test']['methods']));
 
         $this->assertEmpty($ts->getFunctions());
     }
 
-    /**
-     * @requires PHP 5.6
-     */
     public function testImportedFunctionsAreHandledCorrectly()
     {
         $ts = new PHP_Token_Stream(TEST_FILES_PATH . 'classUsesNamespacedFunction.php');
 
         $this->assertEmpty($ts->getFunctions());
         $this->assertCount(1, $ts->getClasses());
+    }
+
+    /**
+     * @ticket https://github.com/sebastianbergmann/php-code-coverage/issues/543
+     */
+    public function testClassWithMultipleAnonymousClassesAndFunctionsIsHandledCorrectly()
+    {
+        $ts = new PHP_Token_Stream(TEST_FILES_PATH . 'class_with_multiple_anonymous_classes_and_functions.php');
+
+        $classes = $ts->getClasses();
+
+        $this->assertArrayHasKey('class_with_multiple_anonymous_classes_and_functions', $classes);
+        $this->assertArrayHasKey('AnonymousClass:6#23', $classes);
+        $this->assertArrayHasKey('AnonymousClass:12#53', $classes);
+        $this->assertArrayHasKey('m', $classes['class_with_multiple_anonymous_classes_and_functions']['methods']);
+        $this->assertArrayHasKey('anonymousFunction:18#81', $classes['class_with_multiple_anonymous_classes_and_functions']['methods']);
+        $this->assertArrayHasKey('anonymousFunction:22#108', $classes['class_with_multiple_anonymous_classes_and_functions']['methods']);
     }
 }

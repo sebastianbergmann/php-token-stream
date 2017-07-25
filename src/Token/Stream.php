@@ -395,9 +395,7 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
                         $class[]        = $token->getName();
                         $classEndLine[] = $token->getEndLine();
 
-                        if ($class[count($class) - 1] != 'anonymous class') {
-                            $this->classes[$class[count($class) - 1]] = $tmp;
-                        }
+                        $this->classes[$class[count($class) - 1]] = $tmp;
                     } else {
                         $trait                = $token->getName();
                         $traitEndLine         = $token->getEndLine();
@@ -428,7 +426,7 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
                             $tmp['startLine'],
                             $tmp['endLine']
                         );
-                    } elseif (!empty($class) && $class[count($class) - 1] != 'anonymous class') {
+                    } elseif (!empty($class)) {
                         $this->classes[$class[count($class) - 1]]['methods'][$name] = $tmp;
 
                         $this->addFunctionToMap(
