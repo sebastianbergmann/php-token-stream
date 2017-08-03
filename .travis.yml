@@ -14,7 +14,7 @@ before_install:
   - composer clear-cache
 
 install:
-  - travis_retry composer update --no-interaction --no-ansi --no-progress --no-suggest --optimize-autoloader --prefer-stable
+  - travis_retry composer update --no-interaction --no-ansi --no-progress --no-suggest
 
 script:
   - ./vendor/bin/phpunit --coverage-clover=coverage.xml
