@@ -349,27 +349,28 @@ class PHP_Token_FUNCTION extends PHP_TokenWithScopeAndVisibility
 
         $tokens = $this->tokenStream->tokens();
 
-        for ($i = $this->id + 1; $i < count($tokens); $i++) {
-            if ($tokens[$i] instanceof PHP_Token_STRING) {
-                $this->name = (string) $tokens[$i];
+        $i = $this->id + 1;
 
-                break;
-            } elseif ($tokens[$i] instanceof PHP_Token_AMPERSAND &&
-                     $tokens[$i + 1] instanceof PHP_Token_STRING) {
-                $this->name = (string) $tokens[$i + 1];
+        if ($tokens[$i] instanceof PHP_Token_WHITESPACE) {
+            $i++;
+        }
 
-                break;
-            } elseif ($tokens[$i] instanceof PHP_Token_OPEN_BRACKET) {
-                $this->anonymous = true;
+        if ($tokens[$i] instanceof PHP_Token_AMPERSAND) {
+            $i++;
+        }
 
-                $this->name = sprintf(
-                    'anonymousFunction:%s#%s',
-                    $this->getLine(),
-                    $this->getId()
-                );
+        if ($tokens[$i + 1] instanceof PHP_Token_OPEN_BRACKET) {
+            $this->name = (string) $tokens[$i];
+        } elseif ($tokens[$i + 1] instanceof PHP_Token_WHITESPACE && $tokens[$i + 2] instanceof PHP_Token_OPEN_BRACKET) {
+            $this->name = (string) $tokens[$i];
+        } else {
+            $this->anonymous = true;
 
-                break;
-            }
+            $this->name = sprintf(
+                'anonymousFunction:%s#%s',
+                $this->getLine(),
+                $this->getId()
+            );
         }
 
         if (!$this->isAnonymous()) {
