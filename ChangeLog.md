@@ -2,6 +2,8 @@
 
 All notable changes to `sebastianbergmann/php-token-stream` are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## [3.0.0] - 2018-02-02
+
 ## [2.0.2] - 2017-11-27
 
 * Fixed [#69](https://github.com/sebastianbergmann/php-token-stream/issues/69): `PHP_Token_USE_FUNCTION` does not serialize correctly
@@ -14,6 +16,7 @@ All notable changes to `sebastianbergmann/php-token-stream` are documented in th
 
 ## [2.0.0] - 2017-08-03
 
+[3.0.0]: https://github.com/sebastianbergmann/php-token-stream/compare/2.0...3.0.0
 [2.0.2]: https://github.com/sebastianbergmann/php-token-stream/compare/2.0.1...2.0.2
 [2.0.1]: https://github.com/sebastianbergmann/php-token-stream/compare/2.0.0...2.0.1
 [2.0.0]: https://github.com/sebastianbergmann/php-token-stream/compare/1.4.11...2.0.0
