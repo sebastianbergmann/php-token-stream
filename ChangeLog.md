@@ -4,6 +4,10 @@ All notable changes to `sebastianbergmann/php-token-stream` are documented in th
 
 ## [3.0.0] - 2018-02-02
 
+### Removed
+
+* Implemented [#72](https://github.com/sebastianbergmann/php-token-stream/issues/72): Drop support for PHP 7.0
+
 ## [2.0.2] - 2017-11-27
 
 * Fixed [#69](https://github.com/sebastianbergmann/php-token-stream/issues/69): `PHP_Token_USE_FUNCTION` does not serialize correctly
