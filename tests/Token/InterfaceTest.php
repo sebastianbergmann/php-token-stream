@@ -156,7 +156,7 @@ class PHP_Token_InterfaceTest extends TestCase
                 return;
             }
         }
-        $this->fail('Seachring for 2 classes failed');
+        $this->fail('Searching for 2 classes failed');
     }
 
     public function testGetPackageNamespaceIsEmptyForInterfacesThatAreNotWithinNamespaces()
