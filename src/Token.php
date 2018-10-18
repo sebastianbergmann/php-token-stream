@@ -558,20 +558,25 @@ class PHP_Token_INTERFACE extends PHP_TokenWithScopeAndVisibility
      */
     public function getParent()
     {
-        if (!$this->hasParent()) {
+        try {
+            if (!$this->hasParent()) {
+                return false;
+            }
+
+            $i         = $this->id + 6;
+            $tokens    = $this->tokenStream->tokens();
+            $className = (string) $tokens[$i];
+
+            while (isset($tokens[$i + 1]) &&
+                   !$tokens[$i + 1] instanceof PHP_Token_WHITESPACE) {
+                $className .= (string) $tokens[++$i];
+            }
+
+            return $className;
+        } catch (OutOfBoundsException $e) {
+            // If the PHP file being parsed is syntactically invalid, this can happen (e.g. `<?php class C`
             return false;
         }
-
-        $i         = $this->id + 6;
-        $tokens    = $this->tokenStream->tokens();
-        $className = (string) $tokens[$i];
-
-        while (isset($tokens[$i + 1]) &&
-               !$tokens[$i + 1] instanceof PHP_Token_WHITESPACE) {
-            $className .= (string) $tokens[++$i];
-        }
-
-        return $className;
     }
 
     /**
