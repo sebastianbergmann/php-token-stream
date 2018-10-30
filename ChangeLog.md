@@ -2,6 +2,12 @@
 
 All notable changes to `sebastianbergmann/php-token-stream` are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## [3.0.1] - 2018-10-30
+
+### Fixed
+
+* Fixed [#78](https://github.com/sebastianbergmann/php-token-stream/pull/78): `getEndTokenId()` does not handle string-dollar (`"${var}"`) interpolation
+
 ## [3.0.0] - 2018-02-01
 
 ### Removed
@@ -10,6 +16,8 @@ All notable changes to `sebastianbergmann/php-token-stream` are documented in th
 * Implemented [#72](https://github.com/sebastianbergmann/php-token-stream/issues/72): Drop support for PHP 7.0
 
 ## [2.0.2] - 2017-11-27
+
+### Fixed
 
 * Fixed [#69](https://github.com/sebastianbergmann/php-token-stream/issues/69): `PHP_Token_USE_FUNCTION` does not serialize correctly
 
@@ -21,6 +29,7 @@ All notable changes to `sebastianbergmann/php-token-stream` are documented in th
 
 ## [2.0.0] - 2017-08-03
 
+[3.0.1]: https://github.com/sebastianbergmann/php-token-stream/compare/3.0.0...3.0.1
 [3.0.0]: https://github.com/sebastianbergmann/php-token-stream/compare/2.0...3.0.0
 [2.0.2]: https://github.com/sebastianbergmann/php-token-stream/compare/2.0.1...2.0.2
 [2.0.1]: https://github.com/sebastianbergmann/php-token-stream/compare/2.0.0...2.0.1
