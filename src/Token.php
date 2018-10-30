@@ -135,6 +135,7 @@ abstract class PHP_TokenWithScope extends PHP_Token
 
         while ($this->endTokenId === null && isset($tokens[$i])) {
             if ($tokens[$i] instanceof PHP_Token_OPEN_CURLY ||
+                $tokens[$i] instanceof PHP_Token_DOLLAR_OPEN_CURLY_BRACES ||
                 $tokens[$i] instanceof PHP_Token_CURLY_OPEN) {
                 $block++;
             } elseif ($tokens[$i] instanceof PHP_Token_CLOSE_CURLY) {

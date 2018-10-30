@@ -74,6 +74,7 @@ class PHP_Token_FunctionTest extends TestCase
         $this->assertEquals(17, $this->functions[2]->getLine());
         $this->assertEquals(21, $this->functions[3]->getLine());
         $this->assertEquals(29, $this->functions[4]->getLine());
+        $this->assertEquals(37, $this->functions[6]->getLine());
     }
 
     /**
@@ -86,6 +87,7 @@ class PHP_Token_FunctionTest extends TestCase
         $this->assertEquals(19, $this->functions[2]->getEndLine());
         $this->assertEquals(23, $this->functions[3]->getEndLine());
         $this->assertEquals(31, $this->functions[4]->getEndLine());
+        $this->assertEquals(41, $this->functions[6]->getEndLine());
     }
 
     /**

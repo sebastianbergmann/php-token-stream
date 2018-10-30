@@ -33,4 +33,10 @@ class Foo{function foo(){}
     public function blaz($x, $y)
     {
     }
+
+    public function buzz($foo)
+    {
+        echo "${foo}";
+        return true;
+    }
 }
