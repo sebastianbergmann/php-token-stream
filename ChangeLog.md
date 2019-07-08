@@ -2,7 +2,7 @@
 
 All notable changes to `sebastianbergmann/php-token-stream` are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
-## [3.0.2] - 2019-MM-DD
+## [3.0.2] - 2019-07-08
 
 ### Changed
 
