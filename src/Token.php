@@ -186,7 +186,7 @@ abstract class PHP_TokenWithScopeAndVisibility extends PHP_TokenWithScope
                 $tokens[$i] instanceof PHP_Token_PROTECTED ||
                 $tokens[$i] instanceof PHP_Token_PUBLIC)) {
                 return strtolower(
-                    str_replace('PHP_Token_', '', get_class($tokens[$i]))
+                    str_replace('PHP_Token_', '', PHP_Token_Util::getClass($tokens[$i]))
                 );
             }
             if (isset($tokens[$i]) &&
@@ -220,7 +220,7 @@ abstract class PHP_TokenWithScopeAndVisibility extends PHP_TokenWithScope
                 $tokens[$i] instanceof PHP_Token_FINAL ||
                 $tokens[$i] instanceof PHP_Token_ABSTRACT)) {
                 $keywords[] = strtolower(
-                    str_replace('PHP_Token_', '', get_class($tokens[$i]))
+                    str_replace('PHP_Token_', '', PHP_Token_Util::getClass($tokens[$i]))
                 );
             }
         }
@@ -272,7 +272,7 @@ abstract class PHP_Token_Includes extends PHP_Token
         if ($tokens[$this->id + 2] instanceof PHP_Token_CONSTANT_ENCAPSED_STRING) {
             $this->name = trim($tokens[$this->id + 2], "'\"");
             $this->type = strtolower(
-                str_replace('PHP_Token_', '', get_class($tokens[$this->id]))
+                str_replace('PHP_Token_', '', PHP_Token_Util::getClass($tokens[$this->id]))
             );
         }
     }
@@ -405,7 +405,7 @@ class PHP_Token_FUNCTION extends PHP_TokenWithScopeAndVisibility
         $tokens    = $this->tokenStream->tokens();
 
         for ($i = $this->id; $i <= $end; $i++) {
-            switch (get_class($tokens[$i])) {
+            switch (PHP_Token_Util::getClass($tokens[$i])) {
                 case 'PHP_Token_IF':
                 case 'PHP_Token_ELSEIF':
                 case 'PHP_Token_FOR':

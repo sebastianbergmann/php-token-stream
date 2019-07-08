@@ -303,7 +303,7 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
             ];
 
             foreach ($this->tokens as $token) {
-                switch (get_class($token)) {
+                switch (PHP_Token_Util::getClass($token)) {
                     case 'PHP_Token_REQUIRE_ONCE':
                     case 'PHP_Token_REQUIRE':
                     case 'PHP_Token_INCLUDE_ONCE':
@@ -358,7 +358,7 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
         $interfaceEndLine = false;
 
         foreach ($this->tokens as $token) {
-            switch (get_class($token)) {
+            switch (PHP_Token_Util::getClass($token)) {
                 case 'PHP_Token_HALT_COMPILER':
                     return;
 
