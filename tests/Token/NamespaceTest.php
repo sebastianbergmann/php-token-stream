@@ -12,9 +12,6 @@ use PHPUnit\Framework\TestCase;
 
 class PHP_Token_NamespaceTest extends TestCase
 {
-    /**
-     * @covers PHP_Token_NAMESPACE::getName
-     */
     public function testGetName()
     {
         $tokenStream = new PHP_Token_Stream(

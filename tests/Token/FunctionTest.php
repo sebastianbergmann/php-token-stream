@@ -26,9 +26,6 @@ class PHP_Token_FunctionTest extends TestCase
         }
     }
 
-    /**
-     * @covers PHP_Token_FUNCTION::getArguments
-     */
     public function testGetArguments()
     {
         $this->assertEquals([], $this->functions[0]->getArguments());
@@ -50,9 +47,6 @@ class PHP_Token_FunctionTest extends TestCase
         $this->assertEquals(['$x' => null, '$y' => null], $this->functions[5]->getArguments());
     }
 
-    /**
-     * @covers PHP_Token_FUNCTION::getName
-     */
     public function testGetName()
     {
         $this->assertEquals('foo', $this->functions[0]->getName());
@@ -62,9 +56,6 @@ class PHP_Token_FunctionTest extends TestCase
         $this->assertEquals('baz', $this->functions[4]->getName());
     }
 
-    /**
-     * @covers PHP_Token::getLine
-     */
     public function testGetLine()
     {
         $this->assertEquals(5, $this->functions[0]->getLine());
@@ -75,9 +66,6 @@ class PHP_Token_FunctionTest extends TestCase
         $this->assertEquals(37, $this->functions[6]->getLine());
     }
 
-    /**
-     * @covers PHP_TokenWithScope::getEndLine
-     */
     public function testGetEndLine()
     {
         $this->assertEquals(5, $this->functions[0]->getEndLine());
@@ -88,9 +76,6 @@ class PHP_Token_FunctionTest extends TestCase
         $this->assertEquals(41, $this->functions[6]->getEndLine());
     }
 
-    /**
-     * @covers PHP_Token_FUNCTION::getDocblock
-     */
     public function testGetDocblock()
     {
         $this->assertNull($this->functions[0]->getDocblock());

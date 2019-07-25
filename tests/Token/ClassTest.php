@@ -36,25 +36,16 @@ class PHP_Token_ClassTest extends TestCase
         }
     }
 
-    /**
-     * @covers PHP_Token_CLASS::getKeywords
-     */
     public function testGetClassKeywords()
     {
         $this->assertEquals('abstract', $this->class->getKeywords());
     }
 
-    /**
-     * @covers PHP_Token_FUNCTION::getKeywords
-     */
     public function testGetFunctionKeywords()
     {
         $this->assertEquals('abstract,static', $this->function->getKeywords());
     }
 
-    /**
-     * @covers PHP_Token_FUNCTION::getVisibility
-     */
     public function testGetFunctionVisibility()
     {
         $this->assertEquals('public', $this->function->getVisibility());

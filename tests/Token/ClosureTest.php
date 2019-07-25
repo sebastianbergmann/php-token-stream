@@ -26,9 +26,6 @@ class PHP_Token_ClosureTest extends TestCase
         }
     }
 
-    /**
-     * @covers PHP_Token_FUNCTION::getArguments
-     */
     public function testGetArguments()
     {
         $this->assertEquals(['$foo' => null, '$bar' => null], $this->functions[0]->getArguments());
@@ -39,9 +36,6 @@ class PHP_Token_ClosureTest extends TestCase
         $this->assertEquals([], $this->functions[5]->getArguments());
     }
 
-    /**
-     * @covers PHP_Token_FUNCTION::getName
-     */
     public function testGetName()
     {
         $this->assertEquals('anonymousFunction:2#5', $this->functions[0]->getName());
@@ -52,9 +46,6 @@ class PHP_Token_ClosureTest extends TestCase
         $this->assertEquals('anonymousFunction:7#106', $this->functions[5]->getName());
     }
 
-    /**
-     * @covers PHP_Token::getLine
-     */
     public function testGetLine()
     {
         $this->assertEquals(2, $this->functions[0]->getLine());
@@ -63,9 +54,6 @@ class PHP_Token_ClosureTest extends TestCase
         $this->assertEquals(5, $this->functions[3]->getLine());
     }
 
-    /**
-     * @covers PHP_TokenWithScope::getEndLine
-     */
     public function testGetEndLine()
     {
         $this->assertEquals(2, $this->functions[0]->getLine());

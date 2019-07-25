@@ -22,10 +22,6 @@ class PHP_Token_IncludeTest extends TestCase
         $this->ts = new PHP_Token_Stream(TEST_FILES_PATH . 'source3.php');
     }
 
-    /**
-     * @covers PHP_Token_Includes::getName
-     * @covers PHP_Token_Includes::getType
-     */
     public function testGetIncludes()
     {
         $this->assertSame(
@@ -34,10 +30,6 @@ class PHP_Token_IncludeTest extends TestCase
         );
     }
 
-    /**
-     * @covers PHP_Token_Includes::getName
-     * @covers PHP_Token_Includes::getType
-     */
     public function testGetIncludesCategorized()
     {
         $this->assertSame(
@@ -51,10 +43,6 @@ class PHP_Token_IncludeTest extends TestCase
         );
     }
 
-    /**
-     * @covers PHP_Token_Includes::getName
-     * @covers PHP_Token_Includes::getType
-     */
     public function testGetIncludesCategory()
     {
         $this->assertSame(
