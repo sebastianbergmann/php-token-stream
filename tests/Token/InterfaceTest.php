@@ -97,7 +97,6 @@ class PHP_Token_InterfaceTest extends TestCase
         }
     }
 
-
     public function provideFilesWithClassesWithinMultipleNamespaces()
     {
         return [
@@ -113,6 +112,7 @@ class PHP_Token_InterfaceTest extends TestCase
     {
         $tokenStream     = new PHP_Token_Stream($filepath);
         $firstClassFound = false;
+
         foreach ($tokenStream as $token) {
             if ($firstClassFound === false && $token instanceof PHP_Token_INTERFACE) {
                 $package = $token->getPackage();
@@ -145,6 +145,7 @@ class PHP_Token_InterfaceTest extends TestCase
     {
         $tokenStream     = new PHP_Token_Stream(TEST_FILES_PATH . 'classExtendsNamespacedClass.php');
         $firstClassFound = false;
+
         foreach ($tokenStream as $token) {
             if ($firstClassFound === false && $token instanceof PHP_Token_INTERFACE) {
                 $package = $token->getPackage();
@@ -153,6 +154,7 @@ class PHP_Token_InterfaceTest extends TestCase
                 $firstClassFound = true;
                 continue;
             }
+
             if ($token instanceof PHP_Token_INTERFACE) {
                 $package = $token->getPackage();
                 $this->assertSame('Extender', $token->getName());
@@ -161,6 +163,7 @@ class PHP_Token_InterfaceTest extends TestCase
                 return;
             }
         }
+
         $this->fail('Searching for 2 classes failed');
     }
 }

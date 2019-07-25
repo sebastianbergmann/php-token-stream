@@ -25,29 +25,29 @@ class PHP_Token_IncludeTest extends TestCase
     public function testGetIncludes()
     {
         $this->assertSame(
-          ['test4.php', 'test3.php', 'test2.php', 'test1.php'],
-          $this->ts->getIncludes()
+            ['test4.php', 'test3.php', 'test2.php', 'test1.php'],
+            $this->ts->getIncludes()
         );
     }
 
     public function testGetIncludesCategorized()
     {
         $this->assertSame(
-          [
-            'require_once' => ['test4.php'],
-            'require'      => ['test3.php'],
-            'include_once' => ['test2.php'],
-            'include'      => ['test1.php']
-          ],
-          $this->ts->getIncludes(true)
+            [
+                'require_once' => ['test4.php'],
+                'require'      => ['test3.php'],
+                'include_once' => ['test2.php'],
+                'include'      => ['test1.php']
+            ],
+            $this->ts->getIncludes(true)
         );
     }
 
     public function testGetIncludesCategory()
     {
         $this->assertSame(
-          ['test4.php'],
-          $this->ts->getIncludes(true, 'require_once')
+            ['test4.php'],
+            $this->ts->getIncludes(true, 'require_once')
         );
     }
 }
