@@ -113,8 +113,7 @@ class PHP_Token_InterfaceTest extends TestCase
      */
     public function testGetPackageNamespace()
     {
-        $tokenStream = new PHP_Token_Stream(TEST_FILES_PATH . 'classInNamespace.php');
-        foreach ($tokenStream as $token) {
+        foreach (new PHP_Token_Stream(TEST_FILES_PATH . 'classInNamespace.php') as $token) {
             if ($token instanceof PHP_Token_INTERFACE) {
                 $package = $token->getPackage();
                 $this->assertSame('Foo\\Bar', $package['namespace']);

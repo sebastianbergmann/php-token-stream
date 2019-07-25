@@ -30,8 +30,7 @@ class PHP_Token_NamespaceTest extends TestCase
 
     public function testGetStartLineWithUnscopedNamespace()
     {
-        $tokenStream = new PHP_Token_Stream(TEST_FILES_PATH . 'classInNamespace.php');
-        foreach ($tokenStream as $token) {
+        foreach (new PHP_Token_Stream(TEST_FILES_PATH . 'classInNamespace.php') as $token) {
             if ($token instanceof PHP_Token_NAMESPACE) {
                 $this->assertSame(2, $token->getLine());
             }
@@ -40,8 +39,7 @@ class PHP_Token_NamespaceTest extends TestCase
 
     public function testGetEndLineWithUnscopedNamespace()
     {
-        $tokenStream = new PHP_Token_Stream(TEST_FILES_PATH . 'classInNamespace.php');
-        foreach ($tokenStream as $token) {
+        foreach (new PHP_Token_Stream(TEST_FILES_PATH . 'classInNamespace.php') as $token) {
             if ($token instanceof PHP_Token_NAMESPACE) {
                 $this->assertSame(2, $token->getEndLine());
             }
@@ -49,8 +47,7 @@ class PHP_Token_NamespaceTest extends TestCase
     }
     public function testGetStartLineWithScopedNamespace()
     {
-        $tokenStream = new PHP_Token_Stream(TEST_FILES_PATH . 'classInScopedNamespace.php');
-        foreach ($tokenStream as $token) {
+        foreach (new PHP_Token_Stream(TEST_FILES_PATH . 'classInScopedNamespace.php') as $token) {
             if ($token instanceof PHP_Token_NAMESPACE) {
                 $this->assertSame(2, $token->getLine());
             }
@@ -59,8 +56,7 @@ class PHP_Token_NamespaceTest extends TestCase
 
     public function testGetEndLineWithScopedNamespace()
     {
-        $tokenStream = new PHP_Token_Stream(TEST_FILES_PATH . 'classInScopedNamespace.php');
-        foreach ($tokenStream as $token) {
+        foreach (new PHP_Token_Stream(TEST_FILES_PATH . 'classInScopedNamespace.php') as $token) {
             if ($token instanceof PHP_Token_NAMESPACE) {
                 $this->assertSame(8, $token->getEndLine());
             }
