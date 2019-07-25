@@ -2,6 +2,12 @@
 
 All notable changes to `sebastianbergmann/php-token-stream` are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## [3.1.0] - 2019-07-25
+
+### Added
+
+* Added support for `FN` and `COALESCE_EQUAL` tokens introduced in PHP 7.4
+
 ## [3.0.2] - 2019-07-08
 
 ### Changed
@@ -35,6 +41,7 @@ All notable changes to `sebastianbergmann/php-token-stream` are documented in th
 
 ## [2.0.0] - 2017-08-03
 
+[3.1.0]: https://github.com/sebastianbergmann/php-token-stream/compare/3.0.2...3.1.0
 [3.0.2]: https://github.com/sebastianbergmann/php-token-stream/compare/3.0.1...3.0.2
 [3.0.1]: https://github.com/sebastianbergmann/php-token-stream/compare/3.0.0...3.0.1
 [3.0.0]: https://github.com/sebastianbergmann/php-token-stream/compare/2.0...3.0.0

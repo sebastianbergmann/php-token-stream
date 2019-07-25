@@ -1350,3 +1350,12 @@ class PHP_Token_SPACESHIP extends PHP_Token
 class PHP_Token_YIELD_FROM extends PHP_Token
 {
 }
+
+// Tokens introduced in PHP 7.4
+class PHP_Token_COALESCE_EQUAL extends PHP_Token
+{
+}
+
+class PHP_Token_FN extends PHP_Token
+{
+}
