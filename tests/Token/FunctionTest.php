@@ -17,7 +17,7 @@ class PHP_Token_FunctionTest extends TestCase
      */
     private $functions;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         foreach (new PHP_Token_Stream(TEST_FILES_PATH . 'source.php') as $token) {
             if ($token instanceof PHP_Token_FUNCTION) {

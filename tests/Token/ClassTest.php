@@ -22,7 +22,7 @@ class PHP_Token_ClassTest extends TestCase
      */
     private $function;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         foreach (new PHP_Token_Stream(TEST_FILES_PATH . 'source2.php') as $token) {
             if ($token instanceof PHP_Token_CLASS) {

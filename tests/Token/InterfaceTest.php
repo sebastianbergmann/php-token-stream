@@ -22,7 +22,7 @@ class PHP_Token_InterfaceTest extends TestCase
      */
     private $interfaces;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $ts = new PHP_Token_Stream(TEST_FILES_PATH . 'source4.php');
         $i  = 0;
