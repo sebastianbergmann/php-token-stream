@@ -392,15 +392,17 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
                       'file'      => $this->filename
                     ];
 
-                    if ($token instanceof PHP_Token_CLASS) {
-                        $class[]        = $token->getName();
-                        $classEndLine[] = $token->getEndLine();
+                    if ($token->getName() !== null) {
+                        if ($token instanceof PHP_Token_CLASS) {
+                            $class[]        = $token->getName();
+                            $classEndLine[] = $token->getEndLine();
 
-                        $this->classes[$class[count($class) - 1]] = $tmp;
-                    } else {
-                        $trait                = $token->getName();
-                        $traitEndLine         = $token->getEndLine();
-                        $this->traits[$trait] = $tmp;
+                            $this->classes[$class[count($class) - 1]] = $tmp;
+                        } else {
+                            $trait                = $token->getName();
+                            $traitEndLine         = $token->getEndLine();
+                            $this->traits[$trait] = $tmp;
+                        }
                     }
                     break;
 
