@@ -2,6 +2,12 @@
 
 All notable changes to `sebastianbergmann/php-token-stream` are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## [4.0.0] - 2020-02-07
+
+### Removed
+
+* This component is no longer supported PHP 7.1 and PHP 7.2
+
 ## [3.1.1] - 2019-09-17
 
 ### Fixed
@@ -47,6 +53,7 @@ All notable changes to `sebastianbergmann/php-token-stream` are documented in th
 
 ## [2.0.0] - 2017-08-03
 
+[4.0.0]: https://github.com/sebastianbergmann/php-token-stream/compare/3.1.1...master
 [3.1.1]: https://github.com/sebastianbergmann/php-token-stream/compare/3.1.0...3.1.1
 [3.1.0]: https://github.com/sebastianbergmann/php-token-stream/compare/3.0.2...3.1.0
 [3.0.2]: https://github.com/sebastianbergmann/php-token-stream/compare/3.0.1...3.0.2
