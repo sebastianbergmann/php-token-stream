@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of php-token-stream.
+ * This file is part of phpunit/php-token-stream.
  *
  * (c) Sebastian Bergmann <sebastian@phpunit.de>
  *
@@ -26,7 +26,7 @@ class PHP_Token_ClosureTest extends TestCase
         }
     }
 
-    public function testGetArguments()
+    public function testGetArguments(): void
     {
         $this->assertEquals(['$foo' => null, '$bar' => null], $this->functions[0]->getArguments());
         $this->assertEquals(['$foo' => 'Foo', '$bar' => null], $this->functions[1]->getArguments());
@@ -36,7 +36,7 @@ class PHP_Token_ClosureTest extends TestCase
         $this->assertEquals([], $this->functions[5]->getArguments());
     }
 
-    public function testGetName()
+    public function testGetName(): void
     {
         $this->assertEquals('anonymousFunction:2#5', $this->functions[0]->getName());
         $this->assertEquals('anonymousFunction:3#27', $this->functions[1]->getName());
@@ -46,7 +46,7 @@ class PHP_Token_ClosureTest extends TestCase
         $this->assertEquals('anonymousFunction:7#106', $this->functions[5]->getName());
     }
 
-    public function testGetLine()
+    public function testGetLine(): void
     {
         $this->assertEquals(2, $this->functions[0]->getLine());
         $this->assertEquals(3, $this->functions[1]->getLine());
@@ -54,7 +54,7 @@ class PHP_Token_ClosureTest extends TestCase
         $this->assertEquals(5, $this->functions[3]->getLine());
     }
 
-    public function testGetEndLine()
+    public function testGetEndLine(): void
     {
         $this->assertEquals(2, $this->functions[0]->getLine());
         $this->assertEquals(3, $this->functions[1]->getLine());

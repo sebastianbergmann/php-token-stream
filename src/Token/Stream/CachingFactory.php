@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of php-token-stream.
+ * This file is part of phpunit/php-token-stream.
  *
  * (c) Sebastian Bergmann <sebastian@phpunit.de>
  *
@@ -35,9 +35,9 @@ class PHP_Token_Stream_CachingFactory
     /**
      * @param string $filename
      */
-    public static function clear($filename = null)
+    public static function clear($filename = null): void
     {
-        if (is_string($filename)) {
+        if (\is_string($filename)) {
             unset(self::$cache[$filename]);
         } else {
             self::$cache = [];
