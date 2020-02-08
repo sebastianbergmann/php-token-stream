@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of php-token-stream.
+ * This file is part of phpunit/php-token-stream.
  *
  * (c) Sebastian Bergmann <sebastian@phpunit.de>
  *
@@ -26,20 +26,23 @@ class PHP_Token_FunctionTest extends TestCase
         }
     }
 
-    public function testGetArguments()
+    public function testGetArguments(): void
     {
         $this->assertEquals([], $this->functions[0]->getArguments());
 
         $this->assertEquals(
-            ['$baz' => 'Baz'], $this->functions[1]->getArguments()
+            ['$baz' => 'Baz'],
+            $this->functions[1]->getArguments()
         );
 
         $this->assertEquals(
-            ['$foobar' => 'Foobar'], $this->functions[2]->getArguments()
+            ['$foobar' => 'Foobar'],
+            $this->functions[2]->getArguments()
         );
 
         $this->assertEquals(
-            ['$barfoo' => 'Barfoo'], $this->functions[3]->getArguments()
+            ['$barfoo' => 'Barfoo'],
+            $this->functions[3]->getArguments()
         );
 
         $this->assertEquals([], $this->functions[4]->getArguments());
@@ -47,7 +50,7 @@ class PHP_Token_FunctionTest extends TestCase
         $this->assertEquals(['$x' => null, '$y' => null], $this->functions[5]->getArguments());
     }
 
-    public function testGetName()
+    public function testGetName(): void
     {
         $this->assertEquals('foo', $this->functions[0]->getName());
         $this->assertEquals('bar', $this->functions[1]->getName());
@@ -56,7 +59,7 @@ class PHP_Token_FunctionTest extends TestCase
         $this->assertEquals('baz', $this->functions[4]->getName());
     }
 
-    public function testGetLine()
+    public function testGetLine(): void
     {
         $this->assertEquals(5, $this->functions[0]->getLine());
         $this->assertEquals(10, $this->functions[1]->getLine());
@@ -66,7 +69,7 @@ class PHP_Token_FunctionTest extends TestCase
         $this->assertEquals(37, $this->functions[6]->getLine());
     }
 
-    public function testGetEndLine()
+    public function testGetEndLine(): void
     {
         $this->assertEquals(5, $this->functions[0]->getEndLine());
         $this->assertEquals(12, $this->functions[1]->getEndLine());
@@ -76,7 +79,7 @@ class PHP_Token_FunctionTest extends TestCase
         $this->assertEquals(41, $this->functions[6]->getEndLine());
     }
 
-    public function testGetDocblock()
+    public function testGetDocblock(): void
     {
         $this->assertNull($this->functions[0]->getDocblock());
 
@@ -94,7 +97,7 @@ class PHP_Token_FunctionTest extends TestCase
         $this->assertNull($this->functions[4]->getDocblock());
     }
 
-    public function testSignature()
+    public function testSignature(): void
     {
         $tokens     = new PHP_Token_Stream(TEST_FILES_PATH . 'source5.php');
         $functions  = $tokens->getFunctions();

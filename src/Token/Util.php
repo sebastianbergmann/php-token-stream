@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 /*
- * This file is part of php-token-stream.
+ * This file is part of phpunit/php-token-stream.
  *
  * (c) Sebastian Bergmann <sebastian@phpunit.de>
  *
@@ -12,8 +12,8 @@ final class PHP_Token_Util
 {
     public static function getClass($object): string
     {
-        $parts = explode('\\', get_class($object));
+        $parts = \explode('\\', \get_class($object));
 
-        return array_pop($parts);
+        return \array_pop($parts);
     }
 }

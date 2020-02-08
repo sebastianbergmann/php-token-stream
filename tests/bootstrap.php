@@ -1,6 +1,6 @@
 <?php
 /*
- * This file is part of php-token-stream.
+ * This file is part of phpunit/php-token-stream.
  *
  * (c) Sebastian Bergmann <sebastian@phpunit.de>
  *
@@ -9,7 +9,7 @@
  */
 require __DIR__ . '/../vendor/autoload.php';
 
-define(
+\define(
     'TEST_FILES_PATH',
-    __DIR__ . DIRECTORY_SEPARATOR . '_fixture' . DIRECTORY_SEPARATOR
+    __DIR__ . \DIRECTORY_SEPARATOR . '_fixture' . \DIRECTORY_SEPARATOR
 );
