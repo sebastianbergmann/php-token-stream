@@ -70,12 +70,12 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
     protected $linesOfCode = ['loc' => 0, 'cloc' => 0, 'ncloc' => 0];
 
     /**
-     * @var array|null
+     * @var null|array
      */
     protected $classes;
 
     /**
-     * @var array|null
+     * @var null|array
      */
     protected $functions;
 
@@ -94,7 +94,7 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
     protected $interfaces;
 
     /**
-     * @var array|null
+     * @var null|array
      */
     protected $traits;
 
@@ -177,7 +177,7 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
 
         $this->parse();
 
-        assert($this->classes !== null);
+        \assert($this->classes !== null);
 
         return $this->classes;
     }
@@ -193,7 +193,7 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
 
         $this->parse();
 
-        assert($this->functions !== null);
+        \assert($this->functions !== null);
 
         return $this->functions;
     }
@@ -209,7 +209,7 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
 
         $this->parse();
 
-        assert($this->interfaces !== null);
+        \assert($this->interfaces !== null);
 
         return $this->interfaces;
     }
@@ -225,8 +225,8 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
 
         $this->parse();
 
-        assert($this->traits !== null);
-        
+        \assert($this->traits !== null);
+
         return $this->traits;
     }
 
@@ -257,7 +257,7 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
             ];
 
             foreach ($this->tokens as $token) {
-                switch (get_class($token)) {
+                switch (\get_class($token)) {
                     case PHP_Token_REQUIRE_ONCE::class:
                     case PHP_Token_REQUIRE::class:
                     case PHP_Token_INCLUDE_ONCE::class:
@@ -354,9 +354,9 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
     /**
      * @param int $offset
      *
-     * @return PHP_Token
-     *
      * @throws OutOfBoundsException
+     *
+     * @return PHP_Token
      */
     public function offsetGet($offset)
     {
@@ -373,8 +373,7 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
     }
 
     /**
-     * @param int $offset
-     *
+     * @param int       $offset
      * @param PHP_Token $value
      */
     public function offsetSet($offset, $value): void
@@ -438,7 +437,7 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
         $lastNonWhitespaceTokenWasDoubleColon = false;
 
         $name = null;
-        
+
         for ($i = 0; $i < $numTokens; ++$i) {
             $token = $tokens[$i];
             $skip  = 0;
@@ -503,7 +502,7 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
         $interfaceEndLine = false;
 
         foreach ($this->tokens as $token) {
-            switch (get_class($token)) {
+            switch (\get_class($token)) {
                 case PHP_Token_HALT_COMPILER::class:
                     return;
 

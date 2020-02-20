@@ -19,8 +19,6 @@ class PHP_Token_Stream_CachingFactory
     protected static $cache = [];
 
     /**
-     * @param string $filename
-     *
      * @return PHP_Token_Stream
      */
     public static function get(string $filename)

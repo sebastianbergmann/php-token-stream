@@ -197,7 +197,7 @@ abstract class PHP_TokenWithScopeAndVisibility extends PHP_TokenWithScope
                 break;
             }
         }
-        
+
         return '';
     }
 
@@ -234,12 +234,12 @@ abstract class PHP_TokenWithScopeAndVisibility extends PHP_TokenWithScope
 abstract class PHP_Token_Includes extends PHP_Token
 {
     /**
-     * @var string|null
+     * @var null|string
      */
     protected $name;
 
     /**
-     * @var string|null
+     * @var null|string
      */
     protected $type;
 
@@ -283,22 +283,22 @@ abstract class PHP_Token_Includes extends PHP_Token
 class PHP_Token_FUNCTION extends PHP_TokenWithScopeAndVisibility
 {
     /**
-     * @var array|null
+     * @var null|array
      */
     protected $arguments;
 
     /**
-     * @var int|null
+     * @var null|int
      */
     protected $ccn;
 
     /**
-     * @var string|null
+     * @var null|string
      */
     protected $name;
 
     /**
-     * @var string|null
+     * @var null|string
      */
     protected $signature;
 
@@ -407,7 +407,7 @@ class PHP_Token_FUNCTION extends PHP_TokenWithScopeAndVisibility
         $tokens    = $this->tokenStream->tokens();
 
         for ($i = $this->id; $i <= $end; $i++) {
-            switch (get_class($tokens[$i])) {
+            switch (\get_class($tokens[$i])) {
                 case PHP_Token_IF::class:
                 case PHP_Token_ELSEIF::class:
                 case PHP_Token_FOR::class:
@@ -471,7 +471,7 @@ class PHP_Token_FUNCTION extends PHP_TokenWithScopeAndVisibility
 class PHP_Token_INTERFACE extends PHP_TokenWithScopeAndVisibility
 {
     /**
-     * @var null|false|array
+     * @var null|array|false
      *
      * @psalm-var null|false|list<string>
      */
@@ -574,7 +574,7 @@ class PHP_Token_INTERFACE extends PHP_TokenWithScopeAndVisibility
     }
 
     /**
-     * @return array|false|null
+     * @return null|array|false
      */
     public function getInterfaces()
     {
@@ -700,12 +700,12 @@ class PHP_Token_CLASS extends PHP_Token_INTERFACE
     private $anonymous = false;
 
     /**
-     * @var string|null
+     * @var null|string
      */
     private $name;
 
     /**
-     * @return string|null
+     * @return null|string
      */
     public function getName()
     {
