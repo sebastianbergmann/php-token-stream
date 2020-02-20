@@ -1,32 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="3.8.3@389af1bfc739bfdff3f9e3dc7bd6499aee51a831">
+<files psalm-version="3.9.3@2e4154d76e24d1b4e59e6cc2bebef7790cb9e550">
   <file src="src/Token.php">
-    <ImplicitToStringCast occurrences="1">
-      <code>$tokens[$this-&gt;id + 2]</code>
-    </ImplicitToStringCast>
-    <InvalidNullableReturnType occurrences="3">
-      <code>string</code>
-      <code>array|bool</code>
-      <code>string</code>
-    </InvalidNullableReturnType>
-    <NullableReturnStatement occurrences="1">
-      <code>$this-&gt;interfaces</code>
-    </NullableReturnStatement>
-    <PossiblyFalsePropertyAssignmentValue occurrences="1">
-      <code>false</code>
-    </PossiblyFalsePropertyAssignmentValue>
-    <PossiblyNullArgument occurrences="3">
-      <code>$docComment</code>
-      <code>$docComment</code>
-      <code>$docComment</code>
-    </PossiblyNullArgument>
+    <ImplementedReturnTypeMismatch occurrences="1">
+      <code>string|null</code>
+    </ImplementedReturnTypeMismatch>
   </file>
   <file src="src/Token/Stream.php">
-    <PossiblyNullArrayOffset occurrences="1">
-      <code>$this-&gt;includes</code>
-    </PossiblyNullArrayOffset>
-    <PossiblyUndefinedVariable occurrences="1">
-      <code>$name</code>
-    </PossiblyUndefinedVariable>
+    <PossiblyNullOperand occurrences="1">
+      <code>$class[\count($class) - 1]</code>
+    </PossiblyNullOperand>
   </file>
 </files>

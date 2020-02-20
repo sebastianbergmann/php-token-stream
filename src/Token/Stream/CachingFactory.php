@@ -14,7 +14,7 @@
 class PHP_Token_Stream_CachingFactory
 {
     /**
-     * @var array
+     * @var array<string, PHP_Token_Stream>
      */
     protected static $cache = [];
 
@@ -23,7 +23,7 @@ class PHP_Token_Stream_CachingFactory
      *
      * @return PHP_Token_Stream
      */
-    public static function get($filename)
+    public static function get(string $filename)
     {
         if (!isset(self::$cache[$filename])) {
             self::$cache[$filename] = new PHP_Token_Stream($filename);
@@ -35,7 +35,7 @@ class PHP_Token_Stream_CachingFactory
     /**
      * @param string $filename
      */
-    public static function clear($filename = null): void
+    public static function clear(?string $filename = null): void
     {
         if (\is_string($filename)) {
             unset(self::$cache[$filename]);

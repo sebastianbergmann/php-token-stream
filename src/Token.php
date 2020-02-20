@@ -197,6 +197,8 @@ abstract class PHP_TokenWithScopeAndVisibility extends PHP_TokenWithScope
                 break;
             }
         }
+        
+        return '';
     }
 
     /**
@@ -232,12 +234,12 @@ abstract class PHP_TokenWithScopeAndVisibility extends PHP_TokenWithScope
 abstract class PHP_Token_Includes extends PHP_Token
 {
     /**
-     * @var string
+     * @var string|null
      */
     protected $name;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $type;
 
@@ -270,7 +272,7 @@ abstract class PHP_Token_Includes extends PHP_Token
         $tokens = $this->tokenStream->tokens();
 
         if ($tokens[$this->id + 2] instanceof PHP_Token_CONSTANT_ENCAPSED_STRING) {
-            $this->name = \trim($tokens[$this->id + 2], "'\"");
+            $this->name = \trim($tokens[$this->id + 2]->__toString(), "'\"");
             $this->type = \strtolower(
                 \str_replace('PHP_Token_', '', PHP_Token_Util::getClass($tokens[$this->id]))
             );
@@ -281,22 +283,22 @@ abstract class PHP_Token_Includes extends PHP_Token
 class PHP_Token_FUNCTION extends PHP_TokenWithScopeAndVisibility
 {
     /**
-     * @var array
+     * @var array|null
      */
     protected $arguments;
 
     /**
-     * @var int
+     * @var int|null
      */
     protected $ccn;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $name;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $signature;
 
@@ -405,19 +407,19 @@ class PHP_Token_FUNCTION extends PHP_TokenWithScopeAndVisibility
         $tokens    = $this->tokenStream->tokens();
 
         for ($i = $this->id; $i <= $end; $i++) {
-            switch (PHP_Token_Util::getClass($tokens[$i])) {
-                case 'PHP_Token_IF':
-                case 'PHP_Token_ELSEIF':
-                case 'PHP_Token_FOR':
-                case 'PHP_Token_FOREACH':
-                case 'PHP_Token_WHILE':
-                case 'PHP_Token_CASE':
-                case 'PHP_Token_CATCH':
-                case 'PHP_Token_BOOLEAN_AND':
-                case 'PHP_Token_LOGICAL_AND':
-                case 'PHP_Token_BOOLEAN_OR':
-                case 'PHP_Token_LOGICAL_OR':
-                case 'PHP_Token_QUESTION_MARK':
+            switch (get_class($tokens[$i])) {
+                case PHP_Token_IF::class:
+                case PHP_Token_ELSEIF::class:
+                case PHP_Token_FOR::class:
+                case PHP_Token_FOREACH::class:
+                case PHP_Token_WHILE::class:
+                case PHP_Token_CASE::class:
+                case PHP_Token_CATCH::class:
+                case PHP_Token_BOOLEAN_AND::class:
+                case PHP_Token_LOGICAL_AND::class:
+                case PHP_Token_BOOLEAN_OR::class:
+                case PHP_Token_LOGICAL_OR::class:
+                case PHP_Token_QUESTION_MARK::class:
                     $this->ccn++;
 
                     break;
@@ -469,7 +471,9 @@ class PHP_Token_FUNCTION extends PHP_TokenWithScopeAndVisibility
 class PHP_Token_INTERFACE extends PHP_TokenWithScopeAndVisibility
 {
     /**
-     * @var array
+     * @var null|false|array
+     *
+     * @psalm-var null|false|list<string>
      */
     protected $interfaces;
 
@@ -495,7 +499,7 @@ class PHP_Token_INTERFACE extends PHP_TokenWithScopeAndVisibility
     public function getPackage()
     {
         $className  = $this->getName();
-        $docComment = $this->getDocblock();
+        $docComment = (string) $this->getDocblock();
 
         $result = [
             'namespace'   => '',
@@ -570,7 +574,7 @@ class PHP_Token_INTERFACE extends PHP_TokenWithScopeAndVisibility
     }
 
     /**
-     * @return array|bool
+     * @return array|false|null
      */
     public function getInterfaces()
     {
@@ -696,12 +700,12 @@ class PHP_Token_CLASS extends PHP_Token_INTERFACE
     private $anonymous = false;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $name;
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getName()
     {
@@ -736,7 +740,7 @@ class PHP_Token_CLASS extends PHP_Token_INTERFACE
         }
     }
 
-    public function isAnonymous()
+    public function isAnonymous(): bool
     {
         return $this->anonymous;
     }

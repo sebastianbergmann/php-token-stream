@@ -10,7 +10,7 @@
 
 final class PHP_Token_Util
 {
-    public static function getClass($object): string
+    public static function getClass(object $object): string
     {
         $parts = \explode('\\', \get_class($object));
 
