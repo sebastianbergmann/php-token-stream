@@ -405,19 +405,19 @@ class PHP_Token_FUNCTION extends PHP_TokenWithScopeAndVisibility
         $tokens    = $this->tokenStream->tokens();
 
         for ($i = $this->id; $i <= $end; $i++) {
-            switch (PHP_Token_Util::getClass($tokens[$i])) {
-                case 'PHP_Token_IF':
-                case 'PHP_Token_ELSEIF':
-                case 'PHP_Token_FOR':
-                case 'PHP_Token_FOREACH':
-                case 'PHP_Token_WHILE':
-                case 'PHP_Token_CASE':
-                case 'PHP_Token_CATCH':
-                case 'PHP_Token_BOOLEAN_AND':
-                case 'PHP_Token_LOGICAL_AND':
-                case 'PHP_Token_BOOLEAN_OR':
-                case 'PHP_Token_LOGICAL_OR':
-                case 'PHP_Token_QUESTION_MARK':
+            switch (\get_class($tokens[$i])) {
+                case PHP_Token_IF::class:
+                case PHP_Token_ELSEIF::class:
+                case PHP_Token_FOR::class:
+                case PHP_Token_FOREACH::class:
+                case PHP_Token_WHILE::class:
+                case PHP_Token_CASE::class:
+                case PHP_Token_CATCH::class:
+                case PHP_Token_BOOLEAN_AND::class:
+                case PHP_Token_LOGICAL_AND::class:
+                case PHP_Token_BOOLEAN_OR::class:
+                case PHP_Token_LOGICAL_OR::class:
+                case PHP_Token_QUESTION_MARK::class:
                     $this->ccn++;
 
                     break;
