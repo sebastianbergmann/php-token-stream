@@ -22,7 +22,5 @@
 
         <DocblockTypeContradiction errorLevel="info" />
         <RedundantConditionGivenDocblockType errorLevel="info" />
-
-        <InvalidStringClass errorLevel="info" />
     </issueHandlers>
 </psalm>

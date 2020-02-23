@@ -14,37 +14,37 @@
 class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
 {
     /**
-     * @var array
+     * @var array<string, class-string<PHP_Token>>
      */
     protected static $customTokens = [
-        '(' => 'PHP_Token_OPEN_BRACKET',
-        ')' => 'PHP_Token_CLOSE_BRACKET',
-        '[' => 'PHP_Token_OPEN_SQUARE',
-        ']' => 'PHP_Token_CLOSE_SQUARE',
-        '{' => 'PHP_Token_OPEN_CURLY',
-        '}' => 'PHP_Token_CLOSE_CURLY',
-        ';' => 'PHP_Token_SEMICOLON',
-        '.' => 'PHP_Token_DOT',
-        ',' => 'PHP_Token_COMMA',
-        '=' => 'PHP_Token_EQUAL',
-        '<' => 'PHP_Token_LT',
-        '>' => 'PHP_Token_GT',
-        '+' => 'PHP_Token_PLUS',
-        '-' => 'PHP_Token_MINUS',
-        '*' => 'PHP_Token_MULT',
-        '/' => 'PHP_Token_DIV',
-        '?' => 'PHP_Token_QUESTION_MARK',
-        '!' => 'PHP_Token_EXCLAMATION_MARK',
-        ':' => 'PHP_Token_COLON',
-        '"' => 'PHP_Token_DOUBLE_QUOTES',
-        '@' => 'PHP_Token_AT',
-        '&' => 'PHP_Token_AMPERSAND',
-        '%' => 'PHP_Token_PERCENT',
-        '|' => 'PHP_Token_PIPE',
-        '$' => 'PHP_Token_DOLLAR',
-        '^' => 'PHP_Token_CARET',
-        '~' => 'PHP_Token_TILDE',
-        '`' => 'PHP_Token_BACKTICK',
+        '(' => PHP_Token_OPEN_BRACKET::class,
+        ')' => PHP_Token_CLOSE_BRACKET::class,
+        '[' => PHP_Token_OPEN_SQUARE::class,
+        ']' => PHP_Token_CLOSE_SQUARE::class,
+        '{' => PHP_Token_OPEN_CURLY::class,
+        '}' => PHP_Token_CLOSE_CURLY::class,
+        ';' => PHP_Token_SEMICOLON::class,
+        '.' => PHP_Token_DOT::class,
+        ',' => PHP_Token_COMMA::class,
+        '=' => PHP_Token_EQUAL::class,
+        '<' => PHP_Token_LT::class,
+        '>' => PHP_Token_GT::class,
+        '+' => PHP_Token_PLUS::class,
+        '-' => PHP_Token_MINUS::class,
+        '*' => PHP_Token_MULT::class,
+        '/' => PHP_Token_DIV::class,
+        '?' => PHP_Token_QUESTION_MARK::class,
+        '!' => PHP_Token_EXCLAMATION_MARK::class,
+        ':' => PHP_Token_COLON::class,
+        '"' => PHP_Token_DOUBLE_QUOTES::class,
+        '@' => PHP_Token_AT::class,
+        '&' => PHP_Token_AMPERSAND::class,
+        '%' => PHP_Token_PERCENT::class,
+        '|' => PHP_Token_PIPE::class,
+        '$' => PHP_Token_DOLLAR::class,
+        '^' => PHP_Token_CARET::class,
+        '~' => PHP_Token_TILDE::class,
+        '`' => PHP_Token_BACKTICK::class,
     ];
 
     /**
@@ -241,11 +241,11 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
             ];
 
             foreach ($this->tokens as $token) {
-                switch (PHP_Token_Util::getClass($token)) {
-                    case 'PHP_Token_REQUIRE_ONCE':
-                    case 'PHP_Token_REQUIRE':
-                    case 'PHP_Token_INCLUDE_ONCE':
-                    case 'PHP_Token_INCLUDE':
+                switch (\get_class($token)) {
+                    case PHP_Token_REQUIRE_ONCE::class:
+                    case PHP_Token_REQUIRE::class:
+                    case PHP_Token_INCLUDE_ONCE::class:
+                    case PHP_Token_INCLUDE::class:
                         $this->includes[$token->getType()][] = $token->getName();
 
                         break;
@@ -435,6 +435,7 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
                     $skip = 2;
                 }
 
+                /** @var class-string<PHP_Token> $tokenClass */
                 $tokenClass = 'PHP_Token_' . $name;
             } else {
                 $text       = $token;
@@ -445,12 +446,12 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
             $lines          = \substr_count($text, "\n");
             $line += $lines;
 
-            if ($tokenClass == 'PHP_Token_HALT_COMPILER') {
+            if ($tokenClass == PHP_Token_HALT_COMPILER::class) {
                 break;
             }
 
-            if ($tokenClass == 'PHP_Token_COMMENT' ||
-                $tokenClass == 'PHP_Token_DOC_COMMENT') {
+            if ($tokenClass == PHP_Token_COMMENT::class ||
+                $tokenClass == PHP_Token_DOC_COMMENT::class) {
                 $this->linesOfCode['cloc'] += $lines + 1;
             }
 
@@ -482,11 +483,11 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
         $interfaceEndLine = false;
 
         foreach ($this->tokens as $token) {
-            switch (PHP_Token_Util::getClass($token)) {
-                case 'PHP_Token_HALT_COMPILER':
+            switch (\get_class($token)) {
+                case PHP_Token_HALT_COMPILER::class:
                     return;
 
-                case 'PHP_Token_INTERFACE':
+                case PHP_Token_INTERFACE::class:
                     $interface        = $token->getName();
                     $interfaceEndLine = $token->getEndLine();
 
@@ -503,8 +504,8 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
 
                     break;
 
-                case 'PHP_Token_CLASS':
-                case 'PHP_Token_TRAIT':
+                case PHP_Token_CLASS::class:
+                case PHP_Token_TRAIT::class:
                     $tmp = [
                         'methods'   => [],
                         'parent'    => $token->getParent(),
@@ -532,7 +533,7 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
 
                     break;
 
-                case 'PHP_Token_FUNCTION':
+                case PHP_Token_FUNCTION::class:
                     $name = $token->getName();
                     $tmp  = [
                         'docblock'  => $token->getDocblock(),
@@ -577,7 +578,7 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
 
                     break;
 
-                case 'PHP_Token_CLOSE_CURLY':
+                case PHP_Token_CLOSE_CURLY::class:
                     if (!empty($classEndLine) &&
                         $classEndLine[\count($classEndLine) - 1] == $token->getLine()) {
                         \array_pop($classEndLine);
