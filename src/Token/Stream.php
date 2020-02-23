@@ -417,6 +417,8 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
 
         $lastNonWhitespaceTokenWasDoubleColon = false;
 
+        $name = null;
+
         for ($i = 0; $i < $numTokens; ++$i) {
             $token = $tokens[$i];
             $skip  = 0;
