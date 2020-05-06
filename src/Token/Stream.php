@@ -517,17 +517,17 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
                         'file'      => $this->filename,
                     ];
 
-                    if ($token->getName() !== null) {
-                        if ($token instanceof PHP_Token_CLASS) {
-                            $class[]        = $token->getName();
-                            $classEndLine[] = $token->getEndLine();
+                    if ($token instanceof PHP_Token_CLASS) {
+                        $class[]        = $token->getName();
+                        $classEndLine[] = $token->getEndLine();
 
+                        if ($token->getName() !== null) {
                             $this->classes[$class[\count($class) - 1]] = $tmp;
-                        } else {
-                            $trait                = $token->getName();
-                            $traitEndLine         = $token->getEndLine();
-                            $this->traits[$trait] = $tmp;
                         }
+                    } else {
+                        $trait                = $token->getName();
+                        $traitEndLine         = $token->getEndLine();
+                        $this->traits[$trait] = $tmp;
                     }
 
                     break;
@@ -556,13 +556,15 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
                             $tmp['endLine']
                         );
                     } elseif (!empty($class)) {
-                        $this->classes[$class[\count($class) - 1]]['methods'][$name] = $tmp;
+                        if ($class[\count($class) - 1] !== null) {
+                            $this->classes[$class[\count($class) - 1]]['methods'][$name] = $tmp;
 
-                        $this->addFunctionToMap(
-                            $class[\count($class) - 1] . '::' . $name,
-                            $tmp['startLine'],
-                            $tmp['endLine']
-                        );
+                            $this->addFunctionToMap(
+                                $class[\count($class) - 1] . '::' . $name,
+                                $tmp['startLine'],
+                                $tmp['endLine']
+                            );
+                        }
                     } elseif ($trait !== false) {
                         $this->traits[$trait]['methods'][$name] = $tmp;
 

@@ -2,6 +2,12 @@
 
 All notable changes to `sebastianbergmann/php-token-stream` are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## [4.0.1] - 2020-MM-DD
+
+### Fixed
+
+* Fixed [#93](https://github.com/sebastianbergmann/php-token-stream/issues/93): Class with method that uses anonymous class is not processed correctly
+
 ## [4.0.0] - 2020-02-07
 
 ### Removed
@@ -53,7 +59,8 @@ All notable changes to `sebastianbergmann/php-token-stream` are documented in th
 
 ## [2.0.0] - 2017-08-03
 
-[4.0.0]: https://github.com/sebastianbergmann/php-token-stream/compare/3.1.1...master
+[4.0.1]: https://github.com/sebastianbergmann/php-token-stream/compare/4.0.0...master
+[4.0.0]: https://github.com/sebastianbergmann/php-token-stream/compare/3.1.1...4.0.0
 [3.1.1]: https://github.com/sebastianbergmann/php-token-stream/compare/3.1.0...3.1.1
 [3.1.0]: https://github.com/sebastianbergmann/php-token-stream/compare/3.0.2...3.1.0
 [3.0.2]: https://github.com/sebastianbergmann/php-token-stream/compare/3.0.1...3.0.2

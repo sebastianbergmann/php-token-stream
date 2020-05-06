@@ -149,4 +149,36 @@ class PHP_Token_ClassTest extends TestCase
         $this->assertSame(7, $classes['Example']['methods']['anonymousFunction:7#28']['startLine']);
         $this->assertSame(9, $classes['Example']['methods']['anonymousFunction:7#28']['endLine']);
     }
+
+    /**
+     * @ticket https://github.com/sebastianbergmann/php-token-stream/issues/93
+     */
+    public function testClassWithAnonymousClassIsHandledCorrectly(): void
+    {
+        $tokens = new PHP_Token_Stream(TEST_FILES_PATH . 'issue93.php');
+
+        $this->assertCount(0, $tokens->getInterfaces());
+        $this->assertCount(0, $tokens->getTraits());
+        $this->assertCount(0, $tokens->getFunctions());
+
+        $classes = $tokens->getClasses();
+
+        $this->assertCount(1, $classes);
+        $this->assertArrayHasKey('PhpAnonym', $classes);
+        $this->assertSame(2, $classes['PhpAnonym']['startLine']);
+        $this->assertSame(34, $classes['PhpAnonym']['endLine']);
+        $this->assertCount(3, $classes['PhpAnonym']['methods']);
+
+        $this->assertArrayHasKey('__construct', $classes['PhpAnonym']['methods']);
+        $this->assertSame(6, $classes['PhpAnonym']['methods']['__construct']['startLine']);
+        $this->assertSame(9, $classes['PhpAnonym']['methods']['__construct']['endLine']);
+
+        $this->assertArrayHasKey('funcOne', $classes['PhpAnonym']['methods']);
+        $this->assertSame(11, $classes['PhpAnonym']['methods']['funcOne']['startLine']);
+        $this->assertSame(14, $classes['PhpAnonym']['methods']['funcOne']['endLine']);
+
+        $this->assertArrayHasKey('funcTwo', $classes['PhpAnonym']['methods']);
+        $this->assertSame(16, $classes['PhpAnonym']['methods']['funcTwo']['startLine']);
+        $this->assertSame(33, $classes['PhpAnonym']['methods']['funcTwo']['endLine']);
+    }
 }
