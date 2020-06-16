@@ -34,7 +34,7 @@ class PHP_Token_Stream_CachingFactory
     /**
      * @param string $filename
      */
-    public static function clear($filename = null): void
+    public static function clear($filename = null)/*: void*/
     {
         if (\is_string($filename)) {
             unset(self::$cache[$filename]);

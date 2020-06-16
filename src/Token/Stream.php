@@ -290,7 +290,7 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
         return $this->linesOfCode;
     }
 
-    public function rewind(): void
+    public function rewind()/*: void*/
     {
         $this->position = 0;
     }
@@ -319,7 +319,7 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
         return $this->tokens[$this->position];
     }
 
-    public function next(): void
+    public function next()/*: void*/
     {
         $this->position++;
     }
@@ -356,7 +356,7 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
     /**
      * @param int $offset
      */
-    public function offsetSet($offset, $value): void
+    public function offsetSet($offset, $value)/*: void*/
     {
         $this->tokens[$offset] = $value;
     }
@@ -366,7 +366,7 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
      *
      * @throws OutOfBoundsException
      */
-    public function offsetUnset($offset): void
+    public function offsetUnset($offset)/*: void*/
     {
         if (!$this->offsetExists($offset)) {
             throw new OutOfBoundsException(
@@ -387,7 +387,7 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
      *
      * @throws OutOfBoundsException
      */
-    public function seek($position): void
+    public function seek($position)/*: void*/
     {
         $this->position = $position;
 
@@ -407,7 +407,7 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
      *
      * @param string $sourceCode
      */
-    protected function scan($sourceCode): void
+    protected function scan($sourceCode)/*: void*/
     {
         $id        = 0;
         $line      = 1;
@@ -468,7 +468,7 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
                                       $this->linesOfCode['cloc'];
     }
 
-    protected function parse(): void
+    protected function parse()/*: void*/
     {
         $this->interfaces = [];
         $this->classes    = [];
