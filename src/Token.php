@@ -78,7 +78,7 @@ abstract class PHP_TokenWithScope extends PHP_Token
     protected $endTokenId;
 
     /**
-     * Get the docblock for this token
+     * Get the docblock for this token.
      *
      * This method will fetch the docblock belonging to the current token. The
      * docblock must be placed on the line directly above the token to be
