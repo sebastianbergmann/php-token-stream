@@ -455,6 +455,8 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
 
                     $text = substr($text, 1);
 
+                    $line++;
+
                     if (empty($text)) {
                         continue;
                     }
