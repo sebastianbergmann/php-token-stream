@@ -483,7 +483,7 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
                 continue;
             }
 
-            $this->linesOfCode['cloc'] += \substr_count($token, "\n");
+            $this->linesOfCode['cloc'] += \substr_count((string) $token, "\n");
         }
 
         $this->linesOfCode['loc']   = \substr_count($sourceCode, "\n");
