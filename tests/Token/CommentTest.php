@@ -23,37 +23,33 @@ final class PHP_Token_CommentTest extends TestCase
         $this->assertSame(3, $tokens->getLinesOfCode()['cloc']);
         $this->assertSame(3, $tokens->getLinesOfCode()['ncloc']);
 
-        $i = 1;
-
         foreach ($tokens as $token) {
-            switch ($i) {
-                case 18:
+            switch ($token->getId()) {
+                case 17:
                     $this->assertInstanceOf(PHP_Token_COMMENT::class, $token);
                     $this->assertSame("// @codeCoverageIgnoreStart\n", (string) $token);
 
                     break;
 
-                case 19:
-                case 21:
+                case 18:
+                case 20:
                     $this->assertInstanceOf(PHP_Token_WHITESPACE::class, $token);
                     $this->assertSame('    ', (string) $token);
 
                     break;
 
-                case 20:
+                case 19:
                     $this->assertInstanceOf(PHP_Token_COMMENT::class, $token);
                     $this->assertSame("# ...\n", (string) $token);
 
                     break;
 
-                case 22:
+                case 21:
                     $this->assertInstanceOf(PHP_Token_COMMENT::class, $token);
                     $this->assertSame("// @codeCoverageIgnoreEnd\n", (string) $token);
 
                     break;
             }
-
-            $i++;
         }
     }
 }
