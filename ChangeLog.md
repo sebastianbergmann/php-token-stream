@@ -18,7 +18,7 @@ All notable changes to `sebastianbergmann/php-token-stream` are documented in th
 
 ### Fixed
 
-* Fixed [#93](https://github.com/sebastianbergmann/php-token-stream/issues/93): Class with method that uses anonymous class is not processed correctly
+* [#93](https://github.com/sebastianbergmann/php-token-stream/issues/93): Class with method that uses anonymous class is not processed correctly
 
 ## [4.0.0] - 2020-02-07
 
@@ -30,7 +30,7 @@ All notable changes to `sebastianbergmann/php-token-stream` are documented in th
 
 ### Fixed
 
-* Fixed [#84](https://github.com/sebastianbergmann/php-token-stream/issues/84): Methods named `class` are not handled correctly
+* [#84](https://github.com/sebastianbergmann/php-token-stream/issues/84): Methods named `class` are not handled correctly
 
 ## [3.1.0] - 2019-07-25
 
@@ -42,32 +42,32 @@ All notable changes to `sebastianbergmann/php-token-stream` are documented in th
 
 ### Changed
 
-* Implemented [#82](https://github.com/sebastianbergmann/php-token-stream/issues/82): Make sure this component works when its classes are prefixed using php-scoper
+* [#82](https://github.com/sebastianbergmann/php-token-stream/issues/82): Make sure this component works when its classes are prefixed using php-scoper
 
 ## [3.0.1] - 2018-10-30
 
 ### Fixed
 
-* Fixed [#78](https://github.com/sebastianbergmann/php-token-stream/pull/78): `getEndTokenId()` does not handle string-dollar (`"${var}"`) interpolation
+* [#78](https://github.com/sebastianbergmann/php-token-stream/pull/78): `getEndTokenId()` does not handle string-dollar (`"${var}"`) interpolation
 
 ## [3.0.0] - 2018-02-01
 
 ### Removed
 
-* Implemented [#71](https://github.com/sebastianbergmann/php-token-stream/issues/71): Remove code specific to Hack language constructs
-* Implemented [#72](https://github.com/sebastianbergmann/php-token-stream/issues/72): Drop support for PHP 7.0
+* [#71](https://github.com/sebastianbergmann/php-token-stream/issues/71): Remove code specific to Hack language constructs
+* [#72](https://github.com/sebastianbergmann/php-token-stream/issues/72): Drop support for PHP 7.0
 
 ## [2.0.2] - 2017-11-27
 
 ### Fixed
 
-* Fixed [#69](https://github.com/sebastianbergmann/php-token-stream/issues/69): `PHP_Token_USE_FUNCTION` does not serialize correctly
+* [#69](https://github.com/sebastianbergmann/php-token-stream/issues/69): `PHP_Token_USE_FUNCTION` does not serialize correctly
 
 ## [2.0.1] - 2017-08-20
 
 ### Fixed
 
-* Fixed [#68](https://github.com/sebastianbergmann/php-token-stream/issues/68): Method with name `empty` wrongly recognized as anonymous function
+* [#68](https://github.com/sebastianbergmann/php-token-stream/issues/68): Method with name `empty` wrongly recognized as anonymous function
 
 ## [2.0.0] - 2017-08-03
 
