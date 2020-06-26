@@ -441,17 +441,32 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
                 $tokenClass = self::$customTokens[$token];
             }
 
+            /*
+             * @see https://github.com/sebastianbergmann/php-token-stream/issues/95
+             */
+            if (PHP_MAJOR_VERSION >= 8 && $name === 'WHITESPACE') {
+                if ($this->tokens[$id - 1] instanceof PHP_Token_COMMENT && strpos($text, "\n") === 0) {
+                    $this->tokens[$id - 1] = new PHP_Token_COMMENT(
+                        $this->tokens[$id - 1] . "\n",
+                        $this->tokens[$id - 1]->getLine(),
+                        $this,
+                        $id - 1
+                    );
+
+                    $text = substr($text, 1);
+
+                    if (empty($text)) {
+                        continue;
+                    }
+                }
+            }
+
             $this->tokens[] = new $tokenClass($text, $line, $this, $id++);
             $lines          = \substr_count($text, "\n");
             $line += $lines;
 
             if ($tokenClass == PHP_Token_HALT_COMPILER::class) {
                 break;
-            }
-
-            if ($tokenClass == PHP_Token_COMMENT::class ||
-                $tokenClass == PHP_Token_DOC_COMMENT::class) {
-                $this->linesOfCode['cloc'] += $lines + 1;
             }
 
             if ($name == 'DOUBLE_COLON') {
@@ -461,6 +476,14 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
             }
 
             $i += $skip;
+        }
+
+        foreach ($this->tokens as $token) {
+            if (!$token instanceof PHP_Token_COMMENT && !$token instanceof PHP_Token_DOC_COMMENT) {
+                continue;
+            }
+
+            $this->linesOfCode['cloc'] += \substr_count($token, "\n");
         }
 
         $this->linesOfCode['loc']   = \substr_count($sourceCode, "\n");
