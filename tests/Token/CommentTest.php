@@ -26,27 +26,51 @@ final class PHP_Token_CommentTest extends TestCase
         foreach ($tokens as $token) {
             switch ($token->getId()) {
                 case 17:
+                    $this->assertSame(3, $token->getLine());
                     $this->assertInstanceOf(PHP_Token_COMMENT::class, $token);
                     $this->assertSame("// @codeCoverageIgnoreStart\n", (string) $token);
 
                     break;
 
                 case 18:
-                case 20:
+                    $this->assertSame(4, $token->getLine());
                     $this->assertInstanceOf(PHP_Token_WHITESPACE::class, $token);
                     $this->assertSame('    ', (string) $token);
 
                     break;
 
                 case 19:
+                    $this->assertSame(4, $token->getLine());
                     $this->assertInstanceOf(PHP_Token_COMMENT::class, $token);
                     $this->assertSame("# ...\n", (string) $token);
 
                     break;
 
+                case 20:
+                    $this->assertSame(5, $token->getLine());
+                    $this->assertInstanceOf(PHP_Token_WHITESPACE::class, $token);
+                    $this->assertSame('    ', (string) $token);
+
+                    break;
+
                 case 21:
+                    $this->assertSame(5, $token->getLine());
                     $this->assertInstanceOf(PHP_Token_COMMENT::class, $token);
                     $this->assertSame("// @codeCoverageIgnoreEnd\n", (string) $token);
+
+                    break;
+
+                case 22:
+                    $this->assertSame(6, $token->getLine());
+                    $this->assertInstanceOf(PHP_Token_CLOSE_CURLY::class, $token);
+                    $this->assertSame('}', (string) $token);
+
+                    break;
+
+                case 23:
+                    $this->assertSame(6, $token->getLine());
+                    $this->assertInstanceOf(PHP_Token_WHITESPACE::class, $token);
+                    $this->assertSame("\n", (string) $token);
 
                     break;
             }
