@@ -32,7 +32,7 @@ print str_repeat('-', strlen($header)) . PHP_EOL;
 foreach ($tokens as $token) {
     printf(
         '%-' . $tokensLength . 'd  %-' . $linesLength . 'd  %-40s  %s' . PHP_EOL,
-        $token->getId() + 1,
+        $token->getId(),
         $token->getLine(),
         get_class($token),
         $token
