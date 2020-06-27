@@ -450,7 +450,12 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
             /*
              * @see https://github.com/sebastianbergmann/php-token-stream/issues/95
              */
-            if (PHP_MAJOR_VERSION >= 8 && $name === 'WHITESPACE' && isset($this->tokens[$id - 1]) && $this->tokens[$id - 1] instanceof PHP_Token_COMMENT && strpos($text, "\n") === 0) {
+            if (PHP_MAJOR_VERSION >= 8 &&
+                $name === 'WHITESPACE' &&                               // Current token is T_WHITESPACE
+                isset($this->tokens[$id - 1]) &&                        // Current token is not the first token
+                $this->tokens[$id - 1] instanceof PHP_Token_COMMENT &&  // Previous token is T_COMMENT
+                strpos($text, "\n") === 0                               // Text of current token begins with newline
+            ) {
                 $this->tokens[$id - 1] = new PHP_Token_COMMENT(
                     $this->tokens[$id - 1] . "\n",
                     $this->tokens[$id - 1]->getLine(),
