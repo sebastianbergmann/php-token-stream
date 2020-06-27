@@ -57,6 +57,11 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
     protected $tokens = [];
 
     /**
+     * @var array
+     */
+    protected $tokensByLine = [];
+
+    /**
      * @var int
      */
     protected $position = 0;
@@ -116,7 +121,8 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
      */
     public function __destruct()
     {
-        $this->tokens = [];
+        $this->tokens       = [];
+        $this->tokensByLine = [];
     }
 
     /**
@@ -461,7 +467,14 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
                 }
             }
 
-            $this->tokens[] = new $tokenClass($text, $line, $this, $id++);
+            if (!isset($this->tokensByLine[$line])) {
+                $this->tokensByLine[$line] = [];
+            }
+
+            $token = new $tokenClass($text, $line, $this, $id++);
+
+            $this->tokens[]              = $token;
+            $this->tokensByLine[$line][] = $token;
 
             $line += \substr_count($text, "\n");
 
