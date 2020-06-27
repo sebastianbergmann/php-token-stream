@@ -454,6 +454,7 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
                 $name === 'WHITESPACE' &&                               // Current token is T_WHITESPACE
                 isset($this->tokens[$id - 1]) &&                        // Current token is not the first token
                 $this->tokens[$id - 1] instanceof PHP_Token_COMMENT &&  // Previous token is T_COMMENT
+                strpos($this->tokens[$id - 1], '/*') === false &&       // Previous token is comment that starts with '#' or '//'
                 strpos($text, "\n") === 0                               // Text of current token begins with newline
             ) {
                 $this->tokens[$id - 1] = new PHP_Token_COMMENT(
@@ -501,7 +502,13 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
                 continue;
             }
 
-            $this->linesOfCode['cloc'] += \substr_count((string) $token, "\n");
+            foreach ($this->tokensByLine[$token->getLine()] as $_token) {
+                if (!$_token instanceof PHP_Token_COMMENT && !$_token instanceof PHP_Token_DOC_COMMENT && !$_token instanceof PHP_Token_WHITESPACE) {
+                    continue 2;
+                }
+            }
+
+            $this->linesOfCode['cloc'] += max(1, \substr_count((string) $token, "\n"));
         }
 
         $this->linesOfCode['loc']   = \substr_count($sourceCode, "\n");

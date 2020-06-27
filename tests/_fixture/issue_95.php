@@ -4,3 +4,6 @@ if (false) {
     # ...
     // @codeCoverageIgnoreEnd
 }
+
+/* a one-line comment */
+print '*'; /* a one-line comment */

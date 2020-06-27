@@ -18,10 +18,10 @@ final class PHP_Token_CommentTest extends TestCase
     {
         $tokens = new PHP_Token_Stream(TEST_FILES_PATH . 'issue_95.php');
 
-        $this->assertCount(24, $tokens);
-        $this->assertSame(6, $tokens->getLinesOfCode()['loc']);
-        $this->assertSame(3, $tokens->getLinesOfCode()['cloc']);
-        $this->assertSame(3, $tokens->getLinesOfCode()['ncloc']);
+        $this->assertCount(33, $tokens);
+        $this->assertSame(9, $tokens->getLinesOfCode()['loc']);
+        $this->assertSame(4, $tokens->getLinesOfCode()['cloc']);
+        $this->assertSame(5, $tokens->getLinesOfCode()['ncloc']);
 
         foreach ($tokens as $token) {
             switch ($token->getId()) {
@@ -67,10 +67,17 @@ final class PHP_Token_CommentTest extends TestCase
 
                     break;
 
-                case 23:
-                    $this->assertSame(6, $token->getLine());
-                    $this->assertInstanceOf(PHP_Token_WHITESPACE::class, $token);
-                    $this->assertSame("\n", (string) $token);
+                case 24:
+                    $this->assertSame(8, $token->getLine());
+                    $this->assertInstanceOf(PHP_Token_COMMENT::class, $token);
+                    $this->assertSame('/* a one-line comment */', (string) $token);
+
+                    break;
+
+                case 31:
+                    $this->assertSame(9, $token->getLine());
+                    $this->assertInstanceOf(PHP_Token_COMMENT::class, $token);
+                    $this->assertSame('/* a one-line comment */', (string) $token);
 
                     break;
             }
