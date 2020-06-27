@@ -34,7 +34,17 @@ foreach ($tokens as $token) {
         '%-' . $tokensLength . 'd  %-' . $linesLength . 'd  %-40s  %s' . PHP_EOL,
         $token->getId(),
         $token->getLine(),
-        get_class($token),
-        $token
+        str_replace('PHP_Token_', '', get_class($token)),
+        str_replace(
+            [
+                "\r",
+                "\n"
+            ],
+            [
+                '\r',
+                '\n'
+            ],
+            (string) $token
+        )
     );
 }
