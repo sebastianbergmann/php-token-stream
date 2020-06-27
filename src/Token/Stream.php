@@ -462,8 +462,8 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
             }
 
             $this->tokens[] = new $tokenClass($text, $line, $this, $id++);
-            $lines          = \substr_count($text, "\n");
-            $line += $lines;
+
+            $line += \substr_count($text, "\n");
 
             if ($tokenClass == PHP_Token_HALT_COMPILER::class) {
                 break;
