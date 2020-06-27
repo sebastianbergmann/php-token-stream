@@ -1,0 +1,60 @@
+#!/usr/bin/env php
+<?php declare(strict_types=1);
+/*
+ * This file is part of phpunit/php-token-stream.
+ *
+ * (c) Sebastian Bergmann <sebastian@phpunit.de>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+if (!isset($argv[1]) || !file_exists($argv[1])) {
+    exit;
+}
+
+$tokens       = token_get_all(file_get_contents($argv[1]));
+$tokensLength = strlen((string) count($tokens));
+$linesLength  = max(strlen('Line'), substr_count("\n", file_get_contents($argv[1])));
+
+$header = sprintf(
+    '%-' . $tokensLength . 's  %-' . $linesLength . 's  %-40s  %s',
+    '#',
+    'Line',
+    'Token',
+    'Text'
+);
+
+print $header . PHP_EOL;
+print str_repeat('-', strlen($header)) . PHP_EOL;
+
+$i = 0;
+
+foreach ($tokens as $token) {
+    if (is_array($token)) {
+        $name = token_name($token[0]);
+        $text = $token[1];
+        $line = $token[2];
+    } else {
+        $name = '';
+        $text = $token;
+        $line = '';
+    }
+
+    printf(
+        '%-' . $tokensLength . 'd  %-' . $linesLength . 's  %-40s  %s' . PHP_EOL,
+        $i++,
+        $line,
+        str_replace('T_', '', $name),
+        str_replace(
+            [
+                "\r",
+                "\n"
+            ],
+            [
+                '\r',
+                '\n'
+            ],
+            $text
+        )
+    );
+}
