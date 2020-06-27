@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="3.12.1@9b860214d58c48b5cbe99bdb17914d0eb723c9cd">
-  <file src="src/Token.php">
-    <InvalidNullableReturnType occurrences="3">
+  <file src="src/Class.php">
+    <InvalidNullableReturnType occurrences="1">
       <code>string</code>
+    </InvalidNullableReturnType>
+  </file>
+  <file src="src/Interface.php">
+    <InvalidNullableReturnType occurrences="1">
       <code>array|bool</code>
-      <code>string</code>
     </InvalidNullableReturnType>
     <NullableReturnStatement occurrences="1">
       <code>$this-&gt;interfaces</code>
@@ -12,5 +15,10 @@
     <PossiblyFalsePropertyAssignmentValue occurrences="1">
       <code>false</code>
     </PossiblyFalsePropertyAssignmentValue>
+  </file>
+  <file src="src/TokenWithScopeAndVisibility.php">
+    <InvalidNullableReturnType occurrences="1">
+      <code>string</code>
+    </InvalidNullableReturnType>
   </file>
 </files>
