@@ -266,7 +266,7 @@ abstract class PHP_Token_Includes extends PHP_Token
         $tokens = $this->tokenStream->tokens();
 
         if ($tokens[$this->id + 2] instanceof PHP_Token_CONSTANT_ENCAPSED_STRING) {
-            $this->name = \trim($tokens[$this->id + 2], "'\"");
+            $this->name = \trim((string) $tokens[$this->id + 2], "'\"");
             $this->type = \strtolower(
                 \str_replace('PHP_Token_', '', PHP_Token_Util::getClass($tokens[$this->id]))
             );
@@ -490,9 +490,6 @@ class PHP_Token_INTERFACE extends PHP_TokenWithScopeAndVisibility
      */
     public function getPackage()
     {
-        $className  = $this->getName();
-        $docComment = $this->getDocblock();
-
         $result = [
             'namespace'   => '',
             'fullPackage' => '',
@@ -501,12 +498,19 @@ class PHP_Token_INTERFACE extends PHP_TokenWithScopeAndVisibility
             'subpackage'  => '',
         ];
 
+        $docComment = $this->getDocblock();
+        $className  = $this->getName();
+
         for ($i = $this->id; $i; --$i) {
             if ($this->tokenStream[$i] instanceof PHP_Token_NAMESPACE) {
                 $result['namespace'] = $this->tokenStream[$i]->getName();
 
                 break;
             }
+        }
+
+        if ($docComment === null) {
+            return $result;
         }
 
         if (\preg_match('/@category[\s]+([\.\w]+)/', $docComment, $matches)) {
