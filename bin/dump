@@ -1,0 +1,40 @@
+#!/usr/bin/env php
+<?php declare(strict_types=1);
+/*
+ * This file is part of phpunit/php-token-stream.
+ *
+ * (c) Sebastian Bergmann <sebastian@phpunit.de>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+require __DIR__ . '/../vendor/autoload.php';
+
+if (!isset($argv[1]) || !file_exists($argv[1])) {
+    exit;
+}
+
+$tokens       = new PHP_Token_Stream(file_get_contents($argv[1]));
+$tokensLength = strlen((string) count($tokens));
+$linesLength  = max(strlen('Line'), strlen((string) $tokens->getLinesOfCode()['loc']));
+
+$header = sprintf(
+    '%-' . $tokensLength . 's  %-' . $linesLength . 's  %-40s  %s',
+    '#',
+    'Line',
+    'Token',
+    'Text'
+);
+
+print $header . PHP_EOL;
+print str_repeat('-', strlen($header)) . PHP_EOL;
+
+foreach ($tokens as $token) {
+    printf(
+        '%-' . $tokensLength . 'd  %-' . $linesLength . 'd  %-40s  %s' . PHP_EOL,
+        $token->getId() + 1,
+        $token->getLine(),
+        get_class($token),
+        $token
+    );
+}
