@@ -274,6 +274,8 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
     /**
      * Returns the name of the function or method a line belongs to.
      *
+     * @param int $line
+     *
      * @return string or null if the line is not in a function or method
      */
     public function getFunctionForLine($line)
@@ -357,7 +359,8 @@ class PHP_Token_Stream implements ArrayAccess, Countable, SeekableIterator
     }
 
     /**
-     * @param int $offset
+     * @param int       $offset
+     * @param PHP_Token $value
      */
     public function offsetSet($offset, $value)/*: void*/
     {

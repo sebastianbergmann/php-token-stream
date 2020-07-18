@@ -147,7 +147,8 @@ class PHP_Token_INTERFACE extends PHP_TokenWithScopeAndVisibility
     }
 
     /**
-     * @param string $join
+     * @param string[] $parts
+     * @param string   $join
      *
      * @return string
      */
