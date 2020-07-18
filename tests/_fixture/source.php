@@ -39,4 +39,12 @@ class Foo{function foo(){}
         echo "${foo}";
         return true;
     }
+
+    protected function qux()
+    {
+    }
+
+    private function quux()
+    {
+    }
 }

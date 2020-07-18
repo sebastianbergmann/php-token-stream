@@ -34,6 +34,8 @@ abstract class PHP_TokenWithScopeAndVisibility extends PHP_TokenWithScope
                 break;
             }
         }
+
+        return 'public';
     }
 
     /**

@@ -123,4 +123,17 @@ class PHP_Token_FunctionTest extends TestCase
             $interfaces['i']['methods']['m']['signature']
         );
     }
+
+    public function testVisibility(): void
+    {
+        $this->assertEquals('public', $this->functions[0]->getVisibility());
+        $this->assertEquals('public', $this->functions[1]->getVisibility());
+        $this->assertEquals('public', $this->functions[2]->getVisibility());
+        $this->assertEquals('public', $this->functions[3]->getVisibility());
+        $this->assertEquals('public', $this->functions[4]->getVisibility());
+        $this->assertEquals('public', $this->functions[5]->getVisibility());
+        $this->assertEquals('public', $this->functions[6]->getVisibility());
+        $this->assertEquals('protected', $this->functions[7]->getVisibility());
+        $this->assertEquals('private', $this->functions[8]->getVisibility());
+    }
 }
