@@ -2,6 +2,12 @@
 
 All notable changes to `sebastianbergmann/php-token-stream` are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## [4.0.4] - 2020-08-04
+
+### Added
+
+* Support for `NAME_FULLY_QUALIFIED`, `NAME_QUALIFIED`, and `NAME_RELATIVE` tokens
+
 ## [4.0.3] - 2020-06-27
 
 ### Added
@@ -71,6 +77,7 @@ All notable changes to `sebastianbergmann/php-token-stream` are documented in th
 
 ## [2.0.0] - 2017-08-03
 
+[4.0.4]: https://github.com/sebastianbergmann/php-token-stream/compare/4.0.3...4.0.4
 [4.0.3]: https://github.com/sebastianbergmann/php-token-stream/compare/4.0.2...4.0.3
 [4.0.2]: https://github.com/sebastianbergmann/php-token-stream/compare/4.0.1...4.0.2
 [4.0.1]: https://github.com/sebastianbergmann/php-token-stream/compare/4.0.0...4.0.1
