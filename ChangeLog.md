@@ -2,6 +2,12 @@
 
 All notable changes to `sebastianbergmann/php-token-stream` are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## [3.1.3] - 2021-07-26
+
+### Changed
+
+* The declarations of methods in `PHP_Token_Stream` that implement the `ArrayAccess`, `Countable`, and `SeekableIterator` interfaces are now compatible with PHP 8.1
+
 ## [3.1.2] - 2020-11-30
 
 ### Changed
@@ -53,6 +59,7 @@ All notable changes to `sebastianbergmann/php-token-stream` are documented in th
 
 ## [2.0.0] - 2017-08-03
 
+[3.1.3]: https://github.com/sebastianbergmann/php-token-stream/compare/3.1.2...3.1.3
 [3.1.2]: https://github.com/sebastianbergmann/php-token-stream/compare/3.1.1...3.1.2
 [3.1.1]: https://github.com/sebastianbergmann/php-token-stream/compare/3.1.0...3.1.1
 [3.1.0]: https://github.com/sebastianbergmann/php-token-stream/compare/3.0.2...3.1.0
